@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+  {% if websites %}
+  <div class="d-flex justify-content-around align-items-center m-2">
+  {% for website in websites %}
+  <a class="btn"href="{{website.url}}">{{website.name}}</a>
+  {% endfor %}
+  </div>
+
+  {% endif %}
+  {% if carousel %}
+    <div class="row">
+
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                  {% for post in carousel %}
+                      {% image post.heading_image fill-2400x500 as heading_image %}
+                      <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+
+                          <img src="{{ heading_image.url }}" class="d-block w-100 heading-image" alt="{{heading_image.alt}}">
+
+
+
+                      <div class="container-fluid news-home-page">
+
+                      <div class="carousel-caption">
+                      <h3 class="fw-bold text-white">{{ post.title }} </h3>
+                               <a class="btn btn-sm btn-secondary mb-1" href="{{post.url}}">Learn more</a>
+                              </div>
+                              </div>
+                      </div>
+                  {% endfor %}
+              </div>
+              {% if carousel.all|length > 1 %}
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                  </button>
+              {% endif %}
+          </div>
+
+  {% endif %}
+</div>
+</div>
+{% for block in page.content %}
+    <div class="container my-4">
+            {% include_block block %}
+    </div>
+{% endfor %}
+
+
+
+<!-- @todo decide fixed elements in home page
+{#
+{% if posts %}
+<div class="container my-4">
+    <h2 class="text-center my-4"></h2>
+    <div class="row">
+    {% for post in posts %}
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card text-white bg-secondary mb-3">
+            {% image post.card_image fill-514x342 as blog_img %}
+            <div class="row">
+            <div class="col-12">
+                    <a href="{{post.url}}">
+                    <img src="{{blog_img.url}}" alt="{{blog_img.alt}}" style="width: 100%">
+                    </a>
+                    </div>
+                    </div>
+                <div class="card-header">
+                    <a href="{{ post.url}}">
+                        {{ post.title }}
+                    </a>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{post.intro|richtext}}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="clearfix"></div>
+    </div>
+</div>
+{% endif %}
+#}
+ -->
+
+{% endblock %}

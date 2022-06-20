@@ -1,0 +1,178 @@
+{% load static wagtailcore_tags wagtailuserbar menus_tags wagtailimages_tags %}
+
+{% get_menu "navbar" as navigation %}
+
+{% get_menu "footer" as footer %}
+
+<!-- @todo Add module to insert brand image-->
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>
+        {% block title %}
+        {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+        {% wagtail_site as current_site %}
+        {% if current_site and current_site.site_name %} - {{ current_site.site_name }}{% endif %}
+        {% endblock %}
+    </title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {# Global stylesheets #}
+  {% image settings.site_settings.BrandSettings.brand_image max-120x120 as brand_img %}
+    <link rel="icon" type="image/x-icon" href="{{brand_img.url}}">
+    <link rel="stylesheet" href="{% static 'css/wagtailitalia/wagtailitalia.css' %}">
+
+    {% block extra_css %}
+
+    {% endblock %}
+</head>
+
+<body style class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      {% if settings.site_settings.BrandSettings.brand_name %}
+      {% image settings.site_settings.BrandSettings.brand_image max-120x120 as brand_img %}
+      <a href="{{settings.site_settings.BrandSettings.brand_website}}">
+        <img src="{{brand_img.url}}" class="me-3 navbar-brand-img">
+      </a>
+      {% if settings.site_settings.BrandSettings.brand_subtitle  %}
+        <div class="navbar-brand-text">
+      {% endif %}
+        <h1>
+        <a class="navbar-brand" href="{{settings.site_settings.BrandSettings.brand_website}}">
+          {{settings.site_settings.BrandSettings.brand_name}}
+        </a>
+        </h1>
+        {% if settings.site_settings.BrandSettings.brand_subtitle  %}
+        <p class="navbar-brand-subtitle fs-5">
+          <a class="hidden text-decoration-none text-white" href="{{settings.site_settings.BrandSettings.brand_website}}">
+          {{settings.site_settings.BrandSettings.brand_subtitle}}
+          </a>
+        </p>
+        </div>
+        {% endif %}
+
+      {% else %}
+        <a class="navbar-brand" href="/">Brand Name</a>
+      {% endif  %}
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav ms-auto ">
+                      {% for item in navigation.menu_items.all %}
+
+                          {% if item.submenu_items.all %}
+                          <li class="nav-item dropdown">
+
+                          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="true" href="#" id="navbarDropdownBlog">{{item.title}}</a>
+                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                            {% for subitem in item.submenu_items.all %}
+                            <a href="{{subitem.link}}" class="text-decoration-none text-white">
+                               <li class="dropdown-item"  id="dropdown">
+                                     {{subitem.title}}
+                               </li>
+                            </a>
+                            {% endfor %}
+                          </ul>
+                          </li>
+
+
+                          {% else %}
+
+
+                          <li class="nav-item">
+                              <a class="nav-link dropdown" href="{{item.link}}">{{item.title}}</a>
+                          </li>
+
+                          {% endif %}
+
+                      {% endfor %}
+        </ul>
+<!--
+        <form class="d-flex" data-np-checked="1">
+          <input class="form-control me-sm-2" type="text" placeholder="Search" data-np-checked="1">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>-->
+      </div>
+    </div>
+  </nav>
+
+    {% block content %}{% endblock %}
+
+
+{% block footer %}
+    <div class="container pb-4 mt-auto pt-4">
+
+      {% if settings.site_settings.FundingSettings.funding_image %}
+      <div class="row">
+      <div class="col-12 text-center">
+        {% image settings.site_settings.FundingSettings.funding_image max-300x300 as funding_image %}
+        <img src="{{ funding_image.url }}">
+      </div>
+      {% endif %}
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
+            <p class="text-muted">ENSA Network © 2022</p>
+        </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-around">
+        {% if settings.site_settings.SocialMediaSettings.linkedin %}
+            <a href="{{ settings.site_settings.SocialMediaSettings.linkedin }}">
+                <i class="bi bi-linkedin"></i>
+            </a>
+        {% endif %}
+        {% if settings.site_settings.SocialMediaSettings.github %}
+            <a href="{{ settings.site_settings.SocialMediaSettings.github }}">
+                <i class="bi bi-github"></i>
+            </a>
+        {% endif %}
+        {% if settings.site_settings.SocialMediaSettings.twitter %}
+            <a href="{{ settings.site_settings.SocialMediaSettings.twitter }}">
+                <i class="bi bi-twitter"></i>
+            </a>
+        {% endif %}
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <ul class="nav col-md-4 justify-content-end">
+         {% for item in footer.menu_items.all %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{item.link}}" {% if item.open_in_new_tab %} target="_blank"{% endif %}>
+                    {{item.title}}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+        </div>
+        </div>
+
+    </div>
+    {% endblock %}
+
+    {# Global javascript #}
+<script type="text/javascript" src="{% static 'js/wagtailitalia.js' %}"></script>
+<!-- Bootstrap core JS-->
+<!-- Core theme JS-->
+<!--<script src="{% static 'formproject/js/scripts.js' %}"></script>
+<script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js" defer></script>
+<script defer src="{% static 'main/js/cookieconsent-init.js'%}"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J6XTVB48D3"></script>
+<script type="text/plain" data-cookiecategory="analytics" src="{% static 'formproject/js/analytics.js' %}"></script>
+-->
+{% block extra_js %}
+{# Override this in templates to add extra javascript #}
+{% endblock %}
+
+</body>
+
+</html>

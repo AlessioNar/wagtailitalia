@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load wagtailimages_tags wagtailcore_tags %}
+
+
+{% block content %}
+
+
+<div class="container mt-4">
+  {% image self.heading_image fill-2400x600 as heading_image %}
+
+	<!-- Page title -->
+    <h1 class="my-5 text-center">{{self.title}}</h1>
+
+    {% if self.intro %}
+		<div class="container">
+			<div class="row mt-5 fs-2">
+				<div class="col-12">
+				{{self.intro|richtext}}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+</div>
+
+{% for block in page.content %}
+	{% include_block block %}
+{% endfor %}
+
+
+{% endblock %}

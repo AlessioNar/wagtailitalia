@@ -1,0 +1,17 @@
+wagtailitalia/settings/dev.py
+*/migrations/*
+*/__pycache__/*
+*__pycache__*
+*__init__*
+Dockerfile
+*/__init__.py
+db.sqlite3
+media/*
+static/*
+.env
+manage.py
+.dockerignore
+deploy.sh
+export_db.sh
+whole.json
+update.sh

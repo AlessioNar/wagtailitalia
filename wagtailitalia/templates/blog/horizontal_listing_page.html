@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load wagtailimages_tags wagtailroutablepage_tags %}
+{% load wagtailcore_tags %}
+
+
+{% block content %}
+
+{% if self.heading_image %}
+    {% image self.heading_image max-1200x400 as heading_image %}
+				<div>
+					<img src="{{ heading_image.url }}" class="w-100 heading-image" alt="{{heading_image.alt}}">
+				</div>
+{% endif %}
+
+<!-- Page title -->
+<div class="container mt-4">
+  <h1 class="my-5 text-center">{{self.heading}} {% if tag %} - {{tag|title}}{% endif %} </h1>
+</div>
+{% if elements %}
+
+{% for element in elements %}
+
+{% image element.card_image max-500x500 as img %}
+
+<div class="container">
+	<div class="row horizontal-card">
+	<div class="col-sm-12 col-lg-5 center text-center mb-3">
+    <a href="{{ element.url}}">
+		<img src="{{img.url}}" alt="{{img.alt}}" class="card-img">
+    </a>
+	</div>
+	<div class="col-sm-12 col-lg-7 mt-2 text-center">
+    <a class="text-decoration-none fw-bold" href="{{ element.url}}">
+      <h3>{{element.title}}</h3>
+    </a>
+	</div>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

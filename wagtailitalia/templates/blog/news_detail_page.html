@@ -1,0 +1,66 @@
+{% extends "blog/blog_detail_page.html" %}
+
+{% load wagtailimages_tags wagtailcore_tags %}
+
+
+{% block content %}
+		{% image self.heading_image fill-2400x600 as heading_image %}
+
+		<img src="{{ heading_image.url }}" alt="{{ heading_image.alt }}" style="width:100%; height: auto;">
+		<div class="container mt-5 mb-5 ">
+		<div class="text-center">
+				<h1>{{self.title}}</h1>
+				<h3>
+					{% if self.subtitle %}
+						{{ self.subtitle }}
+					{% endif %}
+				</h3>
+			</div>
+</div>
+			{% if self.partners %}
+			<div class="container">
+				<div class="row">
+				<div class="col-lg-4">
+				{% for iter in self.partners.all %}
+					{% image iter.partner.image fill-100x100 as img %}
+					<div class="col-2 text-center">
+						{% if iter.partner.website %}
+								<img src="{{img.url}}" alt="{{iter.author.name}}" style="object-fit: contain;">
+								{% endif %}
+
+								{% if iter.partner.website %}
+									<a class="btn btn-primary-overlay" href="{{iter.author.website}}" style="">
+										{{ iter.partner.name }}
+								</a>
+								{% endif %}
+					</div>
+					</div>
+
+				{% endfor %}
+				</div>
+				</div>
+			{% endif  %}
+
+			<div class="container">
+
+		<!--
+		{#
+		{% for tag in tags %}
+		<a class="btn btn-secondary-overlay" href="{{self}}?tags={{tag.slug}}">
+				{{ tag.name }}
+		</a>
+		{% endfor %}
+		#}
+		-->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+				{% for block in page.content %}
+		    		{% include_block block %}
+		    	{% endfor %}
+				</div>
+			</div>
+		</div>
+
+{% endblock %}
