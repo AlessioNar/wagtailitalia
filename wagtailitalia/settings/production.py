@@ -19,7 +19,7 @@ DATABASES = {
 
 DEBUG = False
 
-ALLOWED_HOSTS= ['139.162.184.175', "wagtail-italia.it", 'localhost']
+ALLOWED_HOSTS= ['IP_ADDRESS', "wagtail-italia.it", 'localhost']
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
