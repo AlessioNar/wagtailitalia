@@ -6,7 +6,7 @@ from django import forms
 
 from modelcluster.fields import ParentalManyToManyField
 
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel
 
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField, StreamField
@@ -20,15 +20,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from streams import blocks
 
 
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
-from modelcluster.fields import ParentalKey
-
-
-class BlogTag(models.Model):  # TaggedItemBase):
+class BlogTag(models.Model):
     """Blog tag for a snippet"""
-#    content_object = ParentalKey(
-#        'blog.BlogDetailPage', on_delete=models.CASCADE, related_name='tagged_items', default=)
     name = models.CharField(max_length=255)
     slug = AutoSlugField(
         populate_from=["name"], editable=True,
@@ -37,7 +30,6 @@ class BlogTag(models.Model):  # TaggedItemBase):
     )
 
     panels = [
-
         FieldPanel("name"),
         FieldPanel("slug"),
     ]
@@ -159,7 +151,7 @@ class BlogDetailPage(Page):
     )
 
     tags = ParentalManyToManyField(BlogTag, blank=True)
-    #tags = ClusterTaggableManager(through=BlogTag, blank=True)
+
     card_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -188,9 +180,10 @@ class BlogDetailPage(Page):
     content = StreamField(
         [
             ("title", blocks.TitleBlock()),
-            ("full_richtext", blocks.RichtextBlock()),
-            ("simple_richtext", blocks.SimpleRichtextBlock()),
-            ("cards", blocks.VerticalCardBlock()),
+            ("richtext", blocks.RichtextBlock()),
+            ("vertical_card", blocks.VerticalCardBlock()),
+            ("horizontal_card", blocks.HorizontalCardBlock()),
+            ("multiple_vertical_card_block", blocks.MultipleVerticalCardBlocks()),
             ("cta", blocks.CTABlock()),
             ("image", blocks.ImageBlock()),
             ("markdown", blocks.BodyBlock()),
@@ -207,12 +200,9 @@ class BlogDetailPage(Page):
             ImageChooserPanel("card_image"),
             ImageChooserPanel("heading_image"),
             FieldPanel("category"),
-            FieldPanel("tags", widget=forms.CheckboxSelectMultiple),
-
-
+            #FieldPanel("tags", widget=forms.CheckboxSelectMultiple),
         ]),
         StreamFieldPanel("content"),
-
     ]
 
 
@@ -242,9 +232,6 @@ class ProjectDetailPage(BlogDetailPage):
             FieldPanel("custom_title"),
             FieldPanel("intro"),
             FieldPanel("call_id"),
-
-            #InlinePanel('partners', label="Related Links", max_num=10),
-
             ImageChooserPanel("card_image"),
             ImageChooserPanel("heading_image"),
             FieldPanel("start_date"),

@@ -4,36 +4,29 @@
 
 
 {% block content %}
-
-
-
-
-{% image self.heading_image fill-2400x600 as heading_image %}
+{% image self.heading_image fill-1200x300 as heading_image %}
 
 <img src="{{ heading_image.url }}" alt="{{ heading_image.alt }}" style="width:100%; height: auto;">
-<div class="container mt-5 mb-5 ">
-<div class="text-center">
-    <h1>{{self.title}}</h1>
-    <h3>
-      {% if self.subtitle %}
-        {{ self.subtitle }}
-      {% endif %}
-    </h3>
-  </div>
+
+<div class="container mt-4">
+
+	<!-- Page title -->
+    <h1 class="my-5 text-center">{{self.title}}</h1>
+
+    {% if self.intro %}
+		<div class="container">
+			<div class="row mt-5 fs-2">
+				<div class="col-12">
+				{{self.intro|richtext}}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
 </div>
 
 {% for block in page.content %}
 	{% include_block block %}
 {% endfor %}
-
-		<!--{# Banner Image
-		{% image self.banner_image width-1000 as banner %}
-
-				<div  style="position: relative; width:100%;">
-		<img src="{{ banner.url }}" class="w-100" alt="{{banner.alt}}" style="width: 100%; max-height: 20rem;">
-		<h1 class="fs-1" style="position: absolute; top: 50%; width: 100%; text-align: center; ">{{self.title}}</h1>
-		</div>
-		#}-->
-
 
 {% endblock %}

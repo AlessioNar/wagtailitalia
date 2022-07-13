@@ -1,6 +1,5 @@
 from django.db import models
 from django.shortcuts import render
-from django import forms
 from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Page, Orderable
@@ -10,12 +9,9 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
-from modelcluster.fields import ParentalManyToManyField
-
 from streams import blocks
 
 from blog.models import BlogDetailPage, NewsDetailPage
-from websites.models import Website
 
 
 class HomePage(RoutablePageMixin, Page):
@@ -23,24 +19,34 @@ class HomePage(RoutablePageMixin, Page):
 
     template = "home/home_page.html"
     max_count = 1
+    image = models.ForeignKey(
+		"wagtailimages.Image",
+		on_delete=models.SET_NULL,
+		null=True,
+		blank=False,
+		related_name="+",
+        help_text="Suggested size: 640x420"
+		)
 
     content = StreamField(
         [
 
             ("title", blocks.TitleBlock()),
-            ("full_richtext", blocks.RichtextBlock()),
-            ("simple_richtext", blocks.SimpleRichtextBlock()),
-            ("vertical_cards", blocks.VerticalCardBlock()),
+            ("richtext", blocks.RichtextBlock()),
+            ("vertical_card", blocks.VerticalCardBlock()),
+            ("horizontal_card", blocks.HorizontalCardBlock()),
+            ("multiple_vertical_card_block", blocks.MultipleVerticalCardBlocks()),
             ("cta", blocks.CTABlock()),
             ("image", blocks.ImageBlock()),
             ("markdown", blocks.BodyBlock()),
+            ("jumbotron", blocks.JumbotronBlock()),
         ],
         null=True,
         blank=True
     )
 
     content_panels = Page.content_panels + [
-
+        ImageChooserPanel("image"),
         StreamFieldPanel("content"),
 
     ]
@@ -48,8 +54,7 @@ class HomePage(RoutablePageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         """Adding the four latest posts"""
         context = super().get_context(request, *args, **kwargs)
-        context["carousel"] = NewsDetailPage.objects.live().public()[:5]
-        context["websites"] = Website.objects.all()
+        context["carousel"] = NewsDetailPage.objects.live().public()[:3]
         return context
 
     class Meta:

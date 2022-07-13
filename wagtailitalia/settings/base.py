@@ -190,6 +190,8 @@ BASE_URL = 'wagtail-italia.it'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
+WAGTAILIMAGES_MAX_IMAGE_PIXELS = 30672000
+
 WAGTAILMARKDOWN = {
     "autodownload_fontawesome": False,
     "allowed_tags": [],  # optional. a list of HTML tags. e.g. ['div', 'p', 'a']

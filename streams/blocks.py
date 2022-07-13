@@ -3,12 +3,11 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtailmarkdown.blocks import MarkdownBlock
+from wagtail.core.fields import StreamField
 
 
 class TitleBlock(blocks.StructBlock):
     """Title and text and nothing else."""
-    background_color = blocks.BooleanBlock(
-        required=False, help_text='Choose the background color: nothing for white, tick for grey')
     title = blocks.CharBlock(required=True, help_text='Add your title')
 
     class Meta:  # noqa
@@ -31,16 +30,26 @@ class ImageBlock(blocks.StructBlock):
 
 
 class VerticalCardBlock(blocks.StructBlock):
-    """Cards with image and text and button(s)"""
+    """Card with image and text and button(s)"""
 
     title = blocks.CharBlock(required=True, help_text='Add your title')
-
-#	source = models.ForeignKey("blog.BlogCategories")
+    col_lg = blocks.IntegerBlock(
+        required=True, help_text="The Bootstrap dimension of colums, from 1 to 12",
+        min_value=1, max_value=12)
+    text = blocks.RichTextBlock(
+        required=False, help_text='Add your subtitle')
+    image = ImageChooserBlock(
+        required=True, help_text="Suggested image size: 300x200")
+    button_text = blocks.CharBlock(
+        required=False, help_text='Add the button text')
+    button_page = blocks.PageChooserBlock(required=False)
+    button_url = blocks.URLBlock(
+        required=False, help_text="If the button page above is selected, that will be used first")
 
     class Meta:  # noqa
-        template = "streams/card_block.html"
+        template = "streams/vertical_card_block.html"
         icon = "placeholder"
-        label = "VerticalCardBlock"
+        label = "Vertical Card"
 
 
 class HorizontalCardBlock(blocks.StructBlock):
@@ -49,9 +58,9 @@ class HorizontalCardBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, help_text='Add your title')
     text = blocks.RichTextBlock(required=False, help_text='Add your subtitle')
     image = ImageChooserBlock(
-        required=True, help_text="Suggested image size: 300x200")
+        required=False, help_text="Suggested image size: 300x200")
     button_text = blocks.CharBlock(
-        required=True, help_text='Add the button text', default="Learn More")
+        required=False, help_text='Add the button text', default="Learn More")
     button_page = blocks.PageChooserBlock(required=False)
     button_url = blocks.URLBlock(
         required=False, help_text="If the button page above is selected, that will be used first")
@@ -60,6 +69,15 @@ class HorizontalCardBlock(blocks.StructBlock):
         template = "streams/horizontal_card_block.html"
         icon = "placeholder"
         label = "Horizontal Card"
+
+
+class MultipleVerticalCardBlocks(blocks.StreamBlock):
+    card = VerticalCardBlock()
+
+    class Meta:  # noqa
+        template = "streams/multiple_vertical_card_block.html"
+        icon = "placeholder"
+        label = "Multiple Vertical Card Blocks"
 
 
 class RichtextBlock(blocks.RichTextBlock):
@@ -149,3 +167,13 @@ class BodyBlock(blocks.StructBlock):
         template = "streams/markdown_block.html"
         icon = "placeholder"
         label = "Markdown"
+
+
+class JumbotronBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True, max_length=60)
+    image = ImageChooserBlock(required=True)
+
+    class Meta:  # noqa
+        template = "streams/jumbotron_block.html"
+        icon = "placeholder"
+        label = "Jumbotron"

@@ -57,40 +57,4 @@
 {% endfor %}
 
 
-
-<!-- @todo decide fixed elements in home page
-{#
-{% if posts %}
-<div class="container my-4">
-    <h2 class="text-center my-4"></h2>
-    <div class="row">
-    {% for post in posts %}
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card text-white bg-secondary mb-3">
-            {% image post.card_image fill-514x342 as blog_img %}
-            <div class="row">
-            <div class="col-12">
-                    <a href="{{post.url}}">
-                    <img src="{{blog_img.url}}" alt="{{blog_img.alt}}" style="width: 100%">
-                    </a>
-                    </div>
-                    </div>
-                <div class="card-header">
-                    <a href="{{ post.url}}">
-                        {{ post.title }}
-                    </a>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">{{post.intro|richtext}}</p>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-    <div class="clearfix"></div>
-    </div>
-</div>
-{% endif %}
-#}
- -->
-
 {% endblock %}
