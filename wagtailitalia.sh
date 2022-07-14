@@ -24,12 +24,10 @@ function usage {
 if [ $1 == 'new' ]; then
 
 	git clone https://github.com/AlessioNar/wagtailitalia $PROJECT_NAME
-
+  RENAME_STRING="s/wagtailitalia*"/"${PROJECT_NAME}"/"g"
 	# Here I need to rename the names of the files in a recursive manner
-	rename's/wagtailitalia/'"${PROJECT_NAME}"
-
-	# Here I need to rename the names of the folders in a recursive manner
-	
+  find . -iname "wagtailitalia*" | rename $RENAME_STRING
+  find . -iname "wagtailitalia*" | rename $RENAME_STRING
 
 	virtualenv $PROJECT_NAME-env
 	source $PROJECT_NAME-env/bin/activate && \
