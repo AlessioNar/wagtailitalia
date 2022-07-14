@@ -24,16 +24,19 @@ function usage {
 if [ $1 == 'new' ]; then
 
 	git clone https://github.com/AlessioNar/wagtailitalia $PROJECT_NAME
+
+  cd $PROJECT_NAME
+
   RENAME_STRING="s/wagtailitalia*"/"${PROJECT_NAME}"/"g"
-	# Here I need to rename the names of the files in a recursive manner
+
   find . -iname "wagtailitalia*" | rename $RENAME_STRING
   find . -iname "wagtailitalia*" | rename $RENAME_STRING
 
 	virtualenv $PROJECT_NAME-env
 	source $PROJECT_NAME-env/bin/activate && \
-	pip install -r $PROJECT_NAME/requirements.txt && \
-	python $PROJECT_NAME/manage.py makemigrations && \
-	python $PROJECT_NAME/manage.py migrate
+	pip install -r requirements.txt && \
+	python manage.py makemigrations && \
+	python manage.py migrate
 
 	exit 0
 

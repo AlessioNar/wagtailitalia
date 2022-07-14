@@ -7,7 +7,6 @@ Dockerfile
 db.sqlite3
 media/*
 static/*
-.env
 .dockerignore
 deploy.sh
 export_db.sh
