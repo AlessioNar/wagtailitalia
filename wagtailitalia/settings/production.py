@@ -2,7 +2,7 @@ from .base import *
 from dotenv import load_dotenv
 load_dotenv()
 
-
+PROJECT_NAME = os.getenv('WEBSITE_NAME')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DATABASES = {
@@ -27,7 +27,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 
-CSRF_TRUSTED_ORIGINS = ['https://wagtail-italia.it']
+CSRF_TRUSTED_ORIGINS = ['https://' + WEBSITE_NAME]
 
 
 try:
