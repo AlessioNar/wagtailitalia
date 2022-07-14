@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'flex',
     'streams',
     'site_settings',
-    'subscribers',
+    #'subscribers',
     'blog',
     'menus',
     'contact',

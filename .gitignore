@@ -13,4 +13,5 @@ deploy.sh
 export_db.sh
 whole.json
 update.sh
-.Rproj.user
+.env
+seed_json
