@@ -28,9 +28,12 @@ if [ $1 == 'new' ]; then
   cd $PROJECT_NAME
 
   RENAME_STRING="s/wagtailitalia*"/"${PROJECT_NAME}"/"g"
+  RENAME_FILE="s/wagtailitalia"/"${PROJECT_NAME}"/"g"
 
   find . -iname "wagtailitalia*" | rename $RENAME_STRING
   find . -iname "wagtailitalia*" | rename $RENAME_STRING
+
+	grep -RiIl 'wagtailitalia' | xargs sed -i $RENAME_FILE
 
 	virtualenv $PROJECT_NAME-env
 	source $PROJECT_NAME-env/bin/activate && \

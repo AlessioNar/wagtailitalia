@@ -12,5 +12,4 @@ deploy.sh
 export_db.sh
 whole.json
 update.sh
-.env
 seed.json
