@@ -14,4 +14,4 @@ export_db.sh
 whole.json
 update.sh
 .env
-seed_json
+seed.json

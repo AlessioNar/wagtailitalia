@@ -16,6 +16,84 @@
   }
 },
 {
+  "model": "menus.menuitem",
+  "pk": 1,
+  "fields": {
+    "sort_order": 0,
+    "link_title": "Home",
+    "link_url": null,
+    "link_page": null,
+    "submenu": null,
+    "open_in_new_tab": false,
+    "page": 1
+  }
+},
+{
+  "model": "menus.menuitem",
+  "pk": 2,
+  "fields": {
+    "sort_order": 1,
+    "link_title": "News & Events",
+    "link_url": null,
+    "link_page": null,
+    "submenu": null,
+    "open_in_new_tab": false,
+    "page": 1
+  }
+},
+{
+  "model": "menus.menuitem",
+  "pk": 3,
+  "fields": {
+    "sort_order": 2,
+    "link_title": "Partners",
+    "link_url": null,
+    "link_page": null,
+    "submenu": null,
+    "open_in_new_tab": false,
+    "page": 1
+  }
+},
+{
+  "model": "menus.menuitem",
+  "pk": 4,
+  "fields": {
+    "sort_order": 3,
+    "link_title": "Results",
+    "link_url": null,
+    "link_page": null,
+    "submenu": null,
+    "open_in_new_tab": false,
+    "page": 1
+  }
+},
+{
+  "model": "menus.menuitem",
+  "pk": 5,
+  "fields": {
+    "sort_order": 4,
+    "link_title": "Synergies",
+    "link_url": null,
+    "link_page": null,
+    "submenu": null,
+    "open_in_new_tab": false,
+    "page": 1
+  }
+},
+{
+  "model": "menus.menuitem",
+  "pk": 6,
+  "fields": {
+    "sort_order": 5,
+    "link_title": "Contact",
+    "link_url": null,
+    "link_page": null,
+    "submenu": null,
+    "open_in_new_tab": false,
+    "page": 1
+  }
+},
+{
   "model": "wagtailsearch.sqliteftsindexentry",
   "pk": 1,
   "fields": {
@@ -552,6 +630,14 @@
   "fields": {
     "app_label": "site_settings",
     "model": "themessettings"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "6cjlhji44taofpkw11d2sk07ryjfz74c",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pApUGi7dO8ZyMBMLWrAlDbRGO-uTbrQ7X_vv5fwuC6TXyvPPpEYRCMOv1vAeOW8AbpgPhcZS17mFOSmyJ1WeSrEt-Pu_gUmrNP3rciyCTrGrgcEtuSaEJEAwBhW2DtwQem2aa0ajbOOjVZq7HRkGlUPsEUr15pK9vy4p_kpBnh_AHzQPpo:1oBytt:Oolk2JxOLQK3HRInfrzDXmztDOyQW5Xr9PnsQ_4Ty04",
+    "expire_date": "2022-07-28T13:29:05.758Z"
   }
 },
 {
@@ -3568,7 +3654,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$320000$t615pm5McvfuZrSiZlLDhl$l7wBlIZZHpUKjwhW7eCQ2ijJWNM1eYOx4iX+MKwnyWw=",
-    "last_login": "2022-07-13T21:35:45.492Z",
+    "last_login": "2022-07-14T13:29:05.718Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -4462,6 +4548,27 @@
     "data_json": "\"\"",
     "timestamp": "2022-07-14T09:28:16.174Z",
     "uuid": "68cdc8b1-cfd3-448c-a1b6-d5befe7947b1",
+    "user": [
+      "admin"
+    ],
+    "content_changed": false,
+    "deleted": false,
+    "object_id": "1"
+  }
+},
+{
+  "model": "wagtailcore.modellogentry",
+  "pk": 18,
+  "fields": {
+    "content_type": [
+      "menus",
+      "menu"
+    ],
+    "label": "Navbar",
+    "action": "wagtail.edit",
+    "data_json": "\"\"",
+    "timestamp": "2022-07-14T13:29:59.995Z",
+    "uuid": "dfaee1c0-6394-4071-8929-b42bb015b97f",
     "user": [
       "admin"
     ],
