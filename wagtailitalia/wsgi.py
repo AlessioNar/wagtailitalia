@@ -7,10 +7,15 @@ For more information on this file, see
 https://docs.djangoproject.com/en/4.0/howto/deployment/wsgi/
 """
 
-import os
-
 from django.core.wsgi import get_wsgi_application
+import os
+from dotenv import load_dotenv
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wagtailitalia.settings.production")
+load_dotenv()
+PROJECT_NAME = os.getenv('PROJECT_NAME')
+
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE",
+                      PROJECT_NAME + ".settings.production")
 
 application = get_wsgi_application()

@@ -17,14 +17,10 @@ from dotenv import load_dotenv
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
+load_dotenv()
+PROJECT_NAME = os.getenv('PROJECT_NAME')
 
 # Application definition
-load_dotenv()
-
 INSTALLED_APPS = [
     'home',
     'search',
@@ -88,7 +84,6 @@ MIDDLEWARE = [
 
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
-PROJECT_NAME = os.getenv('PROJECT_NAME')
 ROOT_URLCONF = PROJECT_NAME + '.urls'
 
 TEMPLATES = [
