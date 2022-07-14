@@ -3,6 +3,7 @@ import os
 from django.core.management import call_command
 
 from django.db import models
+from django.conf import settings
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
@@ -106,7 +107,7 @@ class ThemesSettings(BaseSetting):
     ]
 
     def save(self, *args, **kwargs):
-        project_name = 'wagtailitalia'
+        project_name = settings.PROJECT_NAME
         with open(project_name + '/static/scss/' + project_name + '/' + project_name + '.scss', 'w+') as f:
             # Define scss variables
             print(f'$primary: {self.primary} !default;', file=f)

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from dotenv import load_dotenv
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -22,6 +23,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 
 # Application definition
+load_dotenv()
 
 INSTALLED_APPS = [
     'home',
@@ -83,14 +85,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-
-
 
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
-
-ROOT_URLCONF = 'wagtailitalia.urls'
+PROJECT_NAME = os.getenv('PROJECT_NAME')
+ROOT_URLCONF = PROJECT_NAME + '.urls'
 
 TEMPLATES = [
     {
@@ -112,7 +111,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'wagtailitalia.wsgi.application'
+WSGI_APPLICATION = PROJECT_NAME + '.wsgi.application'
 
 
 # Database
@@ -174,7 +173,7 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 # @todo this may break
-WAGTAIL_SITE_NAME = "wagtail-italia.it"
+WAGTAIL_SITE_NAME = os.getenv('WEBSITE_NAME')
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
@@ -186,7 +185,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'wagtail-italia.it'
+BASE_URL = os.getenv('WEBSITE_NAME')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
