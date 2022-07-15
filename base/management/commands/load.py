@@ -95,8 +95,7 @@ class Command(BaseCommand):
 
         navbar = Menu.objects.get(slug='navbar')
         navbar.menu_items.add(MenuItem(link_title='Home', link_page=HomePage.objects.get(slug='home')))
-        navbar.menu_items.add(MenuItem(link_title='News & Events')
-            
+        navbar.menu_items.add(MenuItem(link_title='News & Events', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Partners', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Results', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Synergies', link_url='/'))
