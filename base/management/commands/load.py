@@ -1,5 +1,6 @@
 from importlib.resources import path
 import os
+from turtle import heading
 
 from django.conf import settings
 from django.core.files.storage import default_storage, FileSystemStorage
@@ -50,27 +51,27 @@ class Command(BaseCommand):
         home = Page.objects.get(slug="home")
 
         # Create a new blog listing page for news
-        newslistingpage = BlogListingPage(title='News', slug='news')
+        newslistingpage = BlogListingPage(title='News', slug='news', heading="News")
         home.add_child(instance=newslistingpage)
         newslistingpage.save()
         
         # Create a new blog listing page for events
-        eventslistingpage = BlogListingPage(title='Events', slug='events')
+        eventslistingpage = BlogListingPage(title='Events', slug='events', heading='Events')
         home.add_child(instance=eventslistingpage)
         eventslistingpage.save()
 
         # Create a new blog listing page for publications
-        publicationslistingpage = BlogListingPage(title='Publications', slug='publications')
+        publicationslistingpage = BlogListingPage(title='Publications', slug='publications', heading='Publications')
         home.add_child(instance=publicationslistingpage)
         publicationslistingpage.save()
 
         # Create a new blog listing page for partners
-        partnerslistingpage = BlogListingPage(title='Partners', slug='partners')
+        partnerslistingpage = BlogListingPage(title='Partners', slug='partners', heading='Partners')
         home.add_child(instance=partnerslistingpage)
         partnerslistingpage.save()
 
         # Create a new blog listing page for results
-        resultslistingpage = BlogListingPage(title='Results', slug='results')
+        resultslistingpage = BlogListingPage(title='Results', slug='results', heading='Results')
         home.add_child(instance=resultslistingpage)
         resultslistingpage.save()
 
