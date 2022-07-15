@@ -1,0 +1,45 @@
+upstream hope_app_server {
+    server unix:/home/admin/wagtail-italia.it/run/gunicorn.sock fail_timeout=0;
+}
+
+server {
+    server_name _;
+    listen 80;
+    return 301 https://$host$request_uri;
+}
+
+server{
+
+    # add here the ip address of your server
+    # or a domain pointing to that ip (like example.com or www.example.com)
+    server_name wagtail-italia.it www.wagtail-italia.it;
+
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    keepalive_timeout 5;
+
+    ssl_certificate /etc/letsencrypt/live/wagtail-italia.it/cert.pem;
+    ssl_certificate_key /etc/letsencrypt/live/wagtail-italia.it/privkey.pem;
+
+    client_max_body_size 4G;
+
+    access_log /home/admin/logs/nginx-access.log;
+    error_log /home/admin/logs/nginx-error.log;
+
+    location /static/ {
+        alias /home/admin/wagtail-italia.it/static/;
+    }
+
+    location /media/ {
+        alias /home/admin/wagtail-italia.it/media/;
+    }
+
+    location / {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+      proxy_pass http://wagtailitalia_app_server;
+      proxy_ssl_server_name on;
+    }
+}

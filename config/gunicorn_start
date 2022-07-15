@@ -1,0 +1,35 @@
+#!/bin/bash
+
+PROJECT_NAME=wagtailitalia
+DOMAIN=wagtail-italia.it
+DJANGODIR=/home/admin/"${DOMAIN}"
+USER=admin
+GROUP=admin
+NUM_WORKERS=3
+RUNDIR=/home/admin/"${DOMAIN}"/run/
+SOCKFILE=unix:/home/admin/"${DOMAIN}"/run/gunicorn.sock
+
+DJANGO_SETTINGS_MODULE="${PROJECT_NAME}".settings.production
+DJANGO_WSGI_MODULE="${PROJECT_NAME}".wsgi
+
+echo "Starting $PROJECT_NAME as `whoami`"
+
+# Activate the virtual environment
+cd $DJANGODIR
+source /home/admin/"${DOMAIN}"/"${PROJECT_NAME}"-env/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+# Create the run directory if it doesn't exist
+#test -d $RUNDIR || mkdir -p $RUNDIR
+
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+exec /home/admin/"${DOMAIN}"/"${PROJECT_NAME}"-env/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --name $PROJECT_NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER \
+  --group=$GROUP \
+  --bind=$SOCKFILE \
+  --log-level=debug \
+  --log-file=-
