@@ -49,6 +49,19 @@ class Command(BaseCommand):
         newsevent.submenu_items.add(SubmenuItem(link_title='Events', link_url='/'))
         newsevent.submenu_items.add(SubmenuItem(link_title='Publications', link_url='/'))
         newsevent.save()
+
+        partners = MenuItem.objects.get(link_title='Partners')
+        partners.submenu_items.add(SubmenuItem(link_title='Partner 1', link_url='/'))
+        partners.submenu_items.add(SubmenuItem(link_title='Partner 2', link_url='/'))
+        partners.submenu_items.add(SubmenuItem(link_title='Partner 3', link_url='/'))
+        partners.save()
+
+        results = MenuItem.objects.get(link_title='Results')
+        results.submenu_items.add(SubmenuItem(link_title='Result 1', link_url='/'))
+        results.submenu_items.add(SubmenuItem(link_title='Result 2', link_url='/'))
+        results.submenu_items.add(SubmenuItem(link_title='Result 3', link_url='/'))
+        results.save()
+
         return
         
 
