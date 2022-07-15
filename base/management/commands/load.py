@@ -1,3 +1,4 @@
+from importlib.resources import path
 import os
 
 from django.conf import settings
@@ -5,14 +6,25 @@ from django.core.files.storage import default_storage, FileSystemStorage
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 
-from menus.models import Menu, MenuItem
+from menus.models import Menu, MenuItem, SubmenuItem
 from home.models import HomePage
+from blog.models import 
 from wagtail.core.models import Site, Page
 
 
 class Command(BaseCommand):
 
     help = 'It seeds the database'
+
+
+    def _create_pages(self):
+        news1 = NewsDetailPage(title='An Article', slug='article-1',
+                                depth=3, path='000100010001')
+        
+        root_page.add_child(instance=new_home)                        
+        news1.save()
+
+
 
     def _create_menus(self):
         if not Menu.objects.filter(slug='navbar').exists():
@@ -25,13 +37,21 @@ class Command(BaseCommand):
         navbar = Menu.objects.get(slug='navbar')
         navbar.menu_items.add(MenuItem(link_title='Home', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='News & Events', link_url='/'))
+
+        newsevent = MenuItem.objects.get(link_title='News & Events')
+        newsevent.submenu_items.add(SubmMenuItem(link_title='News', link_url='/'))
+        newsevent.submenu_items.add(SubmMenuItem(link_title='Events', link_url='/'))
+        newsevent.submenu_items.add(SubmMenuItem(link_title='Publications', link_url='/'))
+        newsevent.save()
+            
+        
         navbar.menu_items.add(MenuItem(link_title='Partners', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Results', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Synergies', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Contact', link_url='/'))
         navbar.save()
 
-        
+        return
         
 
     def _delete_wagtail(self):
@@ -51,6 +71,8 @@ class Command(BaseCommand):
             home = HomePage.objects.get(slug='new_home')
             home.slug = 'home'
             home.save()
+
+            return
            
 
     def handle(self, *args, **options):
