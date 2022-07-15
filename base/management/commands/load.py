@@ -51,27 +51,27 @@ class Command(BaseCommand):
         home = Page.objects.get(slug="home")
 
         # Create a new blog listing page for news
-        newslistingpage = BlogListingPage(title='News', slug='news', heading="News")
+        newslistingpage = BlogListingPage(title='News', slug='news', custom_title="News")
         home.add_child(instance=newslistingpage)
         newslistingpage.save()
         
         # Create a new blog listing page for events
-        eventslistingpage = BlogListingPage(title='Events', slug='events', heading='Events')
+        eventslistingpage = BlogListingPage(title='Events', slug='events', custom_title='Events')
         home.add_child(instance=eventslistingpage)
         eventslistingpage.save()
 
         # Create a new blog listing page for publications
-        publicationslistingpage = BlogListingPage(title='Publications', slug='publications', heading='Publications')
+        publicationslistingpage = BlogListingPage(title='Publications', slug='publications', custom_title='Publications')
         home.add_child(instance=publicationslistingpage)
         publicationslistingpage.save()
 
         # Create a new blog listing page for partners
-        partnerslistingpage = BlogListingPage(title='Partners', slug='partners', heading='Partners')
+        partnerslistingpage = BlogListingPage(title='Partners', slug='partners', custom_title='Partners')
         home.add_child(instance=partnerslistingpage)
         partnerslistingpage.save()
 
         # Create a new blog listing page for results
-        resultslistingpage = BlogListingPage(title='Results', slug='results', heading='Results')
+        resultslistingpage = BlogListingPage(title='Results', slug='results', custom_title='Results')
         home.add_child(instance=resultslistingpage)
         resultslistingpage.save()
 
