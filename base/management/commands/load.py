@@ -26,7 +26,7 @@ class Command(BaseCommand):
 
 
 
-    def _create_menus(self):
+       def _create_menus(self):
         if not Menu.objects.filter(slug='navbar').exists():
             navbar = Menu(title='Navbar', slug='navbar')
             navbar.save()
@@ -37,19 +37,19 @@ class Command(BaseCommand):
         navbar = Menu.objects.get(slug='navbar')
         navbar.menu_items.add(MenuItem(link_title='Home', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='News & Events', link_url='/'))
-
-        newsevent = MenuItem.objects.get(link_title='News & Events')
-        newsevent.submenu_items.add(SubmMenuItem(link_title='News', link_url='/'))
-        newsevent.submenu_items.add(SubmMenuItem(link_title='Events', link_url='/'))
-        newsevent.submenu_items.add(SubmMenuItem(link_title='Publications', link_url='/'))
-        newsevent.save()
-            
         
         navbar.menu_items.add(MenuItem(link_title='Partners', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Results', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Synergies', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Contact', link_url='/'))
         navbar.save()
+
+
+        newsevent = MenuItem.objects.get(link_title='News & Events')
+        newsevent.submenu_items.add(SubmMenuItem(link_title='News', link_url='/'))
+        newsevent.submenu_items.add(SubmMenuItem(link_title='Events', link_url='/'))
+        newsevent.submenu_items.add(SubmMenuItem(link_title='Publications', link_url='/'))
+        newsevent.save()
 
         return
         
