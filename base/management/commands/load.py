@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.files.storage import default_storage, FileSystemStorage
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
+from blog.models import BlogListingPage
 
 from menus.models import Menu, MenuItem, SubmenuItem
 from home.models import HomePage
@@ -16,13 +17,57 @@ class Command(BaseCommand):
 
     help = 'It seeds the database'
 
+    def _delete_wagtail(self):
 
-    #def _create_pages(self):
-    #    news1 = NewsDetailPage(title='An Article', slug='article-1',
-     #                           depth=3, path='000100010001')
+        if Page.objects.filter(slug='home').exists():
+            root_page = Page.objects.get(slug="home").get_parent().specific
+            new_home = HomePage(title='Home', slug='new_home',
+                                depth=2, path='00010001')
+            root_page.add_child(instance=new_home)
+            new_home.save()
+
+            site = Site.objects.update(
+                root_page=new_home, hostname='localhost')
+
+            home = Page.objects.get(slug='home')
+            home.delete()
+            home = HomePage.objects.get(slug='new_home')
+            home.slug = 'home'
+            home.save()
+
+            return
+           
+
+    def _create_pages(self):
+
+        home = Page.objects.get(slug="home")
+
+        newslistingpage = BlogListingPage(title='News', slug='news')
+        home.add_child(instance=newslistingpage)
+        newslistingpage.save()
         
-     #   root_page.add_child(instance=new_home)                        
-     #   news1.save()
+        eventslistingpage = BlogListingPage(title='Events', slug='events')
+        home.add_child(instance=eventslistingpage)
+        eventslistingpage.save()
+
+        publicationslistingpage = BlogListingPage(title='Publications', slug='publications')
+        home.add_child(instance=publicationslistingpage)
+        publicationslistingpage.save()
+
+        partnerslistingpage = BlogListingPage(title='Partners', slug='partners')
+        home.add_child(instance=partnerslistingpage)
+        partnerslistingpage.save()
+
+        resultslistingpage = BlogListingPage(title='Results', slug='results')
+        home.add_child(instance=resultslistingpage)
+        resultslistingpage.save()
+
+        
+        #news1 = NewsDetailPage(title='An Article', slug='article-1',
+        #                       depth=3, path='000100010001')
+        #
+        #root_page.add_child(instance=new_home)                        
+        #news1.save()
 
 
 
@@ -65,26 +110,6 @@ class Command(BaseCommand):
         return
         
 
-    def _delete_wagtail(self):
-
-        if Page.objects.filter(slug='home').exists():
-            root_page = Page.objects.get(slug="home").get_parent().specific
-            new_home = HomePage(title='Home', slug='new_home',
-                                depth=2, path='00010001')
-            root_page.add_child(instance=new_home)
-            new_home.save()
-
-            site = Site.objects.update(
-                root_page=new_home, hostname='localhost')
-
-            home = Page.objects.get(slug='home')
-            home.delete()
-            home = HomePage.objects.get(slug='new_home')
-            home.slug = 'home'
-            home.save()
-
-            return
-           
 
     def handle(self, *args, **options):
         self._delete_wagtail()

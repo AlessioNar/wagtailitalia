@@ -79,7 +79,7 @@ class BlogListingPage(RoutablePageMixin, Page):
 
     template = "blog/blog_listing_page.html"
 
-    heading = models.CharField(max_length=200, blank=False, null=True)
+    heading = models.CharField(max_length=200, blank=True, null=True)
 
     heading_image = models.ForeignKey(
         "wagtailimages.Image",
