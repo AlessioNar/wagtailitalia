@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'contact',
     'websites',
     #'partners',
+    'base',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
