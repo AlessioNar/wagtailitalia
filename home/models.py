@@ -23,7 +23,7 @@ class HomePage(RoutablePageMixin, Page):
 		"wagtailimages.Image",
 		on_delete=models.SET_NULL,
 		null=True,
-		blank=False,
+		blank=True,
 		related_name="+",
         help_text="Suggested size: 640x420"
 		)
