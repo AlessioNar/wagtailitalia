@@ -1,5 +1,5 @@
-PROJECT_NAME=$2
-DOMAIN=$3
+PROJECT_NAME=$1
+DOMAIN=$2
 
 read -p "Enter ip address: " IP_ADDRESS
 read -p "Enter user: " USER
