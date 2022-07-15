@@ -45,9 +45,9 @@ class Command(BaseCommand):
         navbar.save()
         
         newsevent = MenuItem.objects.get(link_title='News & Events')
-        newsevent.submenu_items.add(SubmMenuItem(link_title='News', link_url='/'))
-        newsevent.submenu_items.add(SubmMenuItem(link_title='Events', link_url='/'))
-        newsevent.submenu_items.add(SubmMenuItem(link_title='Publications', link_url='/'))
+        newsevent.submenu_items.add(SubmmenuItem(link_title='News', link_url='/'))
+        newsevent.submenu_items.add(SubmenuItem(link_title='Events', link_url='/'))
+        newsevent.submenu_items.add(SubmenuItem(link_title='Publications', link_url='/'))
         newsevent.save()
         return
         
