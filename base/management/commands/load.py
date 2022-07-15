@@ -20,17 +20,23 @@ class Command(BaseCommand):
     def _delete_wagtail(self):
 
         if Page.objects.filter(slug='home').exists():
+            
+            # Create a new home page
             root_page = Page.objects.get(slug="home").get_parent().specific
             new_home = HomePage(title='Home', slug='new_home',
                                 depth=2, path='00010001')
             root_page.add_child(instance=new_home)
             new_home.save()
 
+            # Update the home page in the site model
             site = Site.objects.update(
                 root_page=new_home, hostname='localhost')
 
+            # Delete initial home page
             home = Page.objects.get(slug='home')
             home.delete()
+            
+            # Change the slug of the home page to 'home'
             home = HomePage.objects.get(slug='new_home')
             home.slug = 'home'
             home.save()
@@ -40,29 +46,37 @@ class Command(BaseCommand):
 
     def _create_pages(self):
 
+        # Get the home page 
         home = Page.objects.get(slug="home")
 
+        # Create a new blog listing page for news
         newslistingpage = BlogListingPage(title='News', slug='news')
         home.add_child(instance=newslistingpage)
         newslistingpage.save()
         
+        # Create a new blog listing page for events
         eventslistingpage = BlogListingPage(title='Events', slug='events')
         home.add_child(instance=eventslistingpage)
         eventslistingpage.save()
 
+        # Create a new blog listing page for publications
         publicationslistingpage = BlogListingPage(title='Publications', slug='publications')
         home.add_child(instance=publicationslistingpage)
         publicationslistingpage.save()
 
+        # Create a new blog listing page for partners
         partnerslistingpage = BlogListingPage(title='Partners', slug='partners')
         home.add_child(instance=partnerslistingpage)
         partnerslistingpage.save()
 
+        # Create a new blog listing page for results
         resultslistingpage = BlogListingPage(title='Results', slug='results')
         home.add_child(instance=resultslistingpage)
         resultslistingpage.save()
 
-        
+        home.save()
+
+        return
         #news1 = NewsDetailPage(title='An Article', slug='article-1',
         #                       depth=3, path='000100010001')
         #
@@ -108,11 +122,11 @@ class Command(BaseCommand):
         results.save()
 
         return
-        
-
 
     def handle(self, *args, **options):
         self._delete_wagtail()
+        self._create_pages()
         self._create_menus()
+
 
     print("Seeded database")
