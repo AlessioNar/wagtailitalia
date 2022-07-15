@@ -1,37 +1,37 @@
 #!/bin/bash
 DIR=/home/admin/ensa-network.eu
 
-PROJECT_NAME=$2
+NAME=$2
 DOMAIN=$3
 
 programname=$0
 
 function usage {
     echo "usage: $programname"
-    echo "./wagtailitalia.sh new PROJECT_NAME DOMAIN"
-    echo "./wagtailitalia.sh production PROJECT_NAME DOMAIN"
+    echo "./wagtailitalia.sh new NAME DOMAIN"
+    echo "./wagtailitalia.sh production NAME DOMAIN"
     exit 1
 }
 
 if [ $1 == 'new' ];  then
 
-	git clone https://github.com/AlessioNar/wagtailitalia $PROJECT_NAME
+	git clone https://github.com/AlessioNar/wagtailitalia $NAME
 
-  cd $PROJECT_NAME
+  cd $NAME
 
-  RENAME_STRING="s/wagtailitalia*"/"${PROJECT_NAME}"/"g"
-  RENAME_FILE="s/wagtailitalia"/"${PROJECT_NAME}"/"g"
-  RENAME_DOMAIN="s/wagtail-italia.it"/"${DOMAIN}"/"g"
+  WI_OCCURRENCES="s/wagtailitalia*"/"${NAME}"/"g"
+  RENAME_FILE="s/wagtailitalia"/"${NAME}"/"g"
+  DOMAIN_OCCURRENCES="s/wagtail-italia.it"/"${DOMAIN}"/"g"
 
-  find . -iname "wagtailitalia*" | rename $RENAME_STRING
-  find . -iname "wagtailitalia*" | rename $RENAME_STRING
-  find . -iname "wagtail-italia.it" | rename $RENAME_DOMAIN
+  find . -iname "wagtailitalia*" | rename $WI_OCCURRENCES
+  find . -iname "wagtailitalia*" | rename $WI_OCCURRENCES
+  find . -iname "wagtail-italia.it" | rename $DOMAIN_OCCURRENCES
 
 	grep -RiIl 'wagtailitalia' | xargs sed -i $RENAME_FILE
-	grep -RiIl 'wagtail-italia.it' | xargs sed -i $RENAME_DOMAIN
+	grep -RiIl 'wagtail-italia.it' | xargs sed -i $DOMAIN_OCCURRENCES
 
-	virtualenv $PROJECT_NAME-env
-	source $PROJECT_NAME-env/bin/activate && \
+	virtualenv $NAME-env
+	source $NAME-env/bin/activate && \
 	pip install -r requirements.txt && \
 	python manage.py makemigrations blog flex home streams menus site_settings websites && \
 	python manage.py migrate  && \
@@ -43,6 +43,6 @@ if [ $1 == 'new' ];  then
 
 	# Here I need to create	an user
 elif [ $1 == 'production' ];  then
-  exec ./config/settings.sh $PROJECT_NAME $DOMAIN
+  exec ./config/settings.sh $NAME $DOMAIN
   exit 0
 fi

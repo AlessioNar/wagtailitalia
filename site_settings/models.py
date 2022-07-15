@@ -107,8 +107,8 @@ class ThemesSettings(BaseSetting):
     ]
 
     def save(self, *args, **kwargs):
-        project_name = settings.PROJECT_NAME
-        with open(project_name + '/static/scss/' + project_name + '/' + project_name + '.scss', 'w+') as f:
+        NAME = settings.NAME
+        with open(NAME + '/static/scss/' + NAME + '/' + NAME + '.scss', 'w+') as f:
             # Define scss variables
             print(f'$primary: {self.primary} !default;', file=f)
             print(f'$secondary: {self.secondary} !default;', file=f)
@@ -119,21 +119,21 @@ class ThemesSettings(BaseSetting):
 
             # Define imports
             print(
-                "@import '" + project_name + "/static/scss/bootswatch/_variables.scss';", file=f)
+                "@import '" + NAME + "/static/scss/bootswatch/_variables.scss';", file=f)
             print(
-                "@import '" + project_name + "/static/scss/bootstrap/bootstrap.scss';", file=f)
+                "@import '" + NAME + "/static/scss/bootstrap/bootstrap.scss';", file=f)
             print(
-                "@import '" + project_name + "/static/scss/bootswatch/_bootswatch.scss';", file=f)
+                "@import '" + NAME + "/static/scss/bootswatch/_bootswatch.scss';", file=f)
 
             # Add field for custom css
             print(self.css, file=f)
 
             # Compile scss and write to output file.
         compile_sass(
-            inpath=project_name + '/static/scss/'
-            + project_name + '/' + project_name + ".scss",
-            outpath=project_name + '/static/css/'
-            + project_name + '/' + project_name + ".css",
+            inpath=NAME + '/static/scss/'
+            + NAME + '/' + NAME + ".scss",
+            outpath=NAME + '/static/css/'
+            + NAME + '/' + NAME + ".css",
             output_style="compressed",
             precision=8,
             source_map=True
@@ -143,10 +143,10 @@ class ThemesSettings(BaseSetting):
         super(ThemesSettings, self).save(*args, **kwargs)
 
         # checking whether file exists or not
-        if os.path.exists(r'static/css/' + project_name + '/' + project_name + '.css'):
+        if os.path.exists(r'static/css/' + NAME + '/' + NAME + '.css'):
             # removing the main css file
-            os.remove(r'static/css/' + project_name
-                      + '/' + project_name + '.css')
+            os.remove(r'static/css/' + NAME
+                      + '/' + NAME + '.css')
         else:
             # file not found message
             print("CSS directory not found")

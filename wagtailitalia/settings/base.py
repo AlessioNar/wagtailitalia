@@ -18,7 +18,7 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 load_dotenv()
-PROJECT_NAME = os.getenv('PROJECT_NAME')
+NAME = os.getenv('NAME')
 
 # Application definition
 INSTALLED_APPS = [
@@ -84,7 +84,7 @@ MIDDLEWARE = [
 
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
-ROOT_URLCONF = PROJECT_NAME + '.urls'
+ROOT_URLCONF = NAME + '.urls'
 
 TEMPLATES = [
     {
@@ -100,14 +100,14 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'wagtail.contrib.settings.context_processors.settings',
-                PROJECT_NAME + ".context_processors.base_settings",
+                NAME + ".context_processors.base_settings",
 
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = PROJECT_NAME + '.wsgi.application'
+WSGI_APPLICATION = NAME + '.wsgi.application'
 
 
 # Database

@@ -1,4 +1,4 @@
-PROJECT_NAME=$1
+NAME=$1
 DOMAIN=$2
 
 read -p "Enter ip address: " IP_ADDRESS
@@ -11,4 +11,4 @@ ssh "${USER}"@"${IP_ADDRESS}" git clone $REPOSITORY $DOMAIN
 
 ssh "${USER}"@"${IP_ADDRESS}" cd $DOMAIN && \
 chmod u+x deploy.sh && \
-./deploy.sh $PROJECT_NAME $DOMAIN
+./deploy.sh $NAME $DOMAIN

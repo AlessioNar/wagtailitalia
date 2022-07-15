@@ -12,10 +12,10 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-PROJECT_NAME = os.getenv('PROJECT_NAME')
+NAME = os.getenv('NAME')
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                      PROJECT_NAME + ".settings.production")
+                      NAME + ".settings.production")
 
 application = get_wsgi_application()
