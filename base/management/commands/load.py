@@ -94,8 +94,8 @@ class Command(BaseCommand):
             footer.save()
 
         navbar = Menu.objects.get(slug='navbar')
-        navbar.menu_items.add(MenuItem(link_title='Home', link_url='/'))
-        navbar.menu_items.add(MenuItem(link_title='News & Events', link_url='/'))
+        navbar.menu_items.add(MenuItem(link_title='Home', link_page=HomePage.objects.get(slug='home')))
+        navbar.menu_items.add(MenuItem(link_title='News & Events')
             
         navbar.menu_items.add(MenuItem(link_title='Partners', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Results', link_url='/'))
@@ -104,18 +104,20 @@ class Command(BaseCommand):
         navbar.save()
         
         newsevent = MenuItem.objects.get(link_title='News & Events')
-        newsevent.submenu_items.add(SubmenuItem(link_title='News', link_url='/'))
-        newsevent.submenu_items.add(SubmenuItem(link_title='Events', link_url='/'))
-        newsevent.submenu_items.add(SubmenuItem(link_title='Publications', link_url='/'))
+        newsevent.submenu_items.add(SubmenuItem(link_title='News', link_page=BlogListingPage.objects.get(slug='news')))
+        newsevent.submenu_items.add(SubmenuItem(link_title='Events', link_page=BlogListingPage.objects.get(slug='events')))
+        newsevent.submenu_items.add(SubmenuItem(link_title='Publications', link_page=BlogListingPage.objects.get(slug='publications')))
         newsevent.save()
 
         partners = MenuItem.objects.get(link_title='Partners')
+        partners.submenu_items.add(SubmenuItem(link_title='All Partners', link_page=BlogListingPage.objects.get(slug='partners')))
         partners.submenu_items.add(SubmenuItem(link_title='Partner 1', link_url='/'))
         partners.submenu_items.add(SubmenuItem(link_title='Partner 2', link_url='/'))
         partners.submenu_items.add(SubmenuItem(link_title='Partner 3', link_url='/'))
         partners.save()
 
         results = MenuItem.objects.get(link_title='Results')
+        results.submenu_items.add(SubmenuItem(link_title='All Results', link_page=BlogListingPage.objects.get(slug='results')))
         results.submenu_items.add(SubmenuItem(link_title='Result 1', link_url='/'))
         results.submenu_items.add(SubmenuItem(link_title='Result 2', link_url='/'))
         results.submenu_items.add(SubmenuItem(link_title='Result 3', link_url='/'))
