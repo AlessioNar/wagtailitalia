@@ -37,7 +37,7 @@ class Command(BaseCommand):
             home = Page.objects.get(slug='home')
             home.delete()
             home = HomePage.objects.get(slug='new_home').update(slug='home')
-            home.save()
+            `home.save()
            
 
     def handle(self, *args, **options):
