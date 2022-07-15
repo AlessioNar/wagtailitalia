@@ -8,7 +8,7 @@ from django.core.management import call_command
 
 from menus.models import Menu, MenuItem, SubmenuItem
 from home.models import HomePage
-from blog.models import 
+
 from wagtail.core.models import Site, Page
 
 
@@ -17,12 +17,12 @@ class Command(BaseCommand):
     help = 'It seeds the database'
 
 
-    def _create_pages(self):
-        news1 = NewsDetailPage(title='An Article', slug='article-1',
-                                depth=3, path='000100010001')
+    #def _create_pages(self):
+    #    news1 = NewsDetailPage(title='An Article', slug='article-1',
+     #                           depth=3, path='000100010001')
         
-        root_page.add_child(instance=new_home)                        
-        news1.save()
+     #   root_page.add_child(instance=new_home)                        
+     #   news1.save()
 
 
 
