@@ -6,18 +6,17 @@ programname=$0
 
 function usage {
     echo "usage: $programname"
-    echo "./.sh new PROJECT_NAME DOMAIN"
-    echo "./.sh production PROJECT_NAME DOMAIN"
+    echo "./deploy.sh new PROJECT_NAME DOMAIN"
     exit 1
 }
 
-  RENAME_STRING="s/*"/"${PROJECT_NAME}"/"g"
-  RENAME_FILE="s/"/"${PROJECT_NAME}"/"g"
-  RENAME_DOMAIN="s/"/"${DOMAIN}"/"g"
+  RENAME_STRING="s/wagtailitalia*"/"${PROJECT_NAME}"/"g"
+  RENAME_FILE="s/wagtailitalia"/"${PROJECT_NAME}"/"g"
+  RENAME_DOMAIN="s/wagtail-italia.it"/"${DOMAIN}"/"g"
 
   find . -iname "*" | rename $RENAME_STRING
   find . -iname "*" | rename $RENAME_STRING
-  find . -iname "" | rename $RENAME_DOMAIN
+  find . -iname "*" | rename $RENAME_DOMAIN
 
 	grep -RiIl '' | xargs sed -i $RENAME_FILE
 	grep -RiIl '' | xargs sed -i $RENAME_DOMAIN

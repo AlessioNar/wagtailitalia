@@ -45,10 +45,4 @@ if [ $1 == 'new' ];  then
 elif [ $1 == 'production' ];  then
   exec ./config/settings.sh $PROJECT_NAME $DOMAIN
   exit 0
-elif [ $1 == 'run' ];   then
-
-	source $PROJECT_NAME-env/bin/activate && \
-	python manage.py collectstatic --noinput && \
-	python manage.py runserver
-	exit 0
 fi
