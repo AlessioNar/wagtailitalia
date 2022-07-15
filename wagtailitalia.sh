@@ -42,7 +42,7 @@ if [ $1 == 'new' ];  then
 	exit 0
 
 	# Here I need to create	an user
-elif [ $1 == 'production'];  then
+elif [ $1 == 'production' ];  then
   exec ./config/settings.sh $PROJECT_NAME $DOMAIN
   exit 0
 elif [ $1 == 'run' ];   then
