@@ -109,14 +109,14 @@ class Command(BaseCommand):
         newsevent.submenu_items.add(SubmenuItem(link_title='Publications', link_page=BlogListingPage.objects.get(slug='publications')))
         newsevent.save()
 
-        partners = MenuItem.objects.get(link_title='Partners')
+        partners = MenuItem.objects.get(link_title='Partners', link_url='/')
         partners.submenu_items.add(SubmenuItem(link_title='All Partners', link_page=BlogListingPage.objects.get(slug='partners')))
         partners.submenu_items.add(SubmenuItem(link_title='Partner 1', link_url='/'))
         partners.submenu_items.add(SubmenuItem(link_title='Partner 2', link_url='/'))
         partners.submenu_items.add(SubmenuItem(link_title='Partner 3', link_url='/'))
         partners.save()
 
-        results = MenuItem.objects.get(link_title='Results')
+        results = MenuItem.objects.get(link_title='Results', link_url='/')
         results.submenu_items.add(SubmenuItem(link_title='All Results', link_page=BlogListingPage.objects.get(slug='results')))
         results.submenu_items.add(SubmenuItem(link_title='Result 1', link_url='/'))
         results.submenu_items.add(SubmenuItem(link_title='Result 2', link_url='/'))
