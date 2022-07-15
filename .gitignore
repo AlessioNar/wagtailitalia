@@ -12,5 +12,4 @@ deploy_already.sh
 export_db.sh
 whole.json
 update.sh
-seed.json
 install.sh

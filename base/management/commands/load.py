@@ -24,12 +24,13 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         fixtures_dir = os.path.join(
-            settings.PROJECT_DIR, settings.NAME, 'management', 'fixtures')
+            settings.BASE_DIR, 'base', 'management', 'fixtures')
         fixture_file = os.path.join(fixtures_dir, 'seed.json')
 
         print("Copying media files to configured storage...")
-        local_storage = FileSystemStorage(os.path.join(fixtures_dir, 'media'))
-        self._copy_files(local_storage, '')  # file storage paths are relative
+
+        #local_storage = FileSystemStorage(os.path.join(fixtures_dir, 'media'))
+        #self._copy_files(local_storage, '')  # file storage paths are relative
 
         # Wagtail creates default Site and Page instances during install, but we already have
         # them in the data load. Remove the auto-generated ones.
@@ -37,7 +38,7 @@ class Command(BaseCommand):
             Site.objects.get(hostname='localhost').delete()
         if Page.objects.filter(title='Welcome to your new Wagtail site!').exists():
             Page.objects.get(
-                title='Welcome to your new Wagtail site!').delete()
+                    title='Welcome to your new Wagtail site!').delete()
 
         call_command('loaddata', fixture_file, verbosity=0)
         call_command('update_index', verbosity=0)
