@@ -13,7 +13,7 @@ function usage {
     exit 1
 }
 
-if [ $1 == 'new' ]; then
+if [[ $1 == 'new' ]]; then
 
 	git clone https://github.com/AlessioNar/wagtailitalia $PROJECT_NAME
 
@@ -42,13 +42,13 @@ if [ $1 == 'new' ]; then
 	exit 0
 
 	# Here I need to create	an user
-elif [ $1 == 'production']; then
+elif [[ $1 == 'production']]; then
 
   exec ./config/settings.sh $PROJECT_NAME $DOMAIN
 
   exit 0
 fi
-if [ $1 == 'run' ]; then
+if [[ $1 == 'run' ]]; then
 
 	source $PROJECT_NAME-env/bin/activate && \
 	python manage.py collectstatic --noinput && \
