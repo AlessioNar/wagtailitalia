@@ -37,12 +37,12 @@ if [ $1 == 'new' ]; then
 	python manage.py migrate  && \
 	python manage.py createsuperuser
 
+  chmod u+x ./config/settings.sh
 
 	exit 0
 
 	# Here I need to create	an user
-fi
-if [ $1 == 'production']; then
+elif [ $1 == 'production']; then
 
   exec ./config/settings.sh $PROJECT_NAME $DOMAIN
 
