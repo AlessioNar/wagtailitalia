@@ -8,7 +8,7 @@ db.sqlite3
 media/*
 static/*
 .dockerignore
-deploy.sh
+deploy_already.sh
 export_db.sh
 whole.json
 update.sh

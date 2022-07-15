@@ -5,7 +5,7 @@ read -p "Enter ip address: " IP_ADDRESS
 read -p "Enter user: " USER
 
 ## Supervisor configuration
-scp -r ./"${PROJECT_NAME}"/"config"/"${PROJECT_NAME}".conf "${USER}"@"${IP_ADDRESS}":/etc/supervisor/conf.d/"${PROJECT_NAME}".conf
+scp -r ./"config"/"${PROJECT_NAME}".conf root@"${IP_ADDRESS}":/etc/supervisor/conf.d/"${PROJECT_NAME}".conf
 
 ## Gunicorn configuration
 #scp -r ./"${PROJECT_NAME}"/"config"/"gunicorn_start" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${PROJECT_NAME}"/"${PROJECT_NAME}"-env/"bin/gunicorn_start"
