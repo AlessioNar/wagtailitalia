@@ -25,6 +25,7 @@ if [ $1 == 'new' ]; then
 
   find . -iname "wagtailitalia*" | rename $RENAME_STRING
   find . -iname "wagtailitalia*" | rename $RENAME_STRING
+  find . -iname "wagtail-italia.it" | rename $RENAME_DOMAIN
 
 	grep -RiIl 'wagtailitalia' | xargs sed -i $RENAME_FILE
 	grep -RiIl 'wagtail-italia.it' | xargs sed -i $RENAME_DOMAIN
@@ -42,7 +43,7 @@ if [ $1 == 'new' ]; then
 	# Here I need to create	an user
 fi
 if [ $1 == 'production']; then
-  
+
   exec ./config/settings.sh $PROJECT_NAME $DOMAIN
 
   exit 0
