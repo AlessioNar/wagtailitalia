@@ -16,20 +16,18 @@ cp ./config/nginx_nocert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
 # Set up manage.py to use production settings
 cp ./config/manage.py ./manage.py
 
-# Create symbolic link for domain
+# Create symbolic link for domain, if it does not exist
 ln -s /etc/nginx/sites-available/"${DOMAIN}" /etc/nginx/sites-enabled/
 
 # Set up postgresql database
+#sudo -u postgres psql -c "CREATE USER ${USER} WITH PASSWORD '${USER}';"
 
-## Set up environmental variables for production environment
-#scp -r  "${SOURCE_DIR}"/"${NAME}"/".env" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/.env
+# Generate a random SECRET_KEY and append it as an environmental variable
+secret_key=$(openssl rand -base64 100 | tr -d '\n')
+echo SECRET_KEY=$secret_key >> .env
 
-# Create a random SECRET_KEY and append it as an environmental variable
-#openssl rand >> .env
-
-# Activate virtual environment
+# Launch application initialization process
 source ./"${NAME}"-env/bin/activate && \
-# Update pip and migrate database
 pip install -r ./requirements.txt && \
 python ./manage.py collectstatic --noinput && \
 python ./manage.py makemigrations && \
@@ -41,8 +39,6 @@ python ./manage.py load
 # Restart Supervisor
 supervisorctl restart $NAME
 systemctl restart nginx
-
-exit 0
 
 # Copy media folder
 #scp -r  "${SOURCE_DIR}"/"${NAME}"/"media" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/media

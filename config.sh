@@ -24,4 +24,3 @@ chown admin -R /home/admin/"${DOMAIN}"/media
 # Create symbolic links
 ln -s /etc/nginx/sites-available/"${DOMAIN}" /etc/nginx/sites-enabled/
 
-certbot certonly --agree-tos --email "${EMAIL}" -d "${DOMAIN}"
