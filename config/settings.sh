@@ -14,8 +14,26 @@ cp ./config/nginx_nocert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
 # Set up manage.py to use production settings
 cp ./config/manage.py ./manage.py
 
+# Create symbolic link for domain
+ln -s /etc/nginx/sites-available/"${DOMAIN}" /etc/nginx/sites-enabled/
+
 ## Set up environmental variables for production environment
 #scp -r  "${SOURCE_DIR}"/"${NAME}"/".env" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/.env
+
+# Activate virtual environment
+source ./"${NAME}"-env/bin/activate && \
+# Update pip and migrate database
+pip install -r ./requirements.txt && \
+python ./manage.py collectstatic --noinput && \
+python ./manage.py makemigrations && \
+python ./manage.py migrate
+
+# Restart Supervisor
+supervisorctl restart $NAME
+systemctl restart nginx
+
+exit 0
+
 
 # Copy deployment command
 #scp -r  "${SOURCE_DIR}"/"${NAME}"/"deploy.sh" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/deploy.sh
@@ -23,9 +41,10 @@ cp ./config/manage.py ./manage.py
 # Copy media folder
 #scp -r  "${SOURCE_DIR}"/"${NAME}"/"media" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/media
 
-# Provide option for setting up certbot
-#if [ $7 == '--ssl']; then
-#  ## Nginx configuration
-#  scp -r  "${SOURCE_DIR}"/"${NAME}"/"config/nginx_cert"/"${DOMAIN}" "${USER}"@"${IP_ADDRESS}":/etc/nginx/sites-available/"${DOMAIN}"
-#  exit 0
-#fi
+# Setting up SSL connection
+if [ $4 == '--ssl']; then
+    certbot certonly --agree-tos --email "${EMAIL}" -d "${DOMAIN}"
+    cp ./config/nginx_cert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
+fi
+
+exit 0

@@ -23,8 +23,7 @@ export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 # Create the run directory if it doesn't exist
 #test -d $RUNDIR || mkdir -p $RUNDIR
 
-# Start your Django Unicorn
-# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+# Start your Django Gunicorn instance
 exec /home/admin/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
   --name $NAME \
   --workers $NUM_WORKERS \
