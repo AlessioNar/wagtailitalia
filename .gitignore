@@ -5,8 +5,8 @@
 Dockerfile
 */__init__.py
 db.sqlite3
-media/*
 static/*
+media/images/*
 .dockerignore
 deploy_already.sh
 export_db.sh
