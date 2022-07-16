@@ -1,15 +1,17 @@
 from importlib.resources import path
 import os
-from turtle import heading
+from unicodedata import category
 
 from django.conf import settings
 from django.core.files.storage import default_storage, FileSystemStorage
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
-from blog.models import BlogListingPage
 
-from menus.models import Menu, MenuItem, SubmenuItem
 from home.models import HomePage
+from menus.models import Menu, MenuItem, SubmenuItem
+from blog.models import BlogCategory, BlogListingPage, NewsDetailPage, ProjectDetailPage, EventDetailPage, BlogDetailPage # noqa
+
+from wagtail.images.models import Image
 
 from wagtail.core.models import Site, Page
 
@@ -43,39 +45,66 @@ class Command(BaseCommand):
             home.save()
 
             return
-           
-
+    
+    def _create_categories(self):
+        
+        if not BlogCategory.objects.filter(slug='news').exists():
+            cat = BlogCategory(name='News', slug='news')
+            cat.save()
+        
+        if not BlogCategory.objects.filter(slug='events').exists():
+            cat = BlogCategory(name='Events', slug='events')
+            cat.save()
+    
+    def _upload_images(self):
+        
+        Image(title='News 1', file=open(path('wagtailitalia/images/news-1.jpg'), 'rb')).save()
     def _create_pages(self):
 
         # Get the home page 
         home = Page.objects.get(slug="home")
 
         # Create a new blog listing page for news
-        newslistingpage = BlogListingPage(title='News', slug='news', custom_title="News")
+        newslistingpage = BlogListingPage(title='News', slug='news', heading="News")
         home.add_child(instance=newslistingpage)
         newslistingpage.save()
         
         # Create a new blog listing page for events
-        eventslistingpage = BlogListingPage(title='Events', slug='events', custom_title='Events')
+        eventslistingpage = BlogListingPage(title='Events', slug='events', heading='Events')
         home.add_child(instance=eventslistingpage)
         eventslistingpage.save()
 
         # Create a new blog listing page for publications
-        publicationslistingpage = BlogListingPage(title='Publications', slug='publications', custom_title='Publications')
+        publicationslistingpage = BlogListingPage(title='Publications', slug='publications', heading='Publications')
         home.add_child(instance=publicationslistingpage)
         publicationslistingpage.save()
 
         # Create a new blog listing page for partners
-        partnerslistingpage = BlogListingPage(title='Partners', slug='partners', custom_title='Partners')
+        partnerslistingpage = BlogListingPage(title='Partners', slug='partners', heading='Partners')
         home.add_child(instance=partnerslistingpage)
         partnerslistingpage.save()
 
         # Create a new blog listing page for results
-        resultslistingpage = BlogListingPage(title='Results', slug='results', custom_title='Results')
+        resultslistingpage = BlogListingPage(title='Results', slug='results', heading='Results')
         home.add_child(instance=resultslistingpage)
         resultslistingpage.save()
 
         home.save()
+
+        # Get the home page 
+        news = Page.objects.get(slug="news")
+
+        # Create a new blog listing page for news
+        news_1 = NewsDetailPage(title='Welcome to your Wagtailitalia project!', 
+                                slug='news-1',
+                                custom_title='Welcome to your Wagtailitalia project!',
+                                category = BlogCategory.objects.get(slug='news'),
+                                card_image = 'news-1.jpg',
+                                heading_image = 'news-1.jpg',
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        news.add_child(instance=news_1)
+        news_1.save()
 
         return
         #news1 = NewsDetailPage(title='An Article', slug='article-1',
@@ -96,7 +125,7 @@ class Command(BaseCommand):
 
         navbar = Menu.objects.get(slug='navbar')
         navbar.menu_items.add(MenuItem(link_title='Home', link_page=HomePage.objects.get(slug='home')))
-        navbar.menu_items.add(MenuItem(link_title='News & Events', link_url='/'))
+        navbar.menu_items.add(MenuItem(link_title='News & Events'))
         navbar.menu_items.add(MenuItem(link_title='Partners', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Results', link_url='/'))
         navbar.menu_items.add(MenuItem(link_title='Synergies', link_url='/'))
@@ -109,7 +138,7 @@ class Command(BaseCommand):
         newsevent.submenu_items.add(SubmenuItem(link_title='Publications', link_page=BlogListingPage.objects.get(slug='publications')))
         newsevent.save()
 
-        partners = MenuItem.objects.get(link_title='Partners', link_url='/')
+        partners = MenuItem.objects.get(link_title='Partners')
         partners.submenu_items.add(SubmenuItem(link_title='All Partners', link_page=BlogListingPage.objects.get(slug='partners')))
         partners.submenu_items.add(SubmenuItem(link_title='Partner 1', link_url='/'))
         partners.submenu_items.add(SubmenuItem(link_title='Partner 2', link_url='/'))
@@ -127,7 +156,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self._delete_wagtail()
-        self._create_pages()
+        self._create_categories()
+        self._create_pages()        
         self._create_menus()
 
 
