@@ -34,10 +34,6 @@ systemctl restart nginx
 
 exit 0
 
-
-# Copy deployment command
-#scp -r  "${SOURCE_DIR}"/"${NAME}"/"deploy.sh" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/deploy.sh
-
 # Copy media folder
 #scp -r  "${SOURCE_DIR}"/"${NAME}"/"media" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/media
 
