@@ -55,12 +55,24 @@ class Command(BaseCommand):
         if not BlogCategory.objects.filter(slug='events').exists():
             cat = BlogCategory(name='Events', slug='events')
             cat.save()
+        
+        if not BlogCategory.objects.filter(slug='publications').exists():
+            cat = BlogCategory(name='Publications', slug='publications')
+            cat.save()
+        
+        if not BlogCategory.objects.filter(slug='partners').exists():
+            cat = BlogCategory(name='Partners', slug='partners')
+            cat.save()
+        
+        if not BlogCategory.objects.filter(slug='results').exists():
+            cat = BlogCategory(name='Results', slug='results')
+            cat.save()
     
     def _upload_images(self):
-        #if not Image.objects.get(title='image-1'):
-        Image(title='image-1', file='original_images/image-1.jpg').save()
-        Image(title='image-2', file='original_images/image-2.jpg').save()
-        Image(title='image-3', file='original_images/image-3.jpg').save()
+        if len(Image.objects.all()) == 0:
+            Image(title='image-1', file='original_images/image-1.jpg').save()
+            Image(title='image-2', file='original_images/image-2.jpg').save()
+            Image(title='image-3', file='original_images/image-3.jpg').save()
 
     def _create_pages(self):
 
@@ -68,32 +80,34 @@ class Command(BaseCommand):
         home = Page.objects.get(slug="home")
 
         # Create a new blog listing page for news
-        newslistingpage = BlogListingPage(title='News', slug='news', heading="News")
+        newslistingpage = BlogListingPage(title='News', slug='news', heading="News", category=BlogCategory.objects.get(slug='news'))
         home.add_child(instance=newslistingpage)
         newslistingpage.save()
         
         # Create a new blog listing page for events
-        eventslistingpage = BlogListingPage(title='Events', slug='events', heading='Events')
+        eventslistingpage = BlogListingPage(title='Events', slug='events', heading='Events', category=BlogCategory.objects.get(slug='events'))
         home.add_child(instance=eventslistingpage)
         eventslistingpage.save()
 
         # Create a new blog listing page for publications
-        publicationslistingpage = BlogListingPage(title='Publications', slug='publications', heading='Publications')
+        publicationslistingpage = BlogListingPage(title='Publications', slug='publications', heading='Publications', category=BlogCategory.objects.get(slug='publications'))
         home.add_child(instance=publicationslistingpage)
         publicationslistingpage.save()
 
         # Create a new blog listing page for partners
-        partnerslistingpage = BlogListingPage(title='Partners', slug='partners', heading='Partners')
+        partnerslistingpage = BlogListingPage(title='Partners', slug='partners', heading='Partners', category=BlogCategory.objects.get(slug='partners'))
         home.add_child(instance=partnerslistingpage)
         partnerslistingpage.save()
 
         # Create a new blog listing page for results
-        resultslistingpage = BlogListingPage(title='Results', slug='results', heading='Results')
+        resultslistingpage = BlogListingPage(title='Results', slug='results', heading='Results', category=BlogCategory.objects.get(slug='results'))
         home.add_child(instance=resultslistingpage)
         resultslistingpage.save()
 
         home.save()
+        return
 
+    def _create_news(self):
         # Get the home page 
         news = Page.objects.get(slug="news")
 
@@ -132,6 +146,9 @@ class Command(BaseCommand):
         news_3.save()
 
         return
+
+  
+    
 
 
     def _create_menus(self):
