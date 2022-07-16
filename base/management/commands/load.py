@@ -1,5 +1,6 @@
 from importlib.resources import path
 import os
+import json
 from unicodedata import category
 
 from django.conf import settings
@@ -42,7 +43,12 @@ class Command(BaseCommand):
             # Change the slug of the home page to 'home'
             home = HomePage.objects.get(slug='new_home')
             home.slug = 'home'
-            home.save()
+            
+            home.content = json.dumps([
+                {'type':'richtext', 'value': 'Congratulations! Your Wagtailitalia instance is up!'}
+            ])
+            
+            home.save()            
 
             return
     
@@ -78,6 +84,7 @@ class Command(BaseCommand):
 
         # Get the home page 
         home = Page.objects.get(slug="home")
+    
 
         # Create a new blog listing page for news
         newslistingpage = BlogListingPage(title='News', slug='news', heading="News", category=BlogCategory.objects.get(slug='news'))
@@ -103,6 +110,16 @@ class Command(BaseCommand):
         resultslistingpage = BlogListingPage(title='Results', slug='results', heading='Results', category=BlogCategory.objects.get(slug='results'))
         home.add_child(instance=resultslistingpage)
         resultslistingpage.save()
+
+        # Create a contact page
+        contactpage = BlogDetailPage(title='Contact', 
+                                    slug='contact', 
+                                    custom_title='Our team', 
+                                    card_image=Image.objects.get(title='image-1'), 
+                                    heading_image=Image.objects.get(title='image-2'))
+
+        home.add_child(instance=contactpage)
+        contactpage.save()
 
         home.save()
         return
@@ -304,6 +321,14 @@ class Command(BaseCommand):
         result_3.save()
             
         return 
+    
+    def _create_contact(self):
+        contact = Page.objects.get(slug="contact")
+        contact.content = json.dumps([
+                {'type':'horizontal_card', 'title': 'Contact person 1'}
+            ])
+        contact.save()
+
     def _create_menus(self):
 
         # Create a new navbar menu
@@ -318,7 +343,7 @@ class Command(BaseCommand):
             navbar.menu_items.add(MenuItem(link_title='Partners', link_url='/'))
             navbar.menu_items.add(MenuItem(link_title='Results', link_url='/'))
             navbar.menu_items.add(MenuItem(link_title='Synergies', link_url='/'))
-            navbar.menu_items.add(MenuItem(link_title='Contact', link_url='/'))
+            navbar.menu_items.add(MenuItem(link_title='Contact', link_page=BlogDetailPage.objects.get(slug='contact')))
             navbar.save()
 
             # Create sub-menu items for the navbar
@@ -360,6 +385,7 @@ class Command(BaseCommand):
         self._create_publications()
         self._create_partners()     
         self._create_results()
+        self._create_contact()
         self._create_menus()
 
 
