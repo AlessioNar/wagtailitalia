@@ -3,10 +3,10 @@ DOMAIN=$2
 USER=$3
 
 ## Supervisor configuration
-sudo mv ./"config"/"${NAME}".conf /etc/supervisor/conf.d/"${NAME}".conf
+sudo cp -S ./"config"/"${NAME}".conf /etc/supervisor/conf.d/"${NAME}".conf
 
 ## Gunicorn configuration
-sudo cp ./"config"/"gunicorn_start" /home/${USER}"/"${NAME}"/"${NAME}"-env/bin/gunicorn_start"
+cp ./"config"/"gunicorn_start" /home/${USER}"/"${NAME}"/"${NAME}"-env/bin/gunicorn_start"
 cp ./config/gunicorn_start /home/${USER}/${NAME}/${NAME}-env/bin/gunicorn_start
 
 ## Copy Nginx configuration
