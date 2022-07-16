@@ -20,10 +20,9 @@ cp ./config/manage.py ./manage.py
 # Create symbolic link for domain, if it does not exist
 ln -s /etc/nginx/sites-available/"${DOMAIN}" /etc/nginx/sites-enabled/
 
-read -p "Please enter the database password" DB_PASSWORD
-
 # Set up postgresql database
-createdb --owner $USER $NAME 
+createdb --owner $USER $NAME
+
 echo DB_NAME=$NAME >> .env
 echo DB_USER=$USER >> .env
 echo DB_PASSWORD=$DB_PASSWORD >> .env
@@ -42,8 +41,13 @@ python ./manage.py load
 
 # Prompt the user to create at least a super user 
 
-# Restart Supervisor
+# Making supervisor aware of the new application
+
+# Starting the application with supervisor
 supervisorctl restart $NAME
+
+# Restart Supervisor
+
 systemctl restart nginx
 
 # Copy media folder
