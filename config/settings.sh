@@ -6,7 +6,7 @@ USER=$3
 cp ./config/"${NAME}".conf /etc/supervisor/conf.d/"${NAME}".conf
 
 ## Gunicorn configuration
-cp ./config/gunicorn_start /home/"${USER}"/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn_start"
+cp ./config/gunicorn_start /home/"${USER}"/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn_start
 
 ## Copy Nginx configuration
 #cp "${NAME}"/"config/nginx_nocert"/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
