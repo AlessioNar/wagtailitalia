@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NAME=$1
 DOMAIN=$2
 USER=$3

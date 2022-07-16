@@ -2,11 +2,11 @@
 
 NAME=wagtailitalia
 DOMAIN=wagtail-italia.it
+
 DJANGODIR=/home/admin/"${DOMAIN}"
 USER=admin
 GROUP=admin
 NUM_WORKERS=3
-RUNDIR=/home/admin/"${DOMAIN}"/run/
 SOCKFILE=unix:/home/admin/"${DOMAIN}"/run/gunicorn.sock
 
 DJANGO_SETTINGS_MODULE="${NAME}".settings.production
@@ -16,12 +16,9 @@ echo "Starting $NAME as `whoami`"
 
 # Activate the virtual environment
 cd $DJANGODIR
-source /home/admin/"${DOMAIN}"/"${NAME}"-env/bin/activate
+source ./"${NAME}"-env/bin/activate
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
-
-# Create the run directory if it doesn't exist
-#test -d $RUNDIR || mkdir -p $RUNDIR
 
 # Start your Django Gunicorn instance
 exec /home/admin/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
