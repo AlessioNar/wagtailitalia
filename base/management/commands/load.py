@@ -148,9 +148,85 @@ class Command(BaseCommand):
         return
 
   
-    
+    def _create_events(self):
+        events = Page.objects.get(slug="events")
+
+        event_1 = BlogDetailPage(title='Event 1', 
+                                slug = 'event-1',
+                                custom_title='A general-purpose event',
+                                category = BlogCategory.objects.get(slug='events'),
+                                card_image = Image.objects.get(title='image-1'),
+                                heading_image = Image.objects.get(title='image-1'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        events.add_child(instance=event_1)
+        event_1.save()
+        
+        event_2 = BlogDetailPage(title='Event 2',
+                                slug = 'event-2',
+                                custom_title='Another general-purpose event',
+                                category = BlogCategory.objects.get(slug='events'),
+                                card_image = Image.objects.get(title='image-2'),
+                                heading_image = Image.objects.get(title='image-2'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        events.add_child(instance=event_2)
+        event_2.save()
 
 
+        event_3 = BlogDetailPage(title='Event 3',
+                                slug = 'event-3',
+                                custom_title='A third general-purpose event',
+                                category = BlogCategory.objects.get(slug='events'),
+                                card_image = Image.objects.get(title='image-3'),
+                                heading_image = Image.objects.get(title='image-3'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        events.add_child(instance=event_3)
+        event_3.save()
+        
+        
+        return 
+
+    def _create_publications(self):
+        publications = Page.objects.get(slug="publications")
+
+        publication_1 = BlogDetailPage(title='Publication 1', 
+                                slug = 'publication-1',
+                                custom_title='A general-purpose publication',
+                                category = BlogCategory.objects.get(slug='publications'),
+                                card_image = Image.objects.get(title='image-1'),
+                                heading_image = Image.objects.get(title='image-1'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        publications.add_child(instance=publication_1)
+        publication_1.save()
+        
+        publication_2 = BlogDetailPage(title='Publication 2',
+                                slug = 'publication-2',
+                                custom_title='Another general-purpose publication',
+                                category = BlogCategory.objects.get(slug='publications'),
+                                card_image = Image.objects.get(title='image-2'),
+                                heading_image = Image.objects.get(title='image-2'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        publications.add_child(instance=publication_2)
+        publication_2.save()
+
+
+        publication_3 = BlogDetailPage(title='Publication 3',
+                                slug = 'publication-3',
+                                custom_title='A third general-purpose publication',
+                                category = BlogCategory.objects.get(slug='publications'),
+                                card_image = Image.objects.get(title='image-3'),
+                                heading_image = Image.objects.get(title='image-3'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        publications.add_child(instance=publication_3)
+        publication_3.save()
+        
+        
+        return 
     def _create_menus(self):
 
         # Create a new navbar menu
@@ -201,7 +277,9 @@ class Command(BaseCommand):
         self._delete_wagtail()
         self._upload_images()
         self._create_categories()
-        self._create_pages()        
+        self._create_pages()
+        self._create_news()        
+        self._create_events()        
         self._create_menus()
 
 
