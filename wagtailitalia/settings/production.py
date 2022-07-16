@@ -2,7 +2,7 @@ from .base import *
 from dotenv import load_dotenv
 load_dotenv()
 
-NAME = os.getenv('DOMAIN')
+DOMAIN = os.getenv('DOMAIN')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DATABASES = {
