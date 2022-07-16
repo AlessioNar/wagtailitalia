@@ -9,10 +9,10 @@ cp ./config/"${NAME}".conf /etc/supervisor/conf.d/"${NAME}".conf
 cp ./config/gunicorn_start /home/"${USER}"/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn_start
 
 ## Copy Nginx configuration
-#cp "${NAME}"/"config/nginx_nocert"/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
+cp "${NAME}"/config/nginx_nocert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
 
 # Set up manage.py to use production settings
-#scp -r  "${SOURCE_DIR}"/"${NAME}"/"manage.py" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/manage.py
+cp ./config/manage.py ./manage.py
 
 ## Set up environmental variables for production environment
 #scp -r  "${SOURCE_DIR}"/"${NAME}"/".env" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/.env
