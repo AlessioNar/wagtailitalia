@@ -7,9 +7,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DATABASES = {
         'default': {
-            # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            # In production we use postgresql
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            # Or path to database file if using sqlite3.
             'NAME': os.getenv('DB_NAME'),
             'USER': os.getenv('DB_USER'),
             'PASSWORD': os.getenv('DB_PASSWORD'),

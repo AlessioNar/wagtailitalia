@@ -3,6 +3,7 @@
 NAME=$1
 DOMAIN=$2
 USER=$3
+DB_PASSWORD=$4
 
 ## Supervisor configuration
 cp ./config/"${NAME}".conf /etc/supervisor/conf.d/"${NAME}".conf
@@ -19,8 +20,13 @@ cp ./config/manage.py ./manage.py
 # Create symbolic link for domain, if it does not exist
 ln -s /etc/nginx/sites-available/"${DOMAIN}" /etc/nginx/sites-enabled/
 
+read -p "Please enter the database password" DB_PASSWORD
+
 # Set up postgresql database
-#sudo -u postgres psql -c "CREATE USER ${USER} WITH PASSWORD '${USER}';"
+createdb --owner $USER $NAME 
+echo DB_NAME=$NAME >> .env
+echo DB_USER=$USER >> .env
+echo DB_PASSWORD=$DB_PASSWORD >> .env
 
 # Generate a random SECRET_KEY and append it as an environmental variable
 secret_key=$(openssl rand -base64 100 | tr -d '\n')
