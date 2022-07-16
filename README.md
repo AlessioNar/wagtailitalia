@@ -6,8 +6,16 @@ It intends to promote competition in the CMS industry, reduce the costs for publ
 
 It is based on Wagtail an open-source solution based on the versatile Django framework, which was chosen for prototyping speed and security features.
 
+# Getting started
+
+Download ```install.sh``` and launch a new project in development 
+
+```
+./install.sh 
+```
+
 # Editor's guide
 
 ## Come configurare un nuovo progetto Wagtailitalia
 
-Entrare nel sito web all'indirizzo
+
