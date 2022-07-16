@@ -3,14 +3,14 @@ DOMAIN=$2
 USER=$3
 
 ## Supervisor configuration
-sudo cp -S ./"config"/"${NAME}".conf /etc/supervisor/conf.d/"${NAME}".conf
+cp ./config/"${NAME}".conf /etc/supervisor/conf.d/"${NAME}".conf
 
 ## Gunicorn configuration
-cp ./"config"/"gunicorn_start" /home/${USER}"/"${NAME}"/"${NAME}"-env/bin/gunicorn_start"
-cp ./config/gunicorn_start /home/${USER}/${NAME}/${NAME}-env/bin/gunicorn_start
+#cp ./"config"/"gunicorn_start" /home/${USER}"/"${NAME}"/"${NAME}"-env/bin/gunicorn_start"
+#cp ./config/gunicorn_start /home/${USER}/${NAME}/${NAME}-env/bin/gunicorn_start
 
 ## Copy Nginx configuration
-cp "${NAME}"/"config/nginx_nocert"/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
+#cp "${NAME}"/"config/nginx_nocert"/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
 
 # Set up manage.py to use production settings
 #scp -r  "${SOURCE_DIR}"/"${NAME}"/"manage.py" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/manage.py
