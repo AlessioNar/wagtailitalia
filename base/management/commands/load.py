@@ -57,8 +57,11 @@ class Command(BaseCommand):
             cat.save()
     
     def _upload_images(self):
-        
-        Image(title='News 1', file=open(path('wagtailitalia/images/news-1.jpg'), 'rb')).save()
+        #if not Image.objects.get(title='image-1'):
+        Image(title='image-1', file='original_images/image-1.jpg').save()
+        Image(title='image-2', file='original_images/image-2.jpg').save()
+        Image(title='image-3', file='original_images/image-3.jpg').save()
+
     def _create_pages(self):
 
         # Get the home page 
@@ -99,63 +102,87 @@ class Command(BaseCommand):
                                 slug='news-1',
                                 custom_title='Welcome to your Wagtailitalia project!',
                                 category = BlogCategory.objects.get(slug='news'),
-                                card_image = 'news-1.jpg',
-                                heading_image = 'news-1.jpg',
+                                card_image = Image.objects.get(title='image-1'),
+                                heading_image = Image.objects.get(title='image-1'),
                                 intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
                                 )
         news.add_child(instance=news_1)
         news_1.save()
 
-        return
-        #news1 = NewsDetailPage(title='An Article', slug='article-1',
-        #                       depth=3, path='000100010001')
-        #
-        #root_page.add_child(instance=new_home)                        
-        #news1.save()
+        news_2 = NewsDetailPage(title='A second blog post',
+                                slug = 'news-2',
+                                custom_title='A second blog post',
+                                category = BlogCategory.objects.get(slug='news'),
+                                card_image = Image.objects.get(title='image-2'),
+                                heading_image = Image.objects.get(title='image-2'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        news.add_child(instance=news_2)
+        news_2.save()
+        
+        news_3 = NewsDetailPage(title='A third blog post',
+                                slug = 'news-3',
+                                custom_title='A third blog post',
+                                category = BlogCategory.objects.get(slug='news'),
+                                card_image = Image.objects.get(title='image-3'),
+                                heading_image = Image.objects.get(title='image-3'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        news.add_child(instance=news_3)
+        news_3.save()
 
+        return
 
 
     def _create_menus(self):
+
+        # Create a new navbar menu
         if not Menu.objects.filter(slug='navbar').exists():
             navbar = Menu(title='Navbar', slug='navbar')
             navbar.save()
+            
+            # Create new menu items for the navbar
+            navbar = Menu.objects.get(slug='navbar')
+            navbar.menu_items.add(MenuItem(link_title='Home', link_page=HomePage.objects.get(slug='home')))
+            navbar.menu_items.add(MenuItem(link_title='News & Events'))
+            navbar.menu_items.add(MenuItem(link_title='Partners', link_url='/'))
+            navbar.menu_items.add(MenuItem(link_title='Results', link_url='/'))
+            navbar.menu_items.add(MenuItem(link_title='Synergies', link_url='/'))
+            navbar.menu_items.add(MenuItem(link_title='Contact', link_url='/'))
+            navbar.save()
+
+            # Create sub-menu items for the navbar
+            newsevent = MenuItem.objects.get(link_title='News & Events')
+            newsevent.submenu_items.add(SubmenuItem(link_title='News', link_page=BlogListingPage.objects.get(slug='news')))
+            newsevent.submenu_items.add(SubmenuItem(link_title='Events', link_page=BlogListingPage.objects.get(slug='events')))
+            newsevent.submenu_items.add(SubmenuItem(link_title='Publications', link_page=BlogListingPage.objects.get(slug='publications')))
+            newsevent.save()
+
+            partners = MenuItem.objects.get(link_title='Partners')
+            partners.submenu_items.add(SubmenuItem(link_title='All Partners', link_page=BlogListingPage.objects.get(slug='partners')))
+            partners.submenu_items.add(SubmenuItem(link_title='Partner 1', link_url='/'))
+            partners.submenu_items.add(SubmenuItem(link_title='Partner 2', link_url='/'))
+            partners.submenu_items.add(SubmenuItem(link_title='Partner 3', link_url='/'))
+            partners.save()
+
+            results = MenuItem.objects.get(link_title='Results', link_url='/')
+            results.submenu_items.add(SubmenuItem(link_title='All Results', link_page=BlogListingPage.objects.get(slug='results')))
+            results.submenu_items.add(SubmenuItem(link_title='Result 1', link_url='/'))
+            results.submenu_items.add(SubmenuItem(link_title='Result 2', link_url='/'))
+            results.submenu_items.add(SubmenuItem(link_title='Result 3', link_url='/'))
+            results.save()
+
         if not Menu.objects.filter(slug='footer').exists():
             footer = Menu(title='Footer', slug='footer')
             footer.save()
 
-        navbar = Menu.objects.get(slug='navbar')
-        navbar.menu_items.add(MenuItem(link_title='Home', link_page=HomePage.objects.get(slug='home')))
-        navbar.menu_items.add(MenuItem(link_title='News & Events'))
-        navbar.menu_items.add(MenuItem(link_title='Partners', link_url='/'))
-        navbar.menu_items.add(MenuItem(link_title='Results', link_url='/'))
-        navbar.menu_items.add(MenuItem(link_title='Synergies', link_url='/'))
-        navbar.menu_items.add(MenuItem(link_title='Contact', link_url='/'))
-        navbar.save()
         
-        newsevent = MenuItem.objects.get(link_title='News & Events')
-        newsevent.submenu_items.add(SubmenuItem(link_title='News', link_page=BlogListingPage.objects.get(slug='news')))
-        newsevent.submenu_items.add(SubmenuItem(link_title='Events', link_page=BlogListingPage.objects.get(slug='events')))
-        newsevent.submenu_items.add(SubmenuItem(link_title='Publications', link_page=BlogListingPage.objects.get(slug='publications')))
-        newsevent.save()
-
-        partners = MenuItem.objects.get(link_title='Partners')
-        partners.submenu_items.add(SubmenuItem(link_title='All Partners', link_page=BlogListingPage.objects.get(slug='partners')))
-        partners.submenu_items.add(SubmenuItem(link_title='Partner 1', link_url='/'))
-        partners.submenu_items.add(SubmenuItem(link_title='Partner 2', link_url='/'))
-        partners.submenu_items.add(SubmenuItem(link_title='Partner 3', link_url='/'))
-        partners.save()
-
-        results = MenuItem.objects.get(link_title='Results', link_url='/')
-        results.submenu_items.add(SubmenuItem(link_title='All Results', link_page=BlogListingPage.objects.get(slug='results')))
-        results.submenu_items.add(SubmenuItem(link_title='Result 1', link_url='/'))
-        results.submenu_items.add(SubmenuItem(link_title='Result 2', link_url='/'))
-        results.submenu_items.add(SubmenuItem(link_title='Result 3', link_url='/'))
-        results.save()
 
         return
 
     def handle(self, *args, **options):
         self._delete_wagtail()
+        self._upload_images()
         self._create_categories()
         self._create_pages()        
         self._create_menus()
