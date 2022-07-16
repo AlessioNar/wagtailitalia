@@ -1,4 +1,4 @@
-#! usr/bin/bash
+#!/bin/bash
 
 NAME=$1
 DOMAIN=$2
