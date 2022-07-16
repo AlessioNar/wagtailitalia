@@ -224,8 +224,85 @@ class Command(BaseCommand):
                                 )
         publications.add_child(instance=publication_3)
         publication_3.save()
+            
+        return 
+
+    def _create_partners(self):
+        partners = Page.objects.get(slug="partners")
+
+        partner_1 = BlogDetailPage(title='partner 1', 
+                                slug = 'partner-1',
+                                custom_title='A general-purpose partner',
+                                category = BlogCategory.objects.get(slug='partners'),
+                                card_image = Image.objects.get(title='image-1'),
+                                heading_image = Image.objects.get(title='image-1'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        partners.add_child(instance=partner_1)
+        partner_1.save()
         
+        partner_2 = BlogDetailPage(title='partner 2',
+                                slug = 'partner-2',
+                                custom_title='Another general-purpose partner',
+                                category = BlogCategory.objects.get(slug='partners'),
+                                card_image = Image.objects.get(title='image-2'),
+                                heading_image = Image.objects.get(title='image-2'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        partners.add_child(instance=partner_2)
+        partner_2.save()
+
+
+        partner_3 = BlogDetailPage(title='partner 3',
+                                slug = 'partner-3',
+                                custom_title='A third general-purpose partner',
+                                category = BlogCategory.objects.get(slug='partners'),
+                                card_image = Image.objects.get(title='image-3'),
+                                heading_image = Image.objects.get(title='image-3'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        partners.add_child(instance=partner_3)
+        partner_3.save()
+            
+        return 
+
+    def _create_results(self):
+        results = Page.objects.get(slug="results")
+
+        result_1 = BlogDetailPage(title='result 1', 
+                                slug = 'result-1',
+                                custom_title='A general-purpose result',
+                                category = BlogCategory.objects.get(slug='results'),
+                                card_image = Image.objects.get(title='image-1'),
+                                heading_image = Image.objects.get(title='image-1'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        results.add_child(instance=result_1)
+        result_1.save()
         
+        result_2 = BlogDetailPage(title='result 2',
+                                slug = 'result-2',
+                                custom_title='Another general-purpose result',
+                                category = BlogCategory.objects.get(slug='results'),
+                                card_image = Image.objects.get(title='image-2'),
+                                heading_image = Image.objects.get(title='image-2'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        results.add_child(instance=result_2)
+        result_2.save()
+
+
+        result_3 = BlogDetailPage(title='result 3',
+                                slug = 'result-3',
+                                custom_title='A third general-purpose result',
+                                category = BlogCategory.objects.get(slug='results'),
+                                card_image = Image.objects.get(title='image-3'),
+                                heading_image = Image.objects.get(title='image-3'),
+                                intro = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero sit amet elit faucibus blandit vel sit amet lacus. Integer efficitur, nisl eu scelerisque posuere, mi eros dignissim dolor, ut interdum nisl enim sed dui. Suspendisse maximus risus vel viverra imperdiet.',
+                                )
+        results.add_child(instance=result_3)
+        result_3.save()
+            
         return 
     def _create_menus(self):
 
@@ -253,16 +330,16 @@ class Command(BaseCommand):
 
             partners = MenuItem.objects.get(link_title='Partners')
             partners.submenu_items.add(SubmenuItem(link_title='All Partners', link_page=BlogListingPage.objects.get(slug='partners')))
-            partners.submenu_items.add(SubmenuItem(link_title='Partner 1', link_url='/'))
-            partners.submenu_items.add(SubmenuItem(link_title='Partner 2', link_url='/'))
-            partners.submenu_items.add(SubmenuItem(link_title='Partner 3', link_url='/'))
+            partners.submenu_items.add(SubmenuItem(link_title='Partner 1', link_page=BlogDetailPage.objects.get(slug='partner-1')))
+            partners.submenu_items.add(SubmenuItem(link_title='Partner 2', link_page=BlogDetailPage.objects.get(slug='partner-2')))
+            partners.submenu_items.add(SubmenuItem(link_title='Partner 3', link_page=BlogDetailPage.objects.get(slug='partner-3')))
             partners.save()
 
             results = MenuItem.objects.get(link_title='Results', link_url='/')
             results.submenu_items.add(SubmenuItem(link_title='All Results', link_page=BlogListingPage.objects.get(slug='results')))
-            results.submenu_items.add(SubmenuItem(link_title='Result 1', link_url='/'))
-            results.submenu_items.add(SubmenuItem(link_title='Result 2', link_url='/'))
-            results.submenu_items.add(SubmenuItem(link_title='Result 3', link_url='/'))
+            results.submenu_items.add(SubmenuItem(link_title='Result 1', link_page=BlogDetailPage.objects.get(slug='result-1')))
+            results.submenu_items.add(SubmenuItem(link_title='Result 2', link_page=BlogDetailPage.objects.get(slug='result-2')))
+            results.submenu_items.add(SubmenuItem(link_title='Result 3', link_page=BlogDetailPage.objects.get(slug='result-3')))
             results.save()
 
         if not Menu.objects.filter(slug='footer').exists():
@@ -279,7 +356,10 @@ class Command(BaseCommand):
         self._create_categories()
         self._create_pages()
         self._create_news()        
-        self._create_events()        
+        self._create_events()
+        self._create_publications()
+        self._create_partners()     
+        self._create_results()
         self._create_menus()
 
 
