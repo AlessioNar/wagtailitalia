@@ -9,7 +9,7 @@ cp ./config/"${NAME}".conf /etc/supervisor/conf.d/"${NAME}".conf
 cp ./config/gunicorn_start /home/"${USER}"/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn_start
 
 ## Copy Nginx configuration
-cp "${DOMAIN}"/config/nginx_nocert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
+cp ./config/nginx_nocert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
 
 # Set up manage.py to use production settings
 cp ./config/manage.py ./manage.py
