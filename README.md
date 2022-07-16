@@ -11,7 +11,7 @@ It is based on Wagtail an open-source solution based on the versatile Django fra
 Download ```install.sh``` and launch a new project in development 
 
 ```
-./install.sh 
+./install.sh staging newproject new-project.it 
 ```
 
 # Editor's guide
