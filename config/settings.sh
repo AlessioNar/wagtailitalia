@@ -19,8 +19,13 @@ cp ./config/manage.py ./manage.py
 # Create symbolic link for domain
 ln -s /etc/nginx/sites-available/"${DOMAIN}" /etc/nginx/sites-enabled/
 
+# Set up postgresql database
+
 ## Set up environmental variables for production environment
 #scp -r  "${SOURCE_DIR}"/"${NAME}"/".env" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/.env
+
+# Create a random SECRET_KEY and append it as an environmental variable
+#openssl rand >> .env
 
 # Activate virtual environment
 source ./"${NAME}"-env/bin/activate && \
@@ -28,7 +33,10 @@ source ./"${NAME}"-env/bin/activate && \
 pip install -r ./requirements.txt && \
 python ./manage.py collectstatic --noinput && \
 python ./manage.py makemigrations && \
-python ./manage.py migrate
+python ./manage.py migrate && \
+python ./manage.py load
+
+# Prompt the user to create at least a super user 
 
 # Restart Supervisor
 supervisorctl restart $NAME
