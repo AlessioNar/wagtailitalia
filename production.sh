@@ -1,14 +1,20 @@
+#! usr/bin/bash
+
 NAME=$1
 DOMAIN=$2
 
-read -p "Enter ip address: " IP_ADDRESS
-read -p "Enter user: " USER
+WI_OCCURRENCES="s/wagtailitalia*"/"${NAME}"/"g"
+INTEXT_OCCURRENCES="s/wagtailitalia"/"${NAME}"/"g"
+DOMAIN_OCCURRENCES="s/wagtail-italia.it"/"${DOMAIN}"/"g"
 
-REPOSITORY="https://github.com/AlessioNar/wagtailitalia"
-echo $REPOSITORY
+# Renaming project variables so that they match the new project name
+find . -iname "wagtailitalia*" | rename $WI_OCCURRENCES && rename $WI_OCCURRENCES
+find . -iname "wagtail-italia.it" | rename $DOMAIN_OCCURRENCES
+grep -RiIl "wagtailitalia" | xargs sed -i $INTEXT_OCCURRENCES
+grep -RiIl "wagtail-italia.it" | xargs sed -i $DOMAIN_OCCURRENCES
 
-ssh "${USER}"@"${IP_ADDRESS}" git clone $REPOSITORY $DOMAIN
+exit 0
 
-ssh "${USER}"@"${IP_ADDRESS}" cd $DOMAIN && \
-chmod u+x deploy.sh && \
-./deploy.sh $NAME $DOMAIN
+#ssh "${USER}"@"${IP_ADDRESS}" cd $DOMAIN && \
+#chmod u+x deploy.sh && \
+#./deploy.sh $NAME $DOMAIN
