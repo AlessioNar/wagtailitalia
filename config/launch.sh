@@ -38,11 +38,13 @@ sudo supervisorctl start "${NAME}"
 # Restart Nginx server
 sudo systemctl restart nginx
 
+exit 0
+
 # Copy media folder
- #scp -r  "${SOURCE_DIR}"/"${NAME}"/"media" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/media
+#scp -r  "${SOURCE_DIR}"/"${NAME}"/"media" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/media
 
 # Setting up SSL connection
- if [ $4 == '--ssl' ]; then
+ if [ "$4" == '--ssl' ]; then
     sudo certbot certonly --agree-tos --email "${EMAIL}" -d "${DOMAIN}"
     sudo cp ./config/nginx_cert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
 fi
