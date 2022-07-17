@@ -13,3 +13,4 @@ export_db.sh
 whole.json
 update.sh
 install.sh
+.production-env
