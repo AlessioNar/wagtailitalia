@@ -1,5 +1,3 @@
-user www-data;
-
 upstream wagtailitalia_app_server {
     server unix:/home/admin/wagtail-italia.it/run/gunicorn.sock fail_timeout=0;
 }
