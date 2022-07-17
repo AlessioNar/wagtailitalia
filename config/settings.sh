@@ -9,6 +9,7 @@ cp ./config/"${NAME}".conf /etc/supervisor/conf.d/"${NAME}".conf
 
 ## Gunicorn configuration
 cp ./config/gunicorn_start /home/"${USER}"/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn_start
+sudo chmod u+x /home/"${USER}"/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn_start
 
 ## Copy Nginx configuration
 cp ./config/nginx_nocert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"

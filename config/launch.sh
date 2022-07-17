@@ -17,14 +17,17 @@ echo SECRET_KEY=$secret_key >> .env
 source ./"${NAME}"-env/bin/activate && \
 pip install -r ./requirements.txt && \
 python ./manage.py collectstatic --noinput && \
-python ./manage.py makemigrations blog flex home streams menus site_settings websites & \
+python ./manage.py makemigrations blog flex home streams menus site_settings websites && \
 python ./manage.py migrate && \
 python ./manage.py load
 
-# Prompt the user to create at least a super user 
-echo "Create a super user"
+# Create superuser
 
-# Making supervisor 9aware of the new application
+mkdir ../logs/${NAME}
+touch ../logs/${NAME}/gunicorn_supervisor.log
+echo "Created log files"
+
+# Making supervisor aware of the new application
 sudo supervisorctl reread 
 sudo supervisorctl add "${NAME}"
 sudo supervisorctl update
