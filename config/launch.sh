@@ -30,7 +30,6 @@ echo "Created log files"
 # Making supervisor aware of the new application
 sudo supervisorctl reread 
 sudo supervisorctl add "${NAME}"
-sudo supervisorctl update
 
 # Starting the application with supervisor
 sudo supervisorctl start "${NAME}"
