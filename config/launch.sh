@@ -17,7 +17,7 @@ echo SECRET_KEY=$secret_key >> .env
 source ./"${NAME}"-env/bin/activate && \
 pip install -r ./requirements.txt && \
 python ./manage.py collectstatic --noinput && \
-python ./manage.py makemigrations && \
+python ./manage.py makemigrations blog flex home streams menus site_settings websites & \
 python ./manage.py migrate && \
 python ./manage.py load
 
