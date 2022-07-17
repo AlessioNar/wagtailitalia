@@ -42,7 +42,7 @@ sudo systemctl restart nginx
  #scp -r  "${SOURCE_DIR}"/"${NAME}"/"media" "${USER}"@"${IP_ADDRESS}":/home/"${USER}"/"${DOMAIN}"/media
 
 # Setting up SSL connection
- if [ $4 == '--ssl']; then
-    certbot certonly --agree-tos --email "${EMAIL}" -d "${DOMAIN}"
-    cp ./config/nginx_cert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
+ if [ $4 == '--ssl' ]; then
+    sudo certbot certonly --agree-tos --email "${EMAIL}" -d "${DOMAIN}"
+    sudo cp ./config/nginx_cert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
 fi

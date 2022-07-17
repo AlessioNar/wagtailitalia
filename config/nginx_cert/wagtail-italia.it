@@ -1,4 +1,4 @@
-upstream hope_app_server {
+upstream wagtailitalia_app_server {
     server unix:/home/admin/wagtail-italia.it/run/gunicorn.sock fail_timeout=0;
 }
 
