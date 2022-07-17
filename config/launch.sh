@@ -2,7 +2,7 @@
 
 NAME=$1
 USER=$2
-DB_PASSWORD=3
+DB_PASSWORD=$3
 
 # Print access credentials to the environmental variable
 echo DB_NAME=$NAME >> .env
@@ -42,4 +42,4 @@ sudo systemctl restart nginx
  if [ $4 == '--ssl']; then
     certbot certonly --agree-tos --email "${EMAIL}" -d "${DOMAIN}"
     cp ./config/nginx_cert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
-f
+fi
