@@ -20,6 +20,7 @@ echo "General log folders and files created"
 # Configure Firewall
 sudo ufw allow 'Nginx Full'
 sudo ufw allow 'OpenSSH'
+sudo ufw allow 80
 sudo ufw --force enable
 echo "Firewall configured"
 

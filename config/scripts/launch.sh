@@ -12,6 +12,8 @@ then
     echo "Generate system-wide log folders and files"
 fi 
 
+source hope-heatwaves.eu/hopeheatwaveseu-env/bin/activate && \
+sudo chmod guo+x hope-heatwaves.eu/hopeheatwaveseu-env/bin/gunicorn_start 
 
 mkdir /home/admin/logs/${NAME}
 echo "Created application log files"
