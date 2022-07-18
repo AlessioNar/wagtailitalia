@@ -16,20 +16,25 @@ fi
 mkdir /home/admin/logs/${NAME}
 echo "Created application log files"
 
+# Configure supervisor
+sudo supervisorctl reread && sudo supervisorctl update
+#sudo systemctl restart nginx
+
+
 # Configure Systemd files 
-sudo systemctl daemon-reload
-sudo systemctl enable --now gunicorn.socket
-sudo systemctl restart gunicorn.socket
-echo "Configured Systemd files"
+#sudo systemctl daemon-reload
+#sudo systemctl enable --now gunicorn.socket
+#sudo systemctl restart gunicorn.socket
+#echo "Configured Systemd files"
 
 # Restart Nginx server
-sudo systemctl restart nginx
+#sudo systemctl restart nginx
 
 exit 0
 
-read -p "Please enter the email address to be https compliant and obtain a certificate from Let's Encrypt" EMAIL
-sudo certbot certonly --agree-tos --email "${EMAIL}" -d "${DOMAIN}"
-sudo cp ./config/nginx_cert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
+#read -p "Please enter the email address to be https compliant and obtain a certificate from Let's Encrypt" EMAIL
+#sudo certbot certonly --agree-tos --email "${EMAIL}" -d "${DOMAIN}"
+#sudo cp ./config/nginx_cert/"${DOMAIN}" /etc/nginx/sites-available/"${DOMAIN}"
 
 # Restarting the application with supervisor
 sudo supervisorctl restart "${NAME}"
