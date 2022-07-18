@@ -4,6 +4,7 @@ load_dotenv()
 
 DOMAIN = os.getenv('DOMAIN')
 SECRET_KEY = os.getenv('SECRET_KEY')
+IP_ADDRESS = os.getenv('IP_ADDRESS')
 
 DATABASES = {
         'default': {
@@ -20,7 +21,7 @@ DATABASES = {
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['IP_ADDRESS', DOMAIN, 'localhost']
+ALLOWED_HOSTS = [IP_ADDRESS, DOMAIN, 'localhost']
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
