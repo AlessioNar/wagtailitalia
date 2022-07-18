@@ -9,4 +9,6 @@ adduser admin sudo
 
 logout
 
+ssh-copy-id -i ~/.ssh/id_rsa admin@139.162.184.175
+
 exit 0

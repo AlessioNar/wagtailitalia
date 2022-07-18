@@ -15,6 +15,9 @@ mkdir ../logs/${NAME}
 touch ../logs/${NAME}/gunicorn_supervisor.log
 echo "Created log files"
 
+sudo systemctl start gunicorn.socket
+sudo systemctl enable gunicorn.socket
+
 # Making supervisor aware of the new application
 sudo supervisorctl reread 
 echo "Supervisor list updated"
