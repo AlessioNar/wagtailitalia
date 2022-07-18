@@ -1,7 +1,9 @@
 #! /bin/bash
 
 NAME=$1
+DOMAIN=$3
 USER=$2
+
 
 if [ ! -d "/home/admin/logs" ]
 then 
