@@ -3,9 +3,9 @@
 NAME=$1
 DOMAIN=$2
 
-sudo supervisorctl stop $NAME
-sudo supervisorctl remove $NAME
-sudo rm /etc/supervisor/conf.d/${NAME}.conf
+#sudo supervisorctl stop $NAME
+#sudo supervisorctl remove $NAME
+#sudo rm /etc/supervisor/conf.d/${NAME}.conf
 
 
 if [ -z $DOMAIN ]; then

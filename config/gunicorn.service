@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=notify
-User=admin
+User=www-data
 Group=www-data
 RuntimeDirectory=gunicorn
 WorkingDirectory=/home/admin/wagtail-italia.it

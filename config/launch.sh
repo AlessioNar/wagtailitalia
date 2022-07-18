@@ -9,24 +9,28 @@ then
     touch /home/admin/logs/gunicorn_supervisor.log
     touch /home/admin/logs/nginx-error.log
     touch /home/admin/logs/nginx-access.log
+    echo "Generate system-wide log folders and files"
 fi 
+
 
 mkdir ../logs/${NAME}
 touch ../logs/${NAME}/gunicorn_supervisor.log
-echo "Created log files"
+echo "Created application log files"
 
+# Configure Systemd files 
 sudo systemctl start gunicorn.socket
-sudo systemctl enable gunicorn.socket
+sudo systemctl enable --now gunicorn.socket
+sudo systemctl daemon-reload
 
 # Making supervisor aware of the new application
-sudo supervisorctl reread 
-echo "Supervisor list updated"
+#sudo supervisorctl reread 
+#echo "Supervisor list updated"
 
-sudo supervisorctl add "${NAME}"
-echo "added supervisor process group"
+#sudo supervisorctl add "${NAME}"
+#echo "added supervisor process group"
 
 # Starting the application with supervisor
-sudo supervisorctl start "${NAME}"
+#sudo supervisorctl start "${NAME}"
 
 # Restart Nginx server
 sudo systemctl restart nginx
