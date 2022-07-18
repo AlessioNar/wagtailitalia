@@ -12,9 +12,10 @@ if [ -z $DOMAIN ]; then
     echo "Domain not specified"
 else
     rm -rf /home/admin/${DOMAIN}
+    rm -rf /home/admin/logs/${NAME}
+
 fi
 
-sudo rm -rf /home/admin/logs/${NAME}
 
 psql -c 'DROP DATABASE '$NAME';'
 sudo rm /etc/nginx/sites-enabled/${DOMAIN}

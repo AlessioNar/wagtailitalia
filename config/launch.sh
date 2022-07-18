@@ -6,9 +6,9 @@ USER=$2
 if [ ! -d "/home/admin/logs" ]
 then 
     mkdir /home/admin/logs
-    touch /home/admin/gunicorn_supervisor.log
-    touch /home/admin/nginx-error.log
-    touch /home/admin/nginx-access.log
+    touch /home/admin/logs/gunicorn_supervisor.log
+    touch /home/admin/logs/nginx-error.log
+    touch /home/admin/logs/nginx-access.log
 fi 
 
 mkdir ../logs/${NAME}

@@ -1,8 +1,11 @@
 #!/bin/bash 
 
 # Install required libraries
-sudo apt install -y nginx python3-virtualenv supervisor python3-pip python3-dev libpq-dev curl postgresql postgresql-contrib
+sudo apt install -y nginx python3-virtualenv supervisor python3-pip python3-dev libpq-dev curl postgresql postgresql-contrib rename
 echo "Installing required packages"
+
+sudo locale-gen "it_US.UTF-8"
+echo "Locale set to it_US.UTF-8"
 
 # Create postgres database and configure user admin
 sudo su - postgres psql -c 'CREATE USER $USER WITH ENCRYPTED PASSWORD $DB_PASSWORD;'
@@ -16,6 +19,7 @@ echo "Log folders and files created"
 
 # Configure Firewall
 sudo ufw allow 'Nginx Full'
+sudo ufw allow 'OpenSSH'
 sudo ufw --force enable
 echo "Firewall configured"
 
