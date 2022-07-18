@@ -3,7 +3,7 @@ Description=gunicorn socket
 
 [Socket]
 ListenStream=/home/admin/wagtail-italia.it/run/gunicorn.sock
-SocketUser=www-data
+SocketUser=admin
 
 [Install]
 WantedBy=sockets.target

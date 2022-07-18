@@ -6,8 +6,9 @@ DOMAIN=$2
 sudo supervisorctl stop $NAME
 sudo supervisorctl remove $NAME
 sudo supervisorctl reread 
-sudo rm /etc/supervisor/conf.d/${NAME}.conf
 
+sudo rm /etc/supervisor/conf.d/${NAME}.conf
+echo "Removed supervisor configuration"
 
 if [ -z $DOMAIN ]; then
     echo "Domain not specified"
