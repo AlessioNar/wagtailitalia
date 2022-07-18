@@ -9,12 +9,7 @@ User=www-data
 Group=www-data
 RuntimeDirectory=gunicorn
 WorkingDirectory=/home/admin/wagtail-italia.it
-ExecStart=/home/admin/wagtail-italia.it/wagtailitalia-env/bin/gunicorn \          
-          --log-level=debug \
-          --log-file=/home/admin/logs/wagtailitalia/gunicorn_supervisor.log \
-          --workers 3 \
-          --bind unix:/home/admin/wagtail-italia.it/run/gunicorn.sock \
-          wagtailitalia.wsgi:application
+ExecStart=/home/admin/wagtail-italia.it/wagtailitalia-env/bin/gunicorn_start 
 
 ExecReload=/bin/kill -s HUP $MAINPID
 KillMode=mixed

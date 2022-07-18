@@ -13,8 +13,8 @@ then
 fi 
 
 
-mkdir ../logs/${NAME}
-touch ../logs/${NAME}/gunicorn_supervisor.log
+mkdir /home/admin/logs/${NAME}
+touch home/admin/logs/${NAME}/gunicorn_supervisor.log
 echo "Created application log files"
 
 # Configure Systemd files 
