@@ -5,7 +5,7 @@ DOMAIN=$2
 
 sudo supervisorctl stop $NAME
 sudo supervisorctl remove $NAME
-sudo supervisorctl reread && sudo supervisorctl update
+sudo supervisorctl reread 
 sudo rm /etc/supervisor/conf.d/${NAME}.conf
 
 
