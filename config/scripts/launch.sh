@@ -1,8 +1,9 @@
 #! /bin/bash
 
 NAME=$1
-DOMAIN=$3
-USER=$2
+DOMAIN=$2
+USER=$3
+
 
 
 if [ ! -d "/home/admin/logs" ]
@@ -31,7 +32,7 @@ echo "Created application log files"
 # Configure supervisor
 sudo supervisorctl reread && sudo supervisorctl update
 
-
+sudo supervisorctl start ${NAME}
 #sudo systemctl restart nginx
 
 
