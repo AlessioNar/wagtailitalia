@@ -4,14 +4,21 @@ Requires=gunicorn.socket
 After=network.target
 
 [Service]
+Type=notify
 User=admin
 Group=www-data
+RuntimeDirectory=gunicorn
 WorkingDirectory=/home/admin/wagtail-italia.it
 ExecStart=/home/admin/wagtail-italia.it/wagtailitalia-env/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
           --bind unix:/home/admin/wagtail-italia.it/run/gunicorn.sock \
           wagtailitalia.wsgi:application
+
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target

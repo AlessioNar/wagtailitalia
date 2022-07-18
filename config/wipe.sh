@@ -13,12 +13,11 @@ if [ -z $DOMAIN ]; then
 else
     rm -rf /home/admin/${DOMAIN}
     rm -rf /home/admin/logs/${NAME}
-
+    sudo rm /etc/nginx/sites-enabled/${DOMAIN}
+    sudo rm /etc/nginx/sites-available/${DOMAIN}
+    
 fi
 
-
-psql -c 'DROP DATABASE '$NAME';'
-sudo rm /etc/nginx/sites-enabled/${DOMAIN}
-sudo rm /etc/nginx/sites-available/${DOMAIN}
+sudo -u postgres psql -c 'DROP DATABASE '$NAME';'
 
 sudo systemctl restart nginx
