@@ -14,7 +14,6 @@ fi
 
 
 mkdir /home/admin/logs/${NAME}
-touch home/admin/logs/${NAME}/gunicorn_supervisor.log
 echo "Created application log files"
 
 # Configure Systemd files 

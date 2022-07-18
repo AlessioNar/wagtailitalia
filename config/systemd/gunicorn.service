@@ -9,7 +9,7 @@ User=www-data
 Group=www-data
 RuntimeDirectory=gunicorn
 WorkingDirectory=/home/admin/wagtail-italia.it
-ExecStart=/home/admin/wagtail-italia.it/wagtailitalia-env/bin/gunicorn \          
+ExecStart=/home/admin/wagtail-italia.it/wagtailitalia-env/bin/gunicorn_start \          
           --log-level=debug \
           --log-file=/home/admin/logs/wagtailitalia/gunicorn_supervisor.log \
           --workers 3 \
