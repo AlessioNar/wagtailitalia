@@ -2,7 +2,7 @@
 
 NAME=$1
 DOMAIN=$2
-
+# test
 sudo supervisorctl stop $NAME
 sudo supervisorctl remove $NAME
 sudo supervisorctl reread 
