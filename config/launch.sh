@@ -18,9 +18,9 @@ touch ../logs/${NAME}/gunicorn_supervisor.log
 echo "Created application log files"
 
 # Configure Systemd files 
-sudo systemctl start gunicorn.socket
-sudo systemctl enable --now gunicorn.socket
 sudo systemctl daemon-reload
+sudo systemctl enable --now gunicorn.socket
+sudo systemctl restart gunicorn.socket
 
 # Making supervisor aware of the new application
 #sudo supervisorctl reread 
