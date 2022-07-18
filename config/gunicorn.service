@@ -9,8 +9,9 @@ User=www-data
 Group=www-data
 RuntimeDirectory=gunicorn
 WorkingDirectory=/home/admin/wagtail-italia.it
-ExecStart=/home/admin/wagtail-italia.it/wagtailitalia-env/bin/gunicorn \
-          --access-logfile - \
+ExecStart=/home/admin/wagtail-italia.it/wagtailitalia-env/bin/gunicorn \          
+          --log-level=debug \
+          --log-file=-
           --workers 3 \
           --bind unix:/home/admin/wagtail-italia.it/run/gunicorn.sock \
           wagtailitalia.wsgi:application
