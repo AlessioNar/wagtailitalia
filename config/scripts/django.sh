@@ -3,11 +3,13 @@
 NAME=$1
 USER=$2
 DB_PASSWORD=$3
+IP_ADDRESS=$4
 
 # Print access credentials to the environmental variable
 echo DB_NAME=$NAME >> .env
 echo DB_USER=$USER >> .env
 echo DB_PASSWORD=$DB_PASSWORD >> .env
+echo IP_ADDRESS=$IP_ADDRESS >> .env
 
 # Generate a random SECRET_KEY and append it as an environmental variable
 secret_key=$(openssl rand -base64 100 | tr -d '\n')
