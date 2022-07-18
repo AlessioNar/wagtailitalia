@@ -14,3 +14,7 @@ whole.json
 update.sh
 install.sh
 .secret
+.env
+config/backup.sh
+config/sync.sh
+config/update.sh
