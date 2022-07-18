@@ -20,19 +20,21 @@ mkdir /home/admin/logs/${NAME}
 touch /home/admin/logs/${NAME}/gunicorn.err.log
 touch /home/admin/logs/${NAME}/gunicorn.out.log
 
+echo "Created application log files"
+
 cp /home/admin/hope-heatwaves.eu/config/gunicorn/gunicorn_start /home/"${USER}"/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn_start
 
 source /home/admin/hope-heatwaves.eu/hopeheatwaveseu-env/bin/activate && \
 sudo chmod guo+x /home/admin/hope-heatwaves.eu/hopeheatwaveseu-env/bin/gunicorn_start && \
+sudo chown www-data /home/admin/hope-heatwaves.eu/hopeheatwaveseu-env/bin/gunicorn_start && \
 deactivate
 
-echo "Created application log files"
 
 
 # Configure supervisor
 sudo supervisorctl reread && sudo supervisorctl update
-
 sudo supervisorctl start ${NAME}
+
 #sudo systemctl restart nginx
 
 
