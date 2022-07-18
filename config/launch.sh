@@ -3,6 +3,14 @@
 NAME=$1
 USER=$2
 
+if [ ! -d "/home/admin/logs" ]
+then 
+    mkdir /home/admin/logs
+    touch /home/admin/gunicorn_supervisor.log
+    touch /home/admin/nginx-error.log
+    touch /home/admin/nginx-access.log
+fi 
+
 mkdir ../logs/${NAME}
 touch ../logs/${NAME}/gunicorn_supervisor.log
 echo "Created log files"
