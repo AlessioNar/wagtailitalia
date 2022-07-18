@@ -16,10 +16,16 @@ source hope-heatwaves.eu/hopeheatwaveseu-env/bin/activate && \
 sudo chmod guo+x hope-heatwaves.eu/hopeheatwaveseu-env/bin/gunicorn_start 
 
 mkdir /home/admin/logs/${NAME}
+touch /home/admin/logs/${NAME}/gunicorn.err.log
+touch /home/admin/logs/${NAME}/gunicorn.out.log
+
 echo "Created application log files"
+
 
 # Configure supervisor
 sudo supervisorctl reread && sudo supervisorctl update
+
+
 #sudo systemctl restart nginx
 
 
