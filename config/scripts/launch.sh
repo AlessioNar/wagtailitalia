@@ -26,16 +26,13 @@ cp /home/admin/hope-heatwaves.eu/config/gunicorn/gunicorn_start /home/"${USER}"/
 
 source /home/admin/hope-heatwaves.eu/hopeheatwaveseu-env/bin/activate && \
 sudo chmod guo+x /home/admin/hope-heatwaves.eu/hopeheatwaveseu-env/bin/gunicorn_start && \
-sudo chown www-data /home/admin/hope-heatwaves.eu/hopeheatwaveseu-env/bin/gunicorn_start && \
 deactivate
-
-
 
 # Configure supervisor
 sudo supervisorctl reread && sudo supervisorctl update
 sudo supervisorctl start ${NAME}
 
-#sudo systemctl restart nginx
+sudo systemctl restart nginx
 
 
 # Configure Systemd files 
