@@ -21,16 +21,7 @@ echo "Created application log files"
 sudo systemctl daemon-reload
 sudo systemctl enable --now gunicorn.socket
 sudo systemctl restart gunicorn.socket
-
-# Making supervisor aware of the new application
-#sudo supervisorctl reread 
-#echo "Supervisor list updated"
-
-#sudo supervisorctl add "${NAME}"
-#echo "added supervisor process group"
-
-# Starting the application with supervisor
-#sudo supervisorctl start "${NAME}"
+echo "Configured Systemd files"
 
 # Restart Nginx server
 sudo systemctl restart nginx
