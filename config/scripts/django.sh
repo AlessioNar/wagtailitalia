@@ -21,6 +21,6 @@ pip install -r ./requirements.txt && \
 python ./manage.py collectstatic --noinput && \
 python ./manage.py makemigrations blog flex home streams menus site_settings websites && \
 python ./manage.py migrate && \
-python ./manage.py load
-
-# Create superuser
+python ./manage.py load && \
+python ./manage.py createsuperuser && \
+deactivate

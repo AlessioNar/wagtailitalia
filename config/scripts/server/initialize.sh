@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 # Install required libraries
-sudo apt install -y nginx python3-virtualenv supervisor python3-pip python3-dev libpq-dev curl postgresql postgresql-contrib rename
+sudo apt install -y nginx python3-virtualenv supervisor python3-pip python3-dev libpq-dev curl postgresql postgresql-contrib rename certbot python3-certbot-nginx 
 echo "Installing required packages"
 
 sudo locale-gen "it_IT.UTF-8"
