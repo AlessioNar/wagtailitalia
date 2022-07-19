@@ -36,7 +36,7 @@
     {% wagtailuserbar %}
 
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg {% if settings.site_settings.FundingSettings.darktheme %}navbar-dark{% else %} navbar-light {% endif %} bg-primary">
     <div class="container-fluid">
       {% if settings.site_settings.BrandSettings.brand_name %}
       {% image settings.site_settings.BrandSettings.brand_image max-120x120 as brand_img %}
