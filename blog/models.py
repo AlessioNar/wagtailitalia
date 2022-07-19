@@ -98,11 +98,29 @@ class BlogListingPage(RoutablePageMixin, Page):
         related_name="+",
         on_delete=models.SET_NULL,
     )
+    content = StreamField(
+        [
+            ("title", blocks.TitleBlock()),
+            ("richtext", blocks.RichtextBlock()),
+            ("vertical_card", blocks.VerticalCardBlock()),
+            ("horizontal_card", blocks.HorizontalCardBlock()),
+            ("multiple_vertical_card_block", blocks.MultipleVerticalCardBlocks()),
+            ("cta", blocks.CTABlock()),
+            ("image", blocks.ImageBlock()),
+            ("markdown", blocks.BodyBlock()),
+
+        ],
+        null=True,
+        blank=True
+    )
 
     content_panels = Page.content_panels + [
-        FieldPanel("heading"),
-        ImageChooserPanel("heading_image"),
-        FieldPanel("category"),
+        MultiFieldPanel([
+            FieldPanel("heading"),
+            ImageChooserPanel("heading_image"),
+            FieldPanel("category"),
+        ], heading="General Information"),
+        StreamFieldPanel("content"),
     ]
 
     # Category determines the filter for the listing page
