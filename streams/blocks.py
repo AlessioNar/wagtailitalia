@@ -64,6 +64,8 @@ class HorizontalCardBlock(blocks.StructBlock):
     button_page = blocks.PageChooserBlock(required=False)
     button_url = blocks.URLBlock(
         required=False, help_text="If the button page above is selected, that will be used first")
+    
+    open_in_new_tab = models.BooleanField(default=False, blank=True)
 
     class Meta:  # noqa
         template = "streams/horizontal_card_block.html"

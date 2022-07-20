@@ -53,7 +53,7 @@
         </h1>
         {% if settings.site_settings.BrandSettings.brand_subtitle  %}
         <p class="navbar-brand-subtitle fs-5">
-          <a class="hidden text-decoration-none {% if settings.site_settings.FundingSettings.darktheme %}text-light{% else %}text-dark{% endif %}" href="{{settings.site_settings.BrandSettings.brand_website}}">
+          <a class="hidden text-decoration-none {% if settings.site_settings.ThemesSettings.darktheme %}text-light{% else %}text-dark{% endif %}" href="{{settings.site_settings.BrandSettings.brand_website}}">
           {{settings.site_settings.BrandSettings.brand_subtitle}}
           </a>
         </p>
@@ -78,8 +78,8 @@
                           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="true" href="#" id="navbarDropdownBlog">{{item.title}}</a>
                           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                             {% for subitem in item.submenu_items.all %}
-                            <a href="{{subitem.link}}">
-                               <li class="dropdown-item {% if settings.site_settings.FundingSettings.darktheme %}text-light{% else %}text-dark{% endif %}"  id="dropdown">
+                            <a href="{{subitem.link}}" {% if subitem.open_in_new_tab %}target="_blank"{% endif %}>
+                               <li class="dropdown-item {% if settings.site_settings.ThemesSettings.darktheme %}text-light{% else %}text-dark{% endif %}"  id="dropdown">
                                      {{subitem.title}}
                                </li>
                             </a>
