@@ -91,10 +91,14 @@ class ThemesSettings(BaseSetting):
                             help_text="Blue color code, used in some backgrounds and text")
     white = models.CharField(max_length=7, default="#FFFFFF",
                              help_text="White color code, used in some backgrounds and text")
+    darktheme = models.BooleanField(default=False, help_text="Tick to set up the dark theme")
     css = models.TextField(
         blank=True, help_text="Add custom css", default='')
 
     panels = [
+        MultiFieldPanel([
+            FieldPanel("darktheme"),
+        ], heading="General settings"),
         MultiFieldPanel([
             FieldPanel("primary"),
             FieldPanel("secondary"),
