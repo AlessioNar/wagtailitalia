@@ -111,6 +111,7 @@ class SubmenuItem(Orderable):
 	"""Subclassing menu items to create sublists"""
 	link_title = models.CharField(blank=True, null=True, max_length=50)
 	link_url = models.CharField(blank=True, null=True, max_length=500)
+	open_in_new_tab = models.BooleanField(default=False, blank=True)
 
 	link_page = models.ForeignKey(
 		"wagtailcore.Page",
@@ -134,12 +135,13 @@ class SubmenuItem(Orderable):
             MultiFieldPanel([
 			FieldPanel("link_title"),
 			MultiFieldPanel([
+				
 				FieldPanel("link_url"),
 				PageChooserPanel("link_page"),
 				FieldPanel("tags"),
-				], heading="Urls")
-
-			], heading="Menu Item"),
+				], heading="Urls"),
+			FieldPanel("open_in_new_tab")
+			], heading="Submenu Item"),
 	]
 
 	@property

@@ -78,7 +78,8 @@ class FundingSettings(BaseSetting):
 @register_setting
 class ThemesSettings(BaseSetting):
     """Theme support for wagtailitalia CMS"""
-
+    darktheme = models.BooleanField(default=False, help_text="Tick to set up the dark theme",  verbose_name="Dark Theme")
+    
     primary = models.CharField(max_length=7, default="#AAAAAA",
                                help_text="Primary color code, the main color used for your theme")
     secondary = models.CharField(max_length=7, default="#DDDDDD",
@@ -91,7 +92,7 @@ class ThemesSettings(BaseSetting):
                             help_text="Blue color code, used in some backgrounds and text")
     white = models.CharField(max_length=7, default="#FFFFFF",
                              help_text="White color code, used in some backgrounds and text")
-    darktheme = models.BooleanField(default=False, help_text="Tick to set up the dark theme")
+    
     css = models.TextField(
         blank=True, help_text="Add custom css", default='')
 

@@ -92,7 +92,7 @@
 
 
                           <li class="nav-item">
-                              <a class="nav-link dropdown" href="{{item.link}}">{{item.title}}</a>
+                              <a class="nav-link dropdown" href="{{item.link}}" {% if item.open_in_a_new_tab %}target="_blank"{% endif %}>{{item.title}}</a>
                           </li>
 
                           {% endif %}

@@ -16,12 +16,17 @@
   <h1 class="my-5 text-center">{{self.heading}} {% if tag %} - {{tag|title}}{% endif %} </h1>
 </div>
 
+
+{% for block in page.content %}
+	{% include_block block %}
+{% endfor %}
+
 <!-- Blog List view -->
 {% if elements %}
 <div class="container">
       <div class="row">
               {% for element in elements %}
-                <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4 mt-2">
+                <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4 my-2">
                   <div class="card-item">
                   {% image element.card_image max-500x500 as card_img %}
                     <a href="{{element.url}}">
@@ -34,15 +39,6 @@
                             {{ element.title }}
                           </h5>
                         </a>
-
-
-                        {% if element.intro %}
-
-                        <p>
-                        {{element.intro|richtext}}
-                        </p>
-
-                        {% endif  %}
                     </div>
 
                 </div>
