@@ -19,3 +19,4 @@ config/backup.sh
 config/sync.sh
 config/update.sh
 .gitignore
+manage.py
