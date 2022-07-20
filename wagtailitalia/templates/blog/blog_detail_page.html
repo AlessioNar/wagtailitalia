@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailimages_tags wagtailcore_tags %}
+{% load wagtailimages_tags wagtailcore_tags social_share %}
 
 
 {% block content %}
@@ -18,6 +18,7 @@
 			<div class="row mt-5 fs-2">
 				<div class="col-12">
 				{{self.intro|richtext}}
+				{% post_to_linkedin object_or_url %}
 				</div>
 			</div>
 		</div>
@@ -28,5 +29,7 @@
 {% for block in page.content %}
 	{% include_block block %}
 {% endfor %}
+
+
 
 {% endblock %}

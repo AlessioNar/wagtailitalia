@@ -116,7 +116,7 @@
 
       {% if settings.site_settings.FundingSettings.funding_image %}
       <div class="row">
-      <div class="col-12 text-center">
+      <div class="col-12 text-center py-3">
         {% image settings.site_settings.FundingSettings.funding_image max-300x300 as funding_image %}
         <img src="{{ funding_image.url }}">
       </div>
