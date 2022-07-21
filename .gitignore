@@ -25,7 +25,9 @@ manage.py
 
 Dockerfile
 db.sqlite3
-django.log
+error.log
+warning.log
+debug.log
 .dockerignore
 .secret
 .env
