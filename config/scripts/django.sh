@@ -5,6 +5,8 @@ USER=$2
 DB_PASSWORD=$3
 IP_ADDRESS=$4
 
+echo "Copied production manage.py" 
+echo NAME=$NAME > .env
 # Print access credentials to the environmental variable
 echo DB_NAME=$NAME >> .env
 echo DB_USER=$USER >> .env
