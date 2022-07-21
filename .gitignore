@@ -21,7 +21,8 @@ config/git.sh
 
 install.sh
 update.sh
-manage.py
+
+
 
 Dockerfile
 db.sqlite3
