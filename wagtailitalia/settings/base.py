@@ -80,7 +80,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'warning.log',
+            'filename': os.path.join(BASE_DIR, 'django.log'),
         },
     },
     # A logger for WARNING which has a handler called 'file'. A logger can have multiple handler

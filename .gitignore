@@ -3,9 +3,10 @@
 *__pycache__*
 *__init__*
 */static/*
-*/__init__.py
-
 static/*
+*/__init__.py
+!wagtailitalia/static/scss/
+
 media/images/*
 media/original_images/*
 media/documents/*
