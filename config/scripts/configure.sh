@@ -18,7 +18,7 @@ echo "Copied Nginx configuration"
 cp ./config/manage.py ./manage.py
 
 echo "Copied production manage.py" 
-echo $NAME > ./.env
+echo NAME=$NAME > ./.env
 
 
 # Create symbolic link for domain, if it does not exist
