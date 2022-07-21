@@ -8,7 +8,7 @@ NAME = os.getenv('NAME')
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                          str(NAME) + ".settings.production")
+                          NAME + ".settings.production")
 
     from django.core.management import execute_from_command_line
 
