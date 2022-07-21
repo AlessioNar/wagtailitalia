@@ -23,7 +23,7 @@ manage.py
 
 Dockerfile
 db.sqlite3
-
+django.log
 .dockerignore
 .secret
 .env
