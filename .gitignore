@@ -21,7 +21,9 @@ config/git.sh
 
 install.sh
 update.sh
-
+manage.py
+!config/manage.py
+!wagtailitalia/manage.py
 Dockerfile
 db.sqlite3
 error.log
