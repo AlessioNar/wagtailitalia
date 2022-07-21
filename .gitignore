@@ -22,8 +22,6 @@ config/git.sh
 install.sh
 update.sh
 
-
-
 Dockerfile
 db.sqlite3
 error.log
