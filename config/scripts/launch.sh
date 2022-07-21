@@ -34,7 +34,7 @@ sudo supervisorctl start ${NAME}
 
 sudo systemctl restart nginx
 
-read -p "Please enter the email address to be https compliant and obtain a certificate from Let's Encrypt" EMAIL
+read -p "Please enter the email address to be https compliant and obtain a certificate from Let's Encrypt " EMAIL
 sudo certbot certonly --agree-tos --email "${EMAIL}" -d "${DOMAIN}"
 sudo cp /home/admin/${DOMAIN}/config/nginx/nginx_cert/${DOMAIN} /etc/nginx/sites-available/"${DOMAIN}"
 
