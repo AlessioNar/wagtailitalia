@@ -1,0 +1,10 @@
+$primary: #000000 !default;
+$secondary: #DDDDDD !default;
+$dark: #000000 !default;
+$light: #FFFFFF !default;
+$white: #FFFFFF !default;
+$blue: #000000 !default;
+@import 'wagtailitalia/static/scss/bootswatch/_variables.scss';
+@import 'wagtailitalia/static/scss/bootstrap/bootstrap.scss';
+@import 'wagtailitalia/static/scss/bootswatch/_bootswatch.scss';
+

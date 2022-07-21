@@ -6,6 +6,7 @@
 static/*
 */__init__.py
 !wagtailitalia/static/scss/
+!static/scss
 
 media/images/*
 media/original_images/*
