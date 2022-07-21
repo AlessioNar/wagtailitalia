@@ -2,20 +2,25 @@
 
 This framework answers to the need of a one-click deployment of a fully functional CMS, which can be completely customizable from the user dashboard.
 
-It intends to promote competition in the CMS industry, reduce the costs for public administrations and the overpriced and often outdated products which the private sector offers to unexperienced public servants.
-
 It is based on Wagtail an open-source solution based on the versatile Django framework, which was chosen for prototyping speed and security features.
 
 # Getting started
 
-Download ```install.sh``` and launch a new project in development 
+To launch a new Wagtailitalia instance, make sure to have installed python3.8 in your local machine for development, and created a github repository with the same project name, and a domain pointed to the desired server.
 
 ```
-./install.sh staging newproject new-project.it 
+./install.sh projectname domain development
+./install.sh projectname domain git
+./install.sh projectname domain production
+```
+
+## Updating the slaves
+
+```
+./update.sh projectname domain
+
 ```
 
 # Editor's guide
-
-## Come configurare un nuovo progetto Wagtailitalia
 
 
