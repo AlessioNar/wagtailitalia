@@ -5,22 +5,21 @@ DOMAIN=$2
 USER=$3
 
 ## Gunicorn configuration
-#
 
-# Setting up Systemd configuration 
-#sudo cp ./config/systemd/gunicorn.service /etc/systemd/system/gunicorn.service
-#sudo cp ./config/systemd/gunicorn.socket /etc/systemd/system/gunicorn.socket
 
 # Supervisor configuration
 sudo cp ./config/supervisor/wagtailitalia.conf /etc/supervisor/conf.d/"${NAME}".conf
-
+echo "Copied supervisor configuration"
 ## Copy Nginx configuration
 cp ./config/nginx/nginx_nocert/wagtail-italia.it /etc/nginx/sites-available/"${DOMAIN}"
+echo "Copied Nginx configuration"
 
 # Set up manage.py to use production settings
 cp ./config/manage.py ./manage.py
+echo "Copied production manage.py" 
 
 # Create symbolic link for domain, if it does not exist
 ln -s /etc/nginx/sites-available/"${DOMAIN}" /etc/nginx/sites-enabled/
+echo "Created symbolic link for domain"
 
 exit 0
