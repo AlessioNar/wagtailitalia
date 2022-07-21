@@ -77,20 +77,11 @@ LOGGING = {
     # django uses some of its own loggers for internal operations. In case you want to disable them just replace the False above with true.
     # A handler for WARNING. It is basically writing the WARNING messages into a file called WARNING.log
     'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'debug.log'),
-        },
+        
         'file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'error.log'),
-        },
-        'file': {
-            'level': 'WARNING', 
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'warning.log'),
         },
     },
     # A logger for WARNING which has a handler called 'file'. A logger can have multiple handler
@@ -98,7 +89,7 @@ LOGGING = {
        # notice the blank '', Usually you would put built in loggers like django or root here based on your needs
         '': {
             'handlers': ['file'], #notice how file variable is called in handler which has been defined above
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'propagate': True,
         },
     },
