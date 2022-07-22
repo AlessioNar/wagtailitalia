@@ -292,7 +292,7 @@ class EventDetailPage(BlogDetailPage):
 class PartnerDetailPage(BlogDetailPage):
     """Partner Detail Page"""
 
-    template = "partners/partner_detail_page.html"
+    template = "blog/partner_detail_page.html"
 
     content_panels = BlogDetailPage.content_panels
 
