@@ -9,9 +9,12 @@ sudo supervisorctl reread
 sudo rm /etc/supervisor/conf.d/${NAME}.conf
 echo "Removed supervisor configuration"
 
+
 if [ -z $DOMAIN ]; then
     echo "Domain not specified"
 else
+    sudo -u postgres psql -c 'DROP DATABASE '$NAME';'
+    echo "Database removed"
     rm -rf /home/admin/${DOMAIN}
     echo "Removed ${DOMAIN} folder"
     rm -rf /home/admin/logs/${NAME}
@@ -23,8 +26,6 @@ else
     
 fi
 
-sudo -u postgres psql -c 'DROP DATABASE '$NAME';'
-echo "Database removed"
 
 sudo systemctl restart nginx
 echo "Nginx restarted"
