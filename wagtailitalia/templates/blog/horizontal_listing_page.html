@@ -21,6 +21,7 @@
 
 {% for element in elements %}
 
+{% if element.card_image %}
 {% image element.card_image max-500x500 as img %}
 
 <div class="container">
@@ -38,6 +39,19 @@
 	</div>
 </div>
 </div>
+{% else %}
+<div class="container">
+	<div class="row horizontal-card">
+	<div class="col-12 mt-2 text-center">
+    <a class="text-decoration-none fw-bold" href="{{ element.url}}">
+      <h3>{{element.title}}</h3>
+      {{element.intro|richtext}}
+    </a>
+	</div>
+</div>
+</div>
+
+{% endif %}
 {% endfor %}
 {% endif %}
 
