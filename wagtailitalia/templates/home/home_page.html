@@ -3,14 +3,7 @@
 
 {% block content %}
 
-<div class="container-fluid">
-  {% if websites %}
-  <div class="d-flex justify-content-around align-items-center m-2">
-  {% for website in websites %}
-  <a class="btn"href="{{website.url}}">{{website.name}}</a>
-  {% endfor %}
-  </div>
-  {% endif %}
+<div class="container-fluid">  
   {% if carousel %}
     <div class="row">
 
