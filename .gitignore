@@ -18,6 +18,7 @@ config/backup.sh
 config/sync.sh
 config/update.sh
 config/git.sh
+backup/
 
 install.sh
 update.sh
