@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="row  align-items-center">
+	<div class="col-sm-12 col-lg-6 center text-center mb-3">
+		 <iframe src="{{self.video_url}}" class="responsive-iframe" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
+	<div class="col-sm-12 col-lg-6 mt-2 text-justify">
+		<h3>{{self.title}}</h3>
+		<p>{{self.text}}</p>
+
+			{% if self.button_page %}
+	    <a href="{{self.button_page.url}}" class="btn btn-primary">
+	    	{{self.button_text}}
+	    </a>
+		{% elif self.button_url %}
+		<a href="{{self.button_url}}" class="btn btn-primary btn-sm">
+	    	{{self.button_text}}
+	    </a>
+		{% endif %}
+	</div>
+	</div>
+</div>
