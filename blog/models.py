@@ -293,8 +293,15 @@ class PartnerDetailPage(BlogDetailPage):
     """Partner Detail Page"""
 
     template = "blog/partner_detail_page.html"
+    description = RichTextField(
+        blank=True,
+        null=True,
+        help_text='Intro text for preview'
+    )
+    content_panels =[
+            FieldPanel("description"),
+             ] +  BlogDetailPage.content_panels
 
-    content_panels = BlogDetailPage.content_panels
 
     class Meta:
         verbose_name = "Partner detail Page"
