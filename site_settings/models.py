@@ -93,6 +93,24 @@ class ThemesSettings(BaseSetting):
     white = models.CharField(max_length=7, default="#FFFFFF",
                              help_text="White color code, used in some backgrounds and text")
     
+    # Make some variables matching the Font settings panel
+    font_family = models.CharField(
+        blank=True, null=True, help_text="Font family", max_length=250)
+    font_size = models.CharField(
+        blank=True, null=True, help_text="Font size", max_length=250)
+    font_weight = models.CharField(
+        blank=True, null=True, help_text="Font weight", max_length=250)
+    font_style = models.CharField(
+        blank=True, null=True, help_text="Font style", max_length=250)
+ 
+    navbar = models.IntegerField(
+        blank=True, null=True, help_text="Navbar height")
+    footer = models.IntegerField(
+        blank=True, null=True, help_text="Footer height")
+    header = models.IntegerField(
+        blank=True, null=True, help_text="Header height")
+
+
     css = models.TextField(
         blank=True, help_text="Add custom css", default='')
 
@@ -100,6 +118,7 @@ class ThemesSettings(BaseSetting):
         MultiFieldPanel([
             FieldPanel("darktheme"),
         ], heading="General settings"),
+        
         MultiFieldPanel([
             FieldPanel("primary"),
             FieldPanel("secondary"),
@@ -108,7 +127,31 @@ class ThemesSettings(BaseSetting):
             FieldPanel("white"),
             FieldPanel("blue")
         ], heading="Color settings"),
-        FieldPanel("css"),
+        
+        #MultiFieldPanel([
+        #    FieldPanel("cards"),
+
+        #], heading="Cards settings"),
+        
+        MultiFieldPanel([
+            FieldPanel("navbar"),
+            FieldPanel("footer"),
+            FieldPanel("header"),
+        ], heading="Layout settings"), 
+
+        MultiFieldPanel([
+            FieldPanel("css"),
+        ], heading="Custom CSS"),
+       
+        # Create a panel for managing the text theme settings in bootstrap4
+        MultiFieldPanel([
+            FieldPanel("font_family"),
+            FieldPanel("font_size"),
+            FieldPanel("font_weight"),
+            FieldPanel("font_style"),
+        ], heading="Font settings"),
+
+            
     ]
 
     def save(self, *args, **kwargs):
@@ -121,6 +164,10 @@ class ThemesSettings(BaseSetting):
             print(f'$light: {self.light} !default;', file=f)
             print(f'$white: {self.white} !default;', file=f)
             print(f'$blue: {self.blue} !default;', file=f)
+            #print(f'$font_family: {self.font_family};', file=f)
+            
+            print(
+                '@import url("https://fonts.googleapis.com/css2?family='+ self.font_family + ':ital,wght,@0,200;0,300;0,400;0,500;0,600;0,700;1,100&display=swap");', file=f)            
 
             # Define imports
             print(
@@ -129,6 +176,13 @@ class ThemesSettings(BaseSetting):
                 "@import '" + NAME + "/static/scss/bootstrap/bootstrap.scss';", file=f)
             print(
                 "@import '" + NAME + "/static/scss/bootswatch/_bootswatch.scss';", file=f)
+            
+            print("""
+                    * { 
+                        font-family: '""" + self.font_family + """' , sans-serif;
+                        
+                    }
+                """, file=f)
 
             # Add field for custom css
             print(self.css, file=f)
@@ -158,3 +212,7 @@ class ThemesSettings(BaseSetting):
 
         # Call Collectstatic original method from manage.py
         call_command('collectstatic', '--no-input')
+
+# Add a class as a snippet to control the main colors used in bootstrap4
+class ColorSettings():
+    pass

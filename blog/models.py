@@ -211,8 +211,8 @@ class BlogDetailPage(Page):
         ],
         null=True,
         blank=True
-    )
-
+        )
+    
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel("custom_title"),

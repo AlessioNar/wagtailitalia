@@ -4,7 +4,14 @@ $dark: #000000 !default;
 $light: #FFFFFF !default;
 $white: #FFFFFF !default;
 $blue: #000000 !default;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght,@0,200;0,300;0,400;0,500;0,600;0,700;1,100&display=swap");
 @import 'wagtailitalia/static/scss/bootswatch/_variables.scss';
 @import 'wagtailitalia/static/scss/bootstrap/bootstrap.scss';
 @import 'wagtailitalia/static/scss/bootswatch/_bootswatch.scss';
+
+                    * { 
+                        font-family: 'Montserrat' , sans-serif;
+                        
+                    }
+                
 
