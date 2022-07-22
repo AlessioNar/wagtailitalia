@@ -34,7 +34,7 @@ class VerticalCardBlock(blocks.StructBlock):
 
     title = blocks.CharBlock(required=True, help_text='Add your title')
     col_lg = blocks.IntegerBlock(
-        required=True, help_text="The Bootstrap dimension of colums, from 1 to 12",
+        required=False, default=4, help_text="The Bootstrap dimension of colums, from 1 to 12",
         min_value=1, max_value=12)
     text = blocks.RichTextBlock(
         required=False, help_text='Add your subtitle')
