@@ -108,6 +108,7 @@ class BlogListingPage(RoutablePageMixin, Page):
             ("cta", blocks.CTABlock()),
             ("image", blocks.ImageBlock()),
             ("markdown", blocks.BodyBlock()),
+            ("video", blocks.VideoBlock()),
 
         ],
         null=True,
@@ -205,6 +206,7 @@ class BlogDetailPage(Page):
             ("cta", blocks.CTABlock()),
             ("image", blocks.ImageBlock()),
             ("markdown", blocks.BodyBlock()),
+            ("video", blocks.VideoBlock()),
 
         ],
         null=True,

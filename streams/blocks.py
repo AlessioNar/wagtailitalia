@@ -179,3 +179,22 @@ class JumbotronBlock(blocks.StructBlock):
         template = "streams/jumbotron_block.html"
         icon = "placeholder"
         label = "Jumbotron"
+
+
+class VideoBlock(blocks.StructBlock):
+    """Render video in horizontal card"""
+
+    title = blocks.CharBlock(required=True, help_text='Add your title')
+    text = blocks.RichTextBlock(required=False, help_text='Add your subtitle')
+    video_url = blocks.URLBlock(
+        required=True, help_text='Add the youtube embed link')
+    button_text = blocks.CharBlock(
+        required=False, help_text='Add the button text', default="Learn More")
+    button_page = blocks.PageChooserBlock(required=False)
+    button_url = blocks.URLBlock(
+        required=False, help_text="If the button page above is selected, that will be used first")
+
+    class Meta:  # noqa
+        template = "streams/video_block.html"
+        icon = "edit"
+        label = "Video"
