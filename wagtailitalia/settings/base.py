@@ -71,7 +71,7 @@ INSTALLED_APPS = [
 ]
 
 LOGGING = {
-    'version': 1,
+    'version': 1, 
     # The version number of our log
     'disable_existing_loggers': False,
     # django uses some of its own loggers for internal operations. In case you want to disable them just replace the False above with true.

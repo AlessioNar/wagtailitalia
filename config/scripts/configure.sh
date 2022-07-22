@@ -7,9 +7,6 @@ USER=$3
 ## Gunicorn configuration
 
 
-# Supervisor configuration
-sudo cp ./config/supervisor/wagtailitalia.conf /etc/supervisor/conf.d/"${NAME}".conf
-echo "Copied supervisor configuration"
 ## Copy Nginx configuration
 cp ./config/nginx/nginx_nocert/wagtail-italia.it /etc/nginx/sites-available/"${DOMAIN}"
 echo "Copied Nginx configuration"

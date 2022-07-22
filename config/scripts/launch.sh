@@ -23,6 +23,12 @@ touch /home/admin/logs/${NAME}/gunicorn.out.log
 echo "Created application log files"
 
 cp /home/admin/${DOMAIN}/config/gunicorn/gunicorn_start /home/"${USER}"/"${DOMAIN}"/"${NAME}"-env/bin/gunicorn_start
+echo "Copied gunicorn_start script to virtualenvironment"
+
+# Supervisor configuration
+sudo cp ./config/supervisor/wagtailitalia.conf /etc/supervisor/conf.d/"${NAME}".conf
+echo "Copied supervisor configuration to /etc/supervisor/conf.d/"${NAME}".conf"
+
 
 source /home/admin/${DOMAIN}/${NAME}-env/bin/activate && \
 sudo chmod guo+x /home/admin/${DOMAIN}/${NAME}-env/bin/gunicorn_start && \
