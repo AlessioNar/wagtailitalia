@@ -4,6 +4,7 @@ from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtail.core.fields import StreamField
+from wagtail.documents.blocks import DocumentChooserBlock
 
 
 class TitleBlock(blocks.StructBlock):
@@ -39,12 +40,14 @@ class VerticalCardBlock(blocks.StructBlock):
     text = blocks.RichTextBlock(
         required=False, help_text='Add your subtitle')
     image = ImageChooserBlock(
-        required=True, help_text="Suggested image size: 300x200")
+        required=True, help_text="Suggested image size: 300x200")        
     button_text = blocks.CharBlock(
         required=False, help_text='Add the button text')
     button_page = blocks.PageChooserBlock(required=False)
     button_url = blocks.URLBlock(
         required=False, help_text="If the button page above is selected, that will be used first")
+    document = DocumentChooserBlock(required=False)
+    open_in_new_tab = blocks.BooleanBlock(required=False, default=False, blank=True)
 
     class Meta:  # noqa
         template = "streams/vertical_card_block.html"
@@ -64,7 +67,7 @@ class HorizontalCardBlock(blocks.StructBlock):
     button_page = blocks.PageChooserBlock(required=False)
     button_url = blocks.URLBlock(
         required=False, help_text="If the button page above is selected, that will be used first")
-    
+    document = DocumentChooserBlock(required=False)
     open_in_new_tab = blocks.BooleanBlock(required=False, default=False, blank=True)
 
     class Meta:  # noqa

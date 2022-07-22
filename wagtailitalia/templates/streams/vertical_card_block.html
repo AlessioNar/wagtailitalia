@@ -8,11 +8,15 @@
   	<h3 class="m-3">{{self.title}}</h3>
     <p class="card-text m-3">{{self.text}}</p>
     {% if self.button_page %}
-    <a href="{{self.button_page.url}}" class="btn btn-primary">
+    <a href="{{self.button_page.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+    	Learn More
+    </a>
+    {% elif self.document %}
+    <a href="{{self.document.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
     	Learn More
     </a>
   	{% elif self.button_url %}
-  	<a href="{{self.button_url}}" class="btn btn-primary">
+  	<a href="{{self.button_url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
       	Learn More
       </a>
   	{% endif %}

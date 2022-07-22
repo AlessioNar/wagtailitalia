@@ -54,7 +54,7 @@ class HomePage(RoutablePageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         """Adding the four latest posts"""
         context = super().get_context(request, *args, **kwargs)
-        context["carousel"] = NewsDetailPage.objects.live().public()[:3]
+        context["carousel"] = NewsDetailPage.objects.live().public()[:5]
         return context
 
     class Meta:
