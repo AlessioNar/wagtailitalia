@@ -11,7 +11,7 @@ static/*
 !static/js
 
 media/images/*
-media/original_images/*
+!media/original_images/*
 media/documents/*
 
 config/backup.sh
