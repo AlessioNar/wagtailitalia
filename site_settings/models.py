@@ -95,7 +95,7 @@ class ThemesSettings(BaseSetting):
     
     # Make some variables matching the Font settings panel
     font_family = models.CharField(
-        blank=True, null=True, help_text="Font family", max_length=250)
+        blank=True, null=True, help_text="Font family", max_length=250, default='Open+Sans')
     font_size = models.CharField(
         blank=True, null=True, help_text="Font size", max_length=250)
     font_weight = models.CharField(

@@ -12,6 +12,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from streams import blocks
 
 from blog.models import BlogDetailPage, NewsDetailPage
+from websites.models import Website
 
 
 class HomePage(RoutablePageMixin, Page):
@@ -55,6 +56,7 @@ class HomePage(RoutablePageMixin, Page):
         """Adding the four latest posts"""
         context = super().get_context(request, *args, **kwargs)
         context["carousel"] = NewsDetailPage.objects.live().public()[:5]
+        context["websites"] = Website.objects.all()
         return context
 
     class Meta:
