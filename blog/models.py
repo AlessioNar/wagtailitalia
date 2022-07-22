@@ -288,3 +288,14 @@ class EventDetailPage(BlogDetailPage):
         ]),
         StreamFieldPanel("content"),
     ]
+
+class PartnerDetailPage(BlogDetailPage):
+    """Partner Detail Page"""
+
+    template = "partners/partner_detail_page.html"
+
+    content_panels = BlogDetailPage.content_panels
+
+    class Meta:
+        verbose_name = "Partner detail Page"
+        verbose_name_plural = "Partner detail Pages"
