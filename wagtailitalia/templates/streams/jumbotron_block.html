@@ -1,5 +1,6 @@
 {% load wagtailimages_tags wagtailcore_tags %}
-
+<div class="container-fluid bg-primary">
+  <div class="container">
 <div class="row gx-5 align-items-center justify-content-center bg-primary">
   <div class="col-lg-8 col-xl-7 col-xxl-6">
     <div class="my-5 text-center text-xl-start">
@@ -16,4 +17,8 @@
   </div>
   {% image self.image max-680x450 as home_image %}
   <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="{{ home_image.url }}" alt="{{ home_image.alt }}" /></div>
-</div>
+  </div>
+  </div>
+  </div>
+
+
