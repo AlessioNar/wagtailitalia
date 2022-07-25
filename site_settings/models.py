@@ -52,24 +52,7 @@ class BrandSettings(BaseSetting):
         blank=False, null=False, help_text="Brand URL")
     copyright = models.CharField(
         blank=True, null=False, help_text="Copyright", max_length=250, default='Built with Wagtailitalia')
-
-    panels = [
-        MultiFieldPanel([
-            FieldPanel('brand_name'),
-            FieldPanel('brand_subtitle'),
-            ImageChooserPanel('brand_image'),
-            FieldPanel('brand_website'),
-            FieldPanel('copyright')
-
-        ])
-
-    ]
-
-
-@register_setting
-class FundingSettings(BaseSetting):
-    """It controls the logo at the bottom of all pages"""
-
+    
     funding_image = models.ForeignKey(
         "wagtailimages.Image",
         on_delete=models.SET_NULL,
@@ -77,9 +60,21 @@ class FundingSettings(BaseSetting):
         blank=False,
         related_name="+",
     )
+
     panels = [
-        ImageChooserPanel('funding_image'),
+        MultiFieldPanel([
+            FieldPanel('brand_name'),
+            FieldPanel('brand_subtitle'),
+            ImageChooserPanel('brand_image'),
+            FieldPanel('brand_website'),
+            FieldPanel('copyright'),
+            ImageChooserPanel('funding_image'),
+        ])
+     
+        
     ]
+    
+    
 
 
 @register_snippet
@@ -125,6 +120,16 @@ class NavbarSettings(BaseSetting):
         )
     
 
+
+@register_setting
+class JumbotronSettings(BaseSetting):
+    """It controls the css styling of the Jumbotron"""
+    color = models.ForeignKey(
+        "site_settings.ColorSettings", 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=False)
+    
 
 @register_setting
 class ThemesSettings(BaseSetting):
@@ -248,43 +253,6 @@ class ThemesSettings(BaseSetting):
 @register_setting
 class CardSettings(BaseSetting):
 
-    text_color = models.CharField(max_length=7, default="#FFFFFF",
-                               help_text="Color of title in cards")
-    intro_size = models.IntegerField(default="16",
-                                 help_text="Size of intro text in cards")
-    image = models.IntegerField(default='500',
-                                help_text="Image size in cards")
-                        
-       
-    MultiFieldPanel([
-        FieldPanel("text_color"),
-        FieldPanel("intro_size"),
-        FieldPanel("image"),
-        
-    ], heading="Card Settings"),
-
-    def save(self, *args, **kwargs):
-        NAME = settings.NAME
-        with open(NAME + '/static/scss/' + NAME + '/cards.scss', 'w+') as f:
-            pass
+    background_color = models.ForeignKey("site_settings.ColorSettings", on_delete=models.SET_NULL, null=True, blank=False, default=1)
     
-            # Define scss variables
-            #print(f'card-text{color:{self.text_color};', file=f)
-            #print(f'$secondary: {self.secondary} !default;', file=f)
-            #print(f'$dark: {self.dark} !default;', file=f)
-                
-                
-
-            # Add field for custom css
-            #print(self.css, file=f)
-
-            # Compile scss and write to output file.
-        #compile_sass(
-        #    inpath=NAME + '/static/scss/'
-        #    + NAME + '/cards.scss",
-        #    outpath=NAME + '/static/css/'
-        #    + NAME + '/cards.css",
-        #    output_style="compressed",
-        #    precision=8,
-        #    source_map=True)
     
