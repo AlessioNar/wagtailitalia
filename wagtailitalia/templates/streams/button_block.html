@@ -7,6 +7,6 @@
 {% elif self.button_url %}
 {{self.button_url}}
 {% endif %}"
-class="btn btn-primary mx-1" {% if button.open_in_new_tab %}target="_blank"{% endif %}>
-{% if self.title %}{{self.title}}{% else %}Learn More{% endif %}
+class="btn btn-primary mx-1" {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+{% if self.button_text %}{{self.button_text}}{% else %}Learn More{% endif %}
 </a>
