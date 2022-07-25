@@ -204,6 +204,8 @@ class BlogDetailPage(Page):
             ("vertical_card", blocks.VerticalCardBlock()),
             ("horizontal_card", blocks.HorizontalCardBlock()),
             ("multiple_vertical_card_block", blocks.MultipleVerticalCardBlocks()),
+            ("multiple_buttons_block", blocks.CardMultipleButtonBlock()),
+
             ("cta", blocks.CTABlock()),
             ("image", blocks.ImageBlock()),
             ("markdown", blocks.BodyBlock()),
