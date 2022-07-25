@@ -167,14 +167,6 @@ class BodyBlock(blocks.StructBlock):
         label = "Markdown"
 
 
-class JumbotronBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=True, max_length=60)
-    image = ImageChooserBlock(required=True)
-
-    class Meta:  # noqa
-        template = "streams/jumbotron_block.html"
-        icon = "placeholder"
-        label = "Jumbotron"
 
 
 class VideoBlock(blocks.StructBlock):
@@ -247,3 +239,17 @@ class MultipleVerticalCardBlocks(blocks.StreamBlock):
         template = "streams/multiple_vertical_card_block.html"
         icon = "placeholder"
         label = "Multiple Vertical Card Blocks"
+
+
+
+class JumbotronBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True, max_length=60)
+    image = ImageChooserBlock(required=True)
+    buttons = blocks.StreamBlock([
+        ('button', MultipleButtonBlock()),
+    ])
+    
+    class Meta:  # noqa
+        template = "streams/jumbotron_block.html"
+        icon = "placeholder"
+        label = "Jumbotron"
