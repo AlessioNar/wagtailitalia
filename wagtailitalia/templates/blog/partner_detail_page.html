@@ -23,7 +23,7 @@
 
 </div>
 
-<section id="portfolio-information" class="padding-top screen-text">
+<section class="padding-top screen-text">
        <div class="container">
            <div class="row">
                <div class="col-sm-12 col-md-6 center-img p-2">
@@ -33,7 +33,7 @@
 
                <div class="col-sm-12 col-md-6">                   
                    <div class="project-info overflow">
-					<div class="container>
+					<div class="container">
                      {{self.description|richtext}}
 					</div>
                    </div>
@@ -45,6 +45,15 @@
 {% for block in page.content %}
 	{% include_block block %}
 {% endfor %}
+
+<div class="container my-3">
+	<div class="row">
+		<div class="col">
+			<a class='btn btn-primary' href='https://www.linkedin.com/sharing/share-offsite/?url={{self.full_url}}' target="_blank">Share on Linkedin</a>
+			<a class='btn btn-primary' href='https://twitter.com/intent/tweet?url={{self.full_url}}' target="_blank">Share on Twitter</a>
+			</div>
+	</div>
+</div>
 
 
 {% endblock %}

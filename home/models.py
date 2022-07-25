@@ -19,15 +19,7 @@ class HomePage(RoutablePageMixin, Page):
     """Home page model"""
 
     template = "home/home_page.html"
-    max_count = 1
-    image = models.ForeignKey(
-		"wagtailimages.Image",
-		on_delete=models.SET_NULL,
-		null=True,
-		blank=True,
-		related_name="+",
-        help_text="Suggested size: 640x420"
-		)
+    max_count = 1    
 
     content = StreamField(
         [
@@ -47,7 +39,6 @@ class HomePage(RoutablePageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        ImageChooserPanel("image"),
         StreamFieldPanel("content"),
 
     ]
