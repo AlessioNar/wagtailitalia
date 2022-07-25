@@ -54,7 +54,8 @@ class BrandSettings(BaseSetting):
             FieldPanel('brand_name'),
             FieldPanel('brand_subtitle'),
             ImageChooserPanel('brand_image'),
-            FieldPanel('brand_website')
+            FieldPanel('brand_website'),
+            FieldPanel('copyright')
 
         ])
 
