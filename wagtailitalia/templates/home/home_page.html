@@ -21,7 +21,8 @@
 
                       <div class="carousel-caption">
                       <h3 class="fw-bold {% if settings.site_settings.ThemesSettings.darktheme %}text-light{% else %}text-dark{% endif %}">{{ post.title }} </h3>
-                               <a class="btn btn-sm btn-secondary mb-1" href="{{post.url}}">{% if post.intro %}{{post.intro}}{% endif %}</a>
+                      {% if post.intro %}<p>{{post.intro|richtext}}</p>{% endif %}
+                      <a class="btn btn-sm btn-secondary mb-1" href="{{post.url}}">Read more</a>
                               </div>
                               </div>
                       </div>
