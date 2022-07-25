@@ -5,10 +5,14 @@
   <div class="col-lg-8 col-xl-7 col-xxl-6">
     <div class="my-5 text-center text-xl-start">
       <h4 class="display-5 fw-normal text-white mb-2 mb-sm-4">{{self.title}}</h4>
+      
       <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start mb-3">
-        <a class="btn btn-secondary btn-lg px-4 me-sm-3 text-white bg-gradient" href="#about">About the project</a>
-        <a class="btn btn-outline-light btn-lg px-4" href="#objectives">Objectives</a>
-      </div>
+        {% if self.buttons %}
+        {% for button in self.buttons %}
+        <a class="btn btn-secondary btn-lg px-4 me-sm-3 text-white bg-gradient" href="#about">{{button.button_text}}</a>        
+        {% endfor %}
+        {% endif %}
+      </div>      
       <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
         <a class="btn btn-outline-light btn-lg px-4" href="#results">Results</a>
         <a class="btn btn-secondary btn-lg px-4 me-sm-3 text-white bg-gradient" href="#newsletter">Subscribe to our Newsletter</a>
