@@ -106,6 +106,7 @@ class BlogListingPage(RoutablePageMixin, Page):
             ("horizontal_card", blocks.HorizontalCardBlock()),
             ("multiple_vertical_card_block", blocks.MultipleVerticalCardBlocks()),
             ("multiple_buttons_block", blocks.CardMultipleButtonBlock()),
+            ("free_card", blocks.FreeVerticalCardsBlock()),
             ("cta", blocks.CTABlock()),
             ("image", blocks.ImageBlock()),
             ("markdown", blocks.BodyBlock()),
@@ -205,7 +206,7 @@ class BlogDetailPage(Page):
             ("horizontal_card", blocks.HorizontalCardBlock()),
             ("multiple_vertical_card_block", blocks.MultipleVerticalCardBlocks()),
             ("multiple_buttons_block", blocks.CardMultipleButtonBlock()),
-
+            ("free_card", blocks.FreeVerticalCardsBlock()),
             ("cta", blocks.CTABlock()),
             ("image", blocks.ImageBlock()),
             ("markdown", blocks.BodyBlock()),

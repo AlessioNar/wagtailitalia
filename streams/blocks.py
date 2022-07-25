@@ -76,13 +76,6 @@ class HorizontalCardBlock(blocks.StructBlock):
         label = "Horizontal Card"
 
 
-class MultipleVerticalCardBlocks(blocks.StreamBlock):
-    card = VerticalCardBlock()
-
-    class Meta:  # noqa
-        template = "streams/multiple_vertical_card_block.html"
-        icon = "placeholder"
-        label = "Multiple Vertical Card Blocks"
 
 
 class RichtextBlock(blocks.RichTextBlock):
@@ -237,3 +230,20 @@ class CardMultipleButtonBlock(blocks.StructBlock):
         icon = "placeholder"
         label = "Card with Multiple buttons"
 
+
+
+class FreeVerticalCardsBlock(blocks.StreamBlock):
+    card = CardMultipleButtonBlock()
+    
+    class Meta:  # noqa
+        template = "streams/multiple_vertical_card_block.html"
+        icon = "placeholder"
+        label = "Multiple Vertical Card Blocks"
+
+class MultipleVerticalCardBlocks(blocks.StreamBlock):
+    card = VerticalCardBlock()
+
+    class Meta:  # noqa
+        template = "streams/multiple_vertical_card_block.html"
+        icon = "placeholder"
+        label = "Multiple Vertical Card Blocks"
