@@ -1,9 +1,13 @@
+from curses import panel
+
+from importlib_metadata import MetadataPathFinder
 from django_sass import compile_sass, find_static_paths
 import os
 from django.core.management import call_command
 
 from django.db import models
 from django.conf import settings
+from wagtail.snippets.models import register_snippet
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
@@ -78,23 +82,55 @@ class FundingSettings(BaseSetting):
     ]
 
 
+@register_snippet
+class ColorSettings(models.Model):
+    name = models.CharField(max_length=50, default="Primary")
+    code = models.CharField(max_length=7, default="#FFFFFF",
+                               help_text="Color code")
+    
+    panels = [
+        MultiFieldPanel([
+            FieldPanel("name"),
+            FieldPanel("code"),            
+        ], heading="Color settings"),
+    ]
+    class Meta:
+        verbose_name = "Color"
+    def __str__(self):
+        return self.name
+
+@register_setting
+class NavbarSettings(BaseSetting):
+    """It controls the css styling of the navbar in all pages"""
+    color = models.ForeignKey(
+        "site_settings.ColorSettings", 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=False)
+
+    title_size = models.IntegerField(
+        default=12,
+        null=False,
+        blank=False,
+        help_text="Title size in px",
+        verbose_name="Title size"        
+        )
+    
+    subtitle_size = models.IntegerField(
+        default=12,
+        null=False,
+        blank=False,
+        help_text="Subtitle size in px",
+        verbose_name="Subtitle size"        
+        )
+    
+
+
 @register_setting
 class ThemesSettings(BaseSetting):
     """Theme support for wagtailitalia CMS"""
     darktheme = models.BooleanField(default=False, help_text="Tick to set up the dark theme",  verbose_name="Dark Theme")
-    
-    primary = models.CharField(max_length=7, default="#AAAAAA",
-                               help_text="Primary color code, the main color used for your theme")
-    secondary = models.CharField(max_length=7, default="#DDDDDD",
-                                 help_text="Primary color code, the main color used for your theme")
-    light = models.CharField(max_length=7, default="#FFFFFF",
-                             help_text="Light color code, used in some backgrounds and text")
-    dark = models.CharField(max_length=7, default="#000000",
-                            help_text="Dark color code, used in some backgrounds and text")
-    blue = models.CharField(max_length=7, default="#000000",
-                            help_text="Blue color code, used in some backgrounds and text")
-    white = models.CharField(max_length=7, default="#FFFFFF",
-                             help_text="White color code, used in some backgrounds and text")
+        
     
     # Make some variables matching the Font settings panel
     font_family = models.CharField(
@@ -122,14 +158,6 @@ class ThemesSettings(BaseSetting):
             FieldPanel("darktheme"),
         ], heading="General settings"),
         
-        MultiFieldPanel([
-            FieldPanel("primary"),
-            FieldPanel("secondary"),
-            FieldPanel("light"),
-            FieldPanel("dark"),
-            FieldPanel("white"),
-            FieldPanel("blue")
-        ], heading="Color settings"),
         
         #MultiFieldPanel([
         #    FieldPanel("cards"),
