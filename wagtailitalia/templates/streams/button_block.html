@@ -1,4 +1,12 @@
 {% load wagtailcore_tags %}
-<a href="{{button.url}}" class="btn btn-primary mx-1"  {% if button.open_in_new_tab %}target="_blank"{% endif %}>
-{% if self.text %}{{self.text}}{% else %}Learn More{% endif %}
+<a href="
+{% if self.button_page %}
+{{self.button_page.url}}
+{% elif self.document %}
+{{self.document.url}}
+{% elif self.button_url %}
+{{self.button_url}}
+{% endif %}"
+class="btn btn-primary mx-1" {% if button.open_in_new_tab %}target="_blank"{% endif %}>
+{% if self.title %}{{self.title}}{% else %}Learn More{% endif %}
 </a>
