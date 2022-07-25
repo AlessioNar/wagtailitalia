@@ -201,3 +201,39 @@ class VideoBlock(blocks.StructBlock):
         template = "streams/video_block.html"
         icon = "edit"
         label = "Video"
+
+
+class MultipleButtonBlock(blocks.StructBlock):
+    """An external or internal URL"""
+
+    button_text = blocks.CharBlock(
+        required=False, help_text='Add the button text')
+    button_page = blocks.PageChooserBlock(required=False)
+    button_url = blocks.URLBlock(
+        required=False, help_text="If the button page above is selected, that will be used first")
+    document = DocumentChooserBlock(required=False)
+    open_in_new_tab = blocks.BooleanBlock(required=False, default=False, blank=True)
+
+    class Meta:  # noqa
+        template = "streams/button_block.html"
+        icon = "placeholder"
+        label = "Multiple Buttons" 
+
+class CardMultipleButtonBlock(blocks.StructBlock):
+    """Card with image and text and button(s)"""
+
+    title = blocks.CharBlock(required=True, help_text='Add your title')    
+    text = blocks.RichTextBlock(
+        required=False, help_text='Add your subtitle')
+    image = ImageChooserBlock(
+        required=True, help_text="Suggested image size: 300x200")        
+    
+    buttons = blocks.StreamBlock([
+        ('button', MultipleButtonBlock()),
+    ])
+
+    class Meta:  # noqa
+        template = "streams/card_buttons_block.html"
+        icon = "placeholder"
+        label = "Card with Multiple buttons"
+
