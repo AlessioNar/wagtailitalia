@@ -46,6 +46,8 @@ class BrandSettings(BaseSetting):
 
     brand_website = models.URLField(
         blank=False, null=False, help_text="Brand URL")
+    copyright = models.CharField(
+        blank=True, null=False, help_text="Copyright", max_length=250, default='Built with Wagtailitalia')
 
     panels = [
         MultiFieldPanel([
@@ -95,7 +97,7 @@ class ThemesSettings(BaseSetting):
     
     # Make some variables matching the Font settings panel
     font_family = models.CharField(
-        blank=True, null=True, help_text="Font family", max_length=250, default='Open+Sans')
+        blank=False, null=True, help_text="Font family", max_length=250, default='Open+Sans')
     font_size = models.CharField(
         blank=True, null=True, help_text="Font size", max_length=250)
     font_weight = models.CharField(
