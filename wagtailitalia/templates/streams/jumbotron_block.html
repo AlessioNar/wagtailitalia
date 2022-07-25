@@ -8,15 +8,11 @@
       
       <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start mb-3">
         {% if self.buttons %}
-        {% for button in self.buttons %}
-        <a class="btn btn-secondary btn-lg px-4 me-sm-3 text-white bg-gradient" href="#about">{{button.button_text}}</a>        
-        {% endfor %}
+          {% for button in self.buttons %}          
+          {{button}}
+          {% endfor %}
         {% endif %}
-      </div>      
-      <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-        <a class="btn btn-outline-light btn-lg px-4" href="#results">Results</a>
-        <a class="btn btn-secondary btn-lg px-4 me-sm-3 text-white bg-gradient" href="#newsletter">Subscribe to our Newsletter</a>
-      </div>
+      </div>            
     </div>
   </div>
   {% image self.image max-680x450 as home_image %}

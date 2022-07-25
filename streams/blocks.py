@@ -196,8 +196,9 @@ class MultipleButtonBlock(blocks.StructBlock):
     button_page = blocks.PageChooserBlock(required=False)
     button_url = blocks.URLBlock(
         required=False, help_text="If the button page above is selected, that will be used first")
-    document = DocumentChooserBlock(required=False)
+    document = DocumentChooserBlock(required=False)    
     open_in_new_tab = blocks.BooleanBlock(required=False, default=False, blank=True)
+
 
     class Meta:  # noqa
         template = "streams/button_block.html"
@@ -248,7 +249,7 @@ class JumbotronBlock(blocks.StructBlock):
     buttons = blocks.StreamBlock([
         ('button', MultipleButtonBlock()),
     ])
-    
+
     class Meta:  # noqa
         template = "streams/jumbotron_block.html"
         icon = "placeholder"
