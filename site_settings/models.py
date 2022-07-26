@@ -248,11 +248,3 @@ class ThemesSettings(BaseSetting):
 
         # Call Collectstatic original method from manage.py
         call_command('collectstatic', '--no-input')
-
-
-@register_setting
-class CardSettings(BaseSetting):
-
-    background_color = models.ForeignKey("site_settings.ColorSettings", on_delete=models.SET_NULL, null=True, blank=False, default=1)
-    
-    

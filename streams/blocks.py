@@ -167,14 +167,6 @@ class BodyBlock(blocks.StructBlock):
         label = "Markdown"
 
 
-class JumbotronBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=True, max_length=60)
-    image = ImageChooserBlock(required=True)
-
-    class Meta:  # noqa
-        template = "streams/jumbotron_block.html"
-        icon = "placeholder"
-        label = "Jumbotron"
 
 
 class VideoBlock(blocks.StructBlock):
@@ -204,8 +196,9 @@ class MultipleButtonBlock(blocks.StructBlock):
     button_page = blocks.PageChooserBlock(required=False)
     button_url = blocks.URLBlock(
         required=False, help_text="If the button page above is selected, that will be used first")
-    document = DocumentChooserBlock(required=False)
+    document = DocumentChooserBlock(required=False)    
     open_in_new_tab = blocks.BooleanBlock(required=False, default=False, blank=True)
+
 
     class Meta:  # noqa
         template = "streams/button_block.html"
@@ -247,3 +240,17 @@ class MultipleVerticalCardBlocks(blocks.StreamBlock):
         template = "streams/multiple_vertical_card_block.html"
         icon = "placeholder"
         label = "Multiple Vertical Card Blocks"
+
+
+
+class JumbotronBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True, max_length=60)
+    image = ImageChooserBlock(required=True)
+    buttons = blocks.StreamBlock([
+        ('button', MultipleButtonBlock()),
+    ])
+
+    class Meta:  # noqa
+        template = "streams/jumbotron_block.html"
+        icon = "placeholder"
+        label = "Jumbotron"
