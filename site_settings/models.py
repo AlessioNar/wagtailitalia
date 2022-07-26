@@ -80,59 +80,6 @@ class BrandSettings(BaseSetting):
 class ThemeSetting(BaseSetting):
     """Wrapper class to provide the other setting classes with some common methods"""
     
-    # Save function to update the css file
-    def save(self, *args, **kwargs):
-        NAME = settings.NAME
-        scss_file = os.path.join(settings.PROJECT_DIR, "static/scss/", settings.NAME, settings.NAME + ".scss")
-
-        with open(scss_file, "w") as f:            
-            #f.write('@import url("https://fonts.googleapis.com/css2?family=%s:ital,wght,@0,200;0,300;0,400;0,500;0,600;0,700;1,100&display=swap");\n' % self.font_family)
-            f.write("@import '%s/static/scss/wagtailitalia/colors.scss';\n" % NAME)
-            f.write("@import '%s/static/scss/wagtailitalia/navbar';\n" % NAME)
-
-            #f.write("@import '%s/static/scss/bootswatch/_variables.scss';\n" % NAME)
-
-            f.write("@import '%s/static/scss/bootstrap/functions';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/variables';\n" % NAME)              
-            f.write("@import '%s/static/scss/bootstrap/mixins';\n" % NAME)               
-                            
-            f.write("@import '%s/static/scss/bootstrap/buttons';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/button-group';\n" % NAME)
-            
-            f.write("@import '%s/static/scss/bootstrap/card';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/carousel';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/close';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/containers';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/dropdown';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/grid';\n" % NAME)
-        
-            f.write("@import '%s/static/scss/bootstrap/helpers';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/images';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/list-group';\n" % NAME)
-
-            f.write("@import '%s/static/scss/bootstrap/nav';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/navbar';\n" % NAME)
-
-            f.write("@import '%s/static/scss/bootstrap/offcanvas';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/reboot';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/root';\n" % NAME)
-
-            f.write("@import '%s/static/scss/bootstrap/transitions';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/type';\n" % NAME)
-            
-
-            f.write("@import '%s/static/scss/bootstrap/utilities';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/bootstrap-grid';\n" % NAME)
-            f.write("@import '%s/static/scss/bootstrap/bootstrap-utilities';\n" % NAME)
-                        
-            #f.write("@import '%s/static/scss/bootswatch/_bootswatch.scss';\n" % NAME)                                        
-
-            f.write("@import '%s/static/scss/wagtailitalia/jumbotron';\n" % NAME)            
-            f.write(self.css)
-                
-            # Save the 
-            super(ThemeSetting, self).save(*args, **kwargs)
-            # Compile scss and write to output file.
 
     def compile_scss(self):
         """Compile the scss file and write the output to the css file"""
@@ -159,3 +106,30 @@ class ThemeSetting(BaseSetting):
         # Collect the new static files
         call_command('collectstatic', '--no-input')
 
+class ColorSetting(ThemeSetting):    
+    primary = models.CharField(max_length=7, default="#FFFFFF",
+                               help_text="Primary color for the theme")    
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel("primary"),    
+        ], heading="Color settings"),
+    ]    
+        
+    class Meta:
+        verbose_name = "Color Settings"
+
+@register_setting
+class TestSetting(ThemeSetting):
+    """Test settings for the website"""
+
+    colors = ColorSetting()
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel("colors"),
+        ], heading="Test Settings"),
+    ]
+
+    class Meta:
+        verbose_name = "Test Settings"
