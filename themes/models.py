@@ -18,28 +18,138 @@ from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 
 
-from themes import blocks
+class ColorPalette(models.Model):   
+    """A color palette"""
 
+    name  = models.CharField(max_length=255, blank=True, null=True)
 
-@register_snippet
+    primary = models.CharField(max_length=7, default="#FFFFFF", 
+        help_text="Add an exadecimal color code: #FFFFFF for white")    
+    secondary = models.CharField(max_length=7, default="#FFFFFF", 
+        help_text="Add an exadecimal color code: #FFFFFF for white")    
+    dark = models.CharField(max_length=7, default="#FFFFFF", 
+        help_text="Add an exadecimal color code: #FFFFFF for white")    
+    light = models.CharField(max_length=7, default="#FFFFFF", 
+        help_text="Add an exadecimal color code: #FFFFFF for white")    
+    danger = models.CharField(max_length=7, default="#FFFFFF", 
+        help_text="Add an exadecimal color code: #FFFFFF for white")    
+    success = models.CharField(max_length=7, default="#FFFFFF", 
+        help_text="Add an exadecimal color code: #FFFFFF for white")    
+    warning = models.CharField(max_length=7, default="#FFFFFF", 
+        help_text="Add an exadecimal color code: #FFFFFF for white")   
+
+    def __str__(self):
+        return self.name                 
+
+register_snippet(ColorPalette)
+
+class FontStyle(models.Model):    
+    """A color palette"""
+    name = models.CharField(max_length=255, blank=True, null=True)
+
+    font_size = models.IntegerField(default=14, help_text="Font size in px")
+    font_family = models.CharField(max_length=7, default="Montserrat", 
+        help_text="Choose a Google font family")
+    font_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    font_style = models.CharField(max_length=7, default="bold")        
+            
+    def __str__(self):
+        return self.name
+
+register_snippet(FontStyle)
+
+class Navbar(models.Model):    
+    """A color palette"""
+    name = models.CharField(max_length=255, blank=True, null=True)
+    bg_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    text_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    title_size = models.IntegerField(default=16, help_text="Font size in px")
+    subtitle_size = models.IntegerField(default=11, help_text="Font size in px")
+    subtitle_show = models.BooleanField(default=True)    
+    
+    def __str__(self):
+        return self.name
+   
+register_snippet(Navbar)
+
+class Footer(models.Model):    
+    """Footer styling"""
+    name = models.CharField(max_length=255, blank=True, null=True)
+    bg_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    text_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    title_size = models.IntegerField(default=16, help_text="Font size in px")
+    subtitle_size = models.IntegerField(default=11, help_text="Font size in px")
+    subtitle_show = models.BooleanField(default=True)    
+    
+    def __str__(self):
+        return self.name
+
+register_snippet(Footer)
+
+class Jumbotron(models.Model):    
+    """A color palette"""
+    name = models.CharField(max_length=255, blank=True, null=True)
+    bg_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    text_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    title_size = models.IntegerField(default=16, help_text="Font size in px")
+    button_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    button_size = models.IntegerField(default=14, help_text="Button size in rem")
+    
+    def __str__(self):
+        return self.name
+
+register_snippet(Jumbotron)
+
 class Theme(models.Model):
     """Wrapper class to provide the other setting classes with some common methods"""
     
-    content = StreamField(
-        [
-            ("color", blocks.Color()),
-            ("font", blocks.Font()),
-            ("navbar", blocks.Navbar()),
-            ("footer", blocks.Navbar()),
-
-        ],
-        null=True,
-        blank=True
-    )    
-
-    panels = [
-        StreamFieldPanel("content"),
+    color = models.ForeignKey("themes.colorpalette", on_delete=models.SET_NULL, null=True, blank=True)
+    font = models.ForeignKey("themes.fontstyle", on_delete=models.SET_NULL, null=True, blank=True)
+    navbar = models.ForeignKey("themes.navbar", on_delete=models.SET_NULL, null=True, blank=True)
+    footer = models.ForeignKey("themes.footer", on_delete=models.SET_NULL, null=True, blank=True)
+    jumbotron = models.ForeignKey("themes.jumbotron", on_delete=models.SET_NULL, null=True, blank=True)
+   
+    panels = [        
+        FieldPanel('color'),
+        FieldPanel('font'),
+        FieldPanel('navbar'),
+        FieldPanel('footer'),
+        FieldPanel('jumbotron'),
         ]
+    ## A function that uses the values stored in the model to print to a file the corresponding Boostrap SCSS variables
+    def print_scss(self):
+        """Prints the SCSS variables contained in the model to a file, color, font and navbar"""
+        with open("themes/theme.scss", "w") as f:
+
+            f.write("$primary: #" + self.color.primary + ";\n")
+            f.write("$secondary: #" + self.color.secondary + ";\n")
+            f.write("$success: #" + self.color.success + ";\n")
+            f.write("$info: #" + self.color.info + ";\n")
+            f.write("$warning: #" + self.color.warning + ";\n")
+            f.write("$danger: #" + self.color.danger + ";\n")
+            f.write("$light: #" + self.color.light + ";\n")
+            f.write("$dark: #" + self.color.dark + ";\n")
+
+
+            f.write("$font-family: " + self.font.font_family + ";\n")
+            f.write("$font-size: " + self.font.font_size + ";\n")
+            f.write("$font-color: " + self.font.font_color + ";\n")
+            f.write("$font-style: " + self.font.font_style + ";\n")
+            f.write("$navbar-bg-color: " + self.navbar.bg_color + ";\n")
+            f.write("$navbar-text-color: " + self.navbar.text_color + ";\n")
+            f.write("$navbar-subtitle-size: " + self.navbar.subtitle_size + ";\n")
+            f.write("$navbar-subtitle-show: " + self.navbar.subtitle_show + ";\n")
+            f.write("$navbar-title-size: " + self.navbar.title_size + ";\n")
+            f.write("$footer-bg-color: " + self.footer.bg_color + ";\n")
+            f.write("$footer-text-color: " + self.footer.text_color + ";\n")
+            f.write("$footer-subtitle-size: " + self.footer.subtitle_size + ";\n")
+            f.write("$footer-subtitle-show: " + self.footer.subtitle_show + ";\n")
+            f.write("$footer-title-size: " + self.footer.title_size + ";\n")
+            f.write("$jumbotron-bg-color: " + self.jumbotron.bg_color + ";\n")
+            f.write("$jumbotron-button-color: " + self.jumbotron.button_color + ";\n")
+            f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")            
+
+        
 
     
     def compile_scss(self):
@@ -67,4 +177,9 @@ class Theme(models.Model):
         # Collect the new static files
         call_command('collectstatic', '--no-input')
 
+    def save(self, *args, **kwargs):
+        """Override the save method to compile the scss file"""
+        self.compile_scss()
+        super(Theme, self).save(*args, **kwargs)
 
+register_snippet(Theme)
