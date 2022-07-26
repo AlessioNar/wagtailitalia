@@ -76,6 +76,7 @@ class BrandSettings(BaseSetting):
     ]
 
 
+ 
 class ThemeSetting(BaseSetting):
     """Wrapper class to provide the other setting classes with some common methods"""
     

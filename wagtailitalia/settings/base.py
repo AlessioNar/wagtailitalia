@@ -207,11 +207,13 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.getenv('WEBSITE_NAME')
+WAGTAILADMIN_BASE_URL = os.getenv('DOMAIN')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 WAGTAILIMAGES_MAX_UPLOAD_SIZE = 7 * 1024 * 1024   # 7mb
 WAGTAILIMAGES_MAX_IMAGE_PIXELS = 30672000
+
 
 WAGTAILMARKDOWN = {
     "autodownload_fontawesome": False,

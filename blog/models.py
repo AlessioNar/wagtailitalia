@@ -3,6 +3,7 @@ from django.db import models
 from django_extensions.db.fields import AutoSlugField
 
 from django import forms
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from modelcluster.fields import ParentalManyToManyField
 
@@ -134,13 +135,44 @@ class BlogListingPage(RoutablePageMixin, Page):
         if self.category is not None:
             if request.GET.get('tags'):
                 context['tag'] = request.GET.get('tags')
-                context['elements'] = BlogDetailPage.objects.live().public().filter(
-                    category=self.category).filter(tags__slug__in=[request.GET.get('tags')])
+                all_posts = BlogDetailPage.objects.live().public().filter(
+                    category=self.category).filter(tags__slug__in=[request.GET.get('tags')]).order_by('path')
+                paginator = Paginator(all_posts, 1) # @todo change to 12 per page
+                page = request.GET.get('page')
+                try:
+                    posts = paginator.page(page)
+                except PageNotAnInteger:
+                    posts = paginator.page(1)
+                except EmptyPage:
+                    posts = paginator.page(paginator.num_pages)
+
+                context['elements'] = posts
+                
             else:
-                context['elements'] = BlogDetailPage.objects.live(
-                ).public().filter(category=self.category)
-        else:
-            context['elements'] = BlogDetailPage.objects.live().public()
+                all_posts = BlogDetailPage.objects.live(
+                ).public().filter(category=self.category).order_by('path')
+                paginator = Paginator(all_posts, 12)
+                page = request.GET.get('page')
+                try:
+                    posts = paginator.page(page)
+                except PageNotAnInteger:
+                    posts = paginator.page(1)
+                except EmptyPage:
+                    posts = paginator.page(paginator.num_pages)
+
+                context['elements'] = posts
+        else:            
+            all_posts = BlogDetailPage.objects.live().public().order_by('path')            
+            paginator = Paginator(all_posts, 1) # @todo change to 12 per page
+            page = request.GET.get('page')
+            try:
+                posts = paginator.page(page)
+            except PageNotAnInteger:
+                posts = paginator.page(1)
+            except EmptyPage:
+                posts = paginator.page(paginator.num_pages)
+
+            context['elements'] = posts
 
         return context
 

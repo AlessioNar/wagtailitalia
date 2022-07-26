@@ -10,7 +10,8 @@ decorator==5.1.1
 django-debug-toolbar==3.4.0
 django-extensions==3.1.5
 django-filter==21.1
-django-modelcluster==5.3
+django-modelcluster==6.0
+django-permissionedforms==0.1
 django-sass==1.1.0
 django-social-share==2.2.1
 django-taggit==2.1.0
@@ -56,7 +57,7 @@ toml==0.10.2
 traitlets==5.2.0
 urllib3==1.26.9
 wagtail-markdown==0.9.0
-wagtail==2.16.2
+wagtail==3.0.1
 wcwidth==0.2.5
 webencodings==0.5.1
 whitenoise==6.1.0
