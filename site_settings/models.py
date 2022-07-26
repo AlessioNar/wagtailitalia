@@ -48,24 +48,7 @@ class BrandSettings(BaseSetting):
         blank=False, null=False, help_text="Brand URL")
     copyright = models.CharField(
         blank=True, null=False, help_text="Copyright", max_length=250, default='Built with Wagtailitalia')
-
-    panels = [
-        MultiFieldPanel([
-            FieldPanel('brand_name'),
-            FieldPanel('brand_subtitle'),
-            ImageChooserPanel('brand_image'),
-            FieldPanel('brand_website'),
-            FieldPanel('copyright')
-
-        ])
-
-    ]
-
-
-@register_setting
-class FundingSettings(BaseSetting):
-    """It controls the logo at the bottom of all pages"""
-
+    
     funding_image = models.ForeignKey(
         "wagtailimages.Image",
         on_delete=models.SET_NULL,
@@ -73,9 +56,22 @@ class FundingSettings(BaseSetting):
         blank=False,
         related_name="+",
     )
+    
     panels = [
-        ImageChooserPanel('funding_image'),
+        MultiFieldPanel([
+            FieldPanel('brand_name'),
+            FieldPanel('brand_subtitle'),
+            ImageChooserPanel('brand_image'),
+            FieldPanel('brand_website'),
+            FieldPanel('copyright'),
+            ImageChooserPanel('funding_image'),
+
+        ])
+
     ]
+
+
+ 
 
 
 @register_setting
