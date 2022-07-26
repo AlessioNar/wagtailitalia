@@ -13,6 +13,7 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtailitalia.settings.base import STATIC_URL
 
 
 @register_setting
@@ -73,178 +74,87 @@ class BrandSettings(BaseSetting):
      
         
     ]
+
+
+class ThemeSetting(BaseSetting):
+    """Wrapper class to provide the other setting classes with some common methods"""
     
-    
-
-
-@register_snippet
-class ColorSettings(models.Model):
-    name = models.CharField(max_length=50, default="Primary")
-    code = models.CharField(max_length=7, default="#FFFFFF",
-                               help_text="Color code")
-    
-    panels = [
-        MultiFieldPanel([
-            FieldPanel("name"),
-            FieldPanel("code"),            
-        ], heading="Color settings"),
-    ]
-    class Meta:
-        verbose_name = "Color"
-    def __str__(self):
-        return self.name
-
-@register_setting
-class NavbarSettings(BaseSetting):
-    """It controls the css styling of the navbar in all pages"""
-    color = models.ForeignKey(
-        "site_settings.ColorSettings", 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=False)
-
-    title_size = models.IntegerField(
-        default=12,
-        null=False,
-        blank=False,
-        help_text="Title size in px",
-        verbose_name="Title size"        
-        )
-    
-    subtitle_size = models.IntegerField(
-        default=12,
-        null=False,
-        blank=False,
-        help_text="Subtitle size in px",
-        verbose_name="Subtitle size"        
-        )
-    
-
-
-@register_setting
-class JumbotronSettings(BaseSetting):
-    """It controls the css styling of the Jumbotron"""
-    color = models.ForeignKey(
-        "site_settings.ColorSettings", 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=False)
-    
-
-@register_setting
-class ThemesSettings(BaseSetting):
-    """Theme support for wagtailitalia CMS"""
-    darktheme = models.BooleanField(default=False, help_text="Tick to set up the dark theme",  verbose_name="Dark Theme")
-        
-    
-    # Make some variables matching the Font settings panel
-    font_family = models.CharField(
-        blank=False, null=True, help_text="Font family", max_length=250, default='Open+Sans')
-    font_size = models.CharField(
-        blank=True, null=True, help_text="Font size", max_length=250)
-    font_weight = models.CharField(
-        blank=True, null=True, help_text="Font weight", max_length=250)
-    font_style = models.CharField(
-        blank=True, null=True, help_text="Font style", max_length=250)
- 
-    navbar = models.IntegerField(
-        blank=True, null=True, help_text="Navbar height")
-    footer = models.IntegerField(
-        blank=True, null=True, help_text="Footer height")
-    header = models.IntegerField(
-        blank=True, null=True, help_text="Header height")
-
-
-    css = models.TextField(
-        blank=True, help_text="Add custom css", default='')
-
-    panels = [
-        MultiFieldPanel([
-            FieldPanel("darktheme"),
-        ], heading="General settings"),
-        
-        
-        #MultiFieldPanel([
-        #    FieldPanel("cards"),
-
-        #], heading="Cards settings"),
-        
-        MultiFieldPanel([
-            FieldPanel("navbar"),
-            FieldPanel("footer"),
-            FieldPanel("header"),
-        ], heading="Layout settings"), 
-
-        MultiFieldPanel([
-            FieldPanel("css"),
-        ], heading="Custom CSS"),
-       
-        # Create a panel for managing the text theme settings in bootstrap4
-        MultiFieldPanel([
-            FieldPanel("font_family"),
-            FieldPanel("font_size"),
-            FieldPanel("font_weight"),
-            FieldPanel("font_style"),
-        ], heading="Font settings"),
-
-            
-    ]
-
+    # Save function to update the css file
     def save(self, *args, **kwargs):
         NAME = settings.NAME
-        with open(NAME + '/static/scss/' + NAME + '/' + NAME + '.scss', 'w+') as f:
-            # Define scss variables
-            print(f'$primary: {self.primary} !default;', file=f)
-            print(f'$secondary: {self.secondary} !default;', file=f)
-            print(f'$dark: {self.dark} !default;', file=f)
-            print(f'$light: {self.light} !default;', file=f)
-            print(f'$white: {self.white} !default;', file=f)
-            print(f'$blue: {self.blue} !default;', file=f)
-            #print(f'$font_family: {self.font_family};', file=f)
-            
-            print(
-                '@import url("https://fonts.googleapis.com/css2?family='+ self.font_family + ':ital,wght,@0,200;0,300;0,400;0,500;0,600;0,700;1,100&display=swap");', file=f)            
+        scss_file = os.path.join(settings.PROJECT_DIR, "static/scss/", settings.NAME, settings.NAME + ".scss")
 
-            # Define imports
-            print(
-                "@import '" + NAME + "/static/scss/bootswatch/_variables.scss';", file=f)
-            print(
-                "@import '" + NAME + "/static/scss/bootstrap/bootstrap.scss';", file=f)
-            print(
-                "@import '" + NAME + "/static/scss/bootswatch/_bootswatch.scss';", file=f)
+        with open(scss_file, "w") as f:            
+            #f.write('@import url("https://fonts.googleapis.com/css2?family=%s:ital,wght,@0,200;0,300;0,400;0,500;0,600;0,700;1,100&display=swap");\n' % self.font_family)
+            f.write("@import '%s/static/scss/wagtailitalia/colors.scss';\n" % NAME)
+            f.write("@import '%s/static/scss/wagtailitalia/navbar';\n" % NAME)
+
+            #f.write("@import '%s/static/scss/bootswatch/_variables.scss';\n" % NAME)
+
+            f.write("@import '%s/static/scss/bootstrap/functions';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/variables';\n" % NAME)              
+            f.write("@import '%s/static/scss/bootstrap/mixins';\n" % NAME)               
+                            
+            f.write("@import '%s/static/scss/bootstrap/buttons';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/button-group';\n" % NAME)
             
-            print("""
-                    * { 
-                        font-family: '""" + self.font_family + """' , sans-serif;
+            f.write("@import '%s/static/scss/bootstrap/card';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/carousel';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/close';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/containers';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/dropdown';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/grid';\n" % NAME)
+        
+            f.write("@import '%s/static/scss/bootstrap/helpers';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/images';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/list-group';\n" % NAME)
+
+            f.write("@import '%s/static/scss/bootstrap/nav';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/navbar';\n" % NAME)
+
+            f.write("@import '%s/static/scss/bootstrap/offcanvas';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/reboot';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/root';\n" % NAME)
+
+            f.write("@import '%s/static/scss/bootstrap/transitions';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/type';\n" % NAME)
+            
+
+            f.write("@import '%s/static/scss/bootstrap/utilities';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/bootstrap-grid';\n" % NAME)
+            f.write("@import '%s/static/scss/bootstrap/bootstrap-utilities';\n" % NAME)
                         
-                    }
-                """, file=f)
+            #f.write("@import '%s/static/scss/bootswatch/_bootswatch.scss';\n" % NAME)                                        
 
-            # Add field for custom css
-            print(self.css, file=f)
-
+            f.write("@import '%s/static/scss/wagtailitalia/jumbotron';\n" % NAME)            
+            f.write(self.css)
+                
+            # Save the 
+            super(ThemeSetting, self).save(*args, **kwargs)
             # Compile scss and write to output file.
+
+    def compile_scss(self):
+        """Compile the scss file and write the output to the css file"""
+
+        NAME = settings.NAME
+
+        # Compile the SCSS file into the CSS file
         compile_sass(
-            inpath=NAME + '/static/scss/'
-            + NAME + '/' + NAME + ".scss",
-            outpath=NAME + '/static/css/'
-            + NAME + '/' + NAME + ".css",
+            inpath=os.path.join(NAME,'static/scss/', NAME, NAME + ".scss"),
+            outpath=os.path.join(NAME + 'static/css/', NAME, NAME + ".css"),
             output_style="compressed",
             precision=8,
             source_map=True
         )
-
-        # Save in database
-        super(ThemesSettings, self).save(*args, **kwargs)
-
-        # checking whether file exists or not
-        if os.path.exists(r'static/css/' + NAME + '/' + NAME + '.css'):
-            # removing the main css file
-            os.remove(r'static/css/' + NAME
-                      + '/' + NAME + '.css')
+        
+        # If the file already exist, remove the previous file and replace it with the new one
+        if os.path.exists(os.path.join('static/css/', NAME, NAME + '.css')):
+            # Remove the previous file
+            os.remove(os.path.join('static/css/', NAME, NAME + '.css'))
         else:
-            # file not found message
+            # Print a message if the file doesn't exist
             print("CSS directory not found")
 
-        # Call Collectstatic original method from manage.py
+        # Collect the new static files
         call_command('collectstatic', '--no-input')
+
