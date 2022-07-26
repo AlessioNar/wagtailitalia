@@ -24,7 +24,7 @@
     {# Global stylesheets #}
   {% image settings.site_settings.BrandSettings.brand_image max-120x120 as brand_img %}
     <link rel="icon" type="image/x-icon" href="{{brand_img.url}}">
-    <link rel="stylesheet" href="{% static 'css/'|add:NAME|add:'/'|add:NAME|add:'.css' %}">
+    <link rel="stylesheet" href="{% static 'css/'|add:NAME|add:'/theme.css' %}">
 
     {% block extra_css %}
 
