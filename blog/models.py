@@ -136,7 +136,7 @@ class BlogListingPage(RoutablePageMixin, Page):
             if request.GET.get('tags'):
                 context['tag'] = request.GET.get('tags')
                 all_posts = BlogDetailPage.objects.live().public().filter(
-                    category=self.category).filter(tags__slug__in=[request.GET.get('tags')]).order_by('-first_published_at')
+                    category=self.category).filter(tags__slug__in=[request.GET.get('tags')]).order_by('path')
                 paginator = Paginator(all_posts, 1) # @todo change to 12 per page
                 page = request.GET.get('page')
                 try:
@@ -150,7 +150,7 @@ class BlogListingPage(RoutablePageMixin, Page):
                 
             else:
                 all_posts = BlogDetailPage.objects.live(
-                ).public().filter(category=self.category).order_by('-first_published_at')
+                ).public().filter(category=self.category).order_by('path')
                 paginator = Paginator(all_posts, 12)
                 page = request.GET.get('page')
                 try:
@@ -162,7 +162,7 @@ class BlogListingPage(RoutablePageMixin, Page):
 
                 context['elements'] = posts
         else:            
-            all_posts = BlogDetailPage.objects.live().public().order_by('-first_published_at')            
+            all_posts = BlogDetailPage.objects.live().public().order_by('path')            
             paginator = Paginator(all_posts, 1) # @todo change to 12 per page
             page = request.GET.get('page')
             try:
