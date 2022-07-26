@@ -75,8 +75,8 @@ register_snippet(Navbar)
 class Footer(models.Model):    
     """Footer styling"""
     name = models.CharField(max_length=255, blank=True, null=True)
-    bg_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
-    text_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    bg_color = models.ForeignKey('themes.ColorPalette', related_name='primary', on_delete=models.SET_NULL, null=True, blank=True)
+    text_color = models.ForeignKey('themes.ColorPalette', related_name='dark', on_delete=models.SET_NULL, null=True, blank=True)
     title_size = models.IntegerField(default=16, help_text="Font size in px")
     subtitle_size = models.IntegerField(default=11, help_text="Font size in px")
     subtitle_show = models.BooleanField(default=True)    
