@@ -17,10 +17,9 @@
 
 
 
-                      <div class="container-fluid news-home-page">
-
-                      <div class="carousel-caption {% if settings.site_settings.ThemesSettings.darktheme %}text-light{% else %}text-dark{% endif %}">
-                      <h3 class="fw-bold {% if settings.site_settings.ThemesSettings.darktheme %}text-light{% else %}text-dark{% endif %}">{{ post.title }} </h3>
+                      <div class="container-fluid carousel-home">
+                      <div class="carousel-caption {% if settings.themes.Theme.dark_background_color %}text-light{% else %}text-dark{% endif %}">
+                      <h3 class="fw-bold {% if settings.themes.Theme.dark_background_color %}text-light{% else %}text-dark{% endif %}">{{ post.title }} </h3>
                       {% if post.intro %}<p>{{post.intro|richtext}}</p>{% endif %}
                       <a class="btn btn-sm btn-secondary mb-1" href="{{post.url}}">Read more</a>
                               </div>

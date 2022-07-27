@@ -35,7 +35,7 @@
     {% wagtailuserbar %}
 
 
-  <nav class="navbar navbar-expand-lg {% if settings.site_settings.ThemesSettings.darktheme %}navbar-dark{% else %}navbar-light{% endif %}">
+  <nav class="navbar navbar-expand-lg {% if settings.themes.Theme.dark_background_color %}navbar-dark{% else %}navbar-light{% endif %}">
     <div class="container-fluid">
       {% if settings.site_settings.BrandSettings.brand_name %}
       {% image settings.site_settings.BrandSettings.brand_image max-120x120 as brand_img %}
@@ -52,7 +52,7 @@
         </h1>
         {% if settings.site_settings.BrandSettings.brand_subtitle  %}
         <p class="navbar-brand-subtitle">
-          <a class="hidden text-decoration-none {% if settings.site_settings.ThemesSettings.darktheme %}text-light{% else %}text-dark{% endif %}" href="{{settings.site_settings.BrandSettings.brand_website}}">
+          <a class="hidden text-decoration-none {% if settings.themes.Theme.dark_background_color %}text-light{% else %}text-dark{% endif %}" href="{{settings.site_settings.BrandSettings.brand_website}}">
           {{settings.site_settings.BrandSettings.brand_subtitle}}
           </a>
         </p>
@@ -77,8 +77,8 @@
                           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="true" href="#" id="navbarDropdownBlog">{{item.title}}</a>
                           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                             {% for subitem in item.submenu_items.all %}
-                            <a href="{{subitem.link}}" {% if subitem.open_in_new_tab %}target="_blank"{% endif %}>
-                               <li class="dropdown-item {% if settings.site_settings.ThemesSettings.darktheme %}text-light{% else %}text-dark{% endif %}"  id="dropdown">
+                            <a href="{{subitem.link}}" {% if subitem.open_in_new_tab %}target="_blank"{% endif %} class="text-decoration-none">
+                               <li class="dropdown-item {% if settings.themes.Theme.dark_background_color %}text-light{% else %}text-dark{% endif %}"  id="dropdown">
                                      {{subitem.title}}
                                </li>
                             </a>
@@ -132,7 +132,7 @@
       </div>
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
-            <p><a href="https://github.com/AlessioNar/Wagtailitalia" class="text-decoration-none {% if settings.site_settings.ThemesSettings.darktheme %} text-dark {% else %} text-dark {% endif %}">
+            <p><a href="https://github.com/AlessioNar/Wagtailitalia" class="text-decoration-none {% if settings.themes.Theme.dark_background_color %} text-light {% else %} text-dark {% endif %}">
               {% if settings.site_settings.BrandSettings.copyright %} {{settings.site_settings.BrandSettings.copyright }}{% else %} Built with Wagtailitalia © 2022 {% endif %}
             </a></p>
         </div>

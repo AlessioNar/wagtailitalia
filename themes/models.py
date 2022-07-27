@@ -27,102 +27,90 @@ class Color(models.Model):
 
 register_snippet(Color)
 
-class ColorPalette(models.Model):   
-    """A color palette"""
-
-    name  = models.CharField(max_length=255, blank=True, null=True)
-
-    primary = models.CharField(max_length=7, default="#0066CC", 
-        help_text="Add an exadecimal color code: #FFFFFF for white")    
-    secondary = models.CharField(max_length=7, default="#AAAAAA", 
-        help_text="Add an exadecimal color code: #FFFFFF for white")    
-    dark = models.CharField(max_length=7, default="#000000", 
-        help_text="Add an exadecimal color code: #FFFFFF for white")    
-    light = models.CharField(max_length=7, default="#FFFFFF", 
-        help_text="Add an exadecimal color code: #FFFFFF for white")    
-    danger = models.CharField(max_length=7, default="#FFFFFF", 
-        help_text="Add an exadecimal color code: #FFFFFF for white")    
-    success = models.CharField(max_length=7, default="#FFFFFF", 
-        help_text="Add an exadecimal color code: #FFFFFF for white")    
-    warning = models.CharField(max_length=7, default="#FFFFFF", 
-        help_text="Add an exadecimal color code: #FFFFFF for white")   
-
-    def __str__(self):
-        return self.name                 
-
-register_snippet(ColorPalette)
-
-class FontStyle(models.Model):    
-    """A color palette"""
-    name = models.CharField(max_length=255, blank=True, null=True)
-    font_color = models.ForeignKey(Color, related_name="font_color", null=True, on_delete=models.SET_NULL)    
-    font_size = models.IntegerField(default=16, help_text="Font size in px")
-    font_family = models.CharField(max_length=255, default="Montserrat", 
-        help_text="Choose a Google font family")        
-            
-    def __str__(self):
-        return self.name
-
-register_snippet(FontStyle)
-
-class Navbar(models.Model):    
-    """A color palette"""
-    name = models.CharField(max_length=255, blank=True, null=True)
-    title_size = models.IntegerField(default=16, help_text="Font size in px")
-    bg_color = models.ForeignKey('themes.Color', related_name="navbar_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
-    text_color = models.ForeignKey('themes.Color', related_name="navbar_text_color", on_delete=models.SET_NULL, null=True, blank=True)
-    subtitle_size = models.IntegerField(default=11, help_text="Font size in px")
-    subtitle_show = models.BooleanField(default=True)    
-    
-    def __str__(self):
-        return self.name
-   
-register_snippet(Navbar)
-
-class Footer(models.Model):    
-    """Footer styling"""
-    name = models.CharField(max_length=255, blank=True, null=True)
-    bg_color = models.ForeignKey('themes.Color', related_name="footer_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
-    text_color = models.ForeignKey('themes.Color', related_name="footer_text_color", on_delete=models.SET_NULL, null=True, blank=True)
-    title_size = models.IntegerField(default=16, help_text="Font size in px")
-    subtitle_size = models.IntegerField(default=11, help_text="Font size in px")
-    subtitle_show = models.BooleanField(default=True)    
-    
-    def __str__(self):
-        return self.name
-
-register_snippet(Footer)
-
-class Jumbotron(models.Model):    
-    """A color palette"""
-    name = models.CharField(max_length=255, blank=True, null=True)
-    bg_color = models.ForeignKey('themes.Color', related_name="jumbotron_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
-    text_color = models.ForeignKey('themes.Color', related_name="jumbotron_text_color", on_delete=models.SET_NULL, null=True, blank=True)
-    title_size = models.IntegerField(default=16, help_text="Font size in px")
-    button_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
-    button_size = models.IntegerField(default=14, help_text="Button size in rem")
-    
-    def __str__(self):
-        return self.name
-
-register_snippet(Jumbotron)
-
 @register_setting
 class Theme(BaseSetting):
     """Wrapper class to provide the other setting classes with some common methods"""
     
-    color = models.ForeignKey("themes.ColorPalette", on_delete=models.SET_NULL, null=True, blank=True)
-    font = models.ForeignKey("themes.FontStyle", on_delete=models.SET_NULL, null=True, blank=True)
-    navbar = models.ForeignKey("themes.Navbar", on_delete=models.SET_NULL, null=True, blank=True)
-    footer = models.ForeignKey("themes.Footer", on_delete=models.SET_NULL, null=True, blank=True)
-    jumbotron = models.ForeignKey("themes.Jumbotron", on_delete=models.SET_NULL, null=True, blank=True)
+    primary = models.ForeignKey(Color, related_name="primary", null=True, on_delete=models.SET_NULL)    
+    secondary = models.ForeignKey(Color, related_name="secondary", null=True, on_delete=models.SET_NULL)    
+    dark = models.ForeignKey(Color, related_name="dark", null=True, on_delete=models.SET_NULL)    
+    light = models.ForeignKey(Color, related_name="light", null=True, on_delete=models.SET_NULL)    
+    danger = models.ForeignKey(Color, related_name="danger", null=True, on_delete=models.SET_NULL)    
+    success = models.ForeignKey(Color, related_name="success", null=True, on_delete=models.SET_NULL)    
+    warning = models.ForeignKey(Color, related_name="warning", null=True, on_delete=models.SET_NULL)
+
+    font_color = models.ForeignKey(Color, related_name="font_color", null=True, on_delete=models.SET_NULL)    
+    font_size = models.IntegerField(default=16, help_text="Font size in px")
+    font_family = models.CharField(max_length=255, default="Montserrat", 
+        help_text="Choose a Google font family")        
+
+    nav_title_size = models.IntegerField(default=16, help_text="Font size in px")
+    nav_bg_color = models.ForeignKey('themes.Color', related_name="navbar_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
+    nav_text_color = models.ForeignKey('themes.Color', related_name="navbar_text_color", on_delete=models.SET_NULL, null=True, blank=True)
+    nav_subtitle_size = models.IntegerField(default=11, help_text="Font size in px")
+    nav_subtitle_show = models.BooleanField(default=True)
+    dark_background_color = models.BooleanField(default=False)
+
+    car_title_size = models.IntegerField(default=16, help_text="Font size in px")
+    car_bg_color = models.ForeignKey('themes.Color', related_name="car_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
+    
+
+    foot_bg_color = models.ForeignKey('themes.Color', related_name="footer_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
+    foot_text_color = models.ForeignKey('themes.Color', related_name="footer_text_color", on_delete=models.SET_NULL, null=True, blank=True)
+    foot_text_size = models.IntegerField(default=16, help_text="Font size in px")    
+
+    jumbo_bg_color = models.ForeignKey('themes.Color', related_name="jumbotron_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
+    jumbo_text_color = models.ForeignKey('themes.Color', related_name="jumbotron_text_color", on_delete=models.SET_NULL, null=True, blank=True)
+    jumbo_title_size = models.IntegerField(default=16, help_text="Font size in px")
+    jumbo_button_color = models.ForeignKey('themes.Color', on_delete=models.SET_NULL, null=True, blank=True)
+    jumbo_button_size = models.IntegerField(default=14, help_text="Button size in rem")
+        
    
     panels = [        
-        FieldPanel('color'),
-        FieldPanel('font'),
-        FieldPanel('navbar'),
-        FieldPanel('jumbotron'),
-        FieldPanel('footer'),        
+        MultiFieldPanel([
+            FieldPanel("primary"),
+            FieldPanel("secondary"),
+            FieldPanel("dark"),
+            FieldPanel("light"),
+            FieldPanel("danger"),
+            FieldPanel("success"),
+            FieldPanel("warning"),
+        ], "Colors"),
+
+        MultiFieldPanel([
+            FieldPanel('font_color'),
+            FieldPanel('font_size'),
+            FieldPanel('font_family'),
+        ], heading="Font"),
+
+        MultiFieldPanel([
+            FieldPanel('nav_title_size'),
+            FieldPanel('nav_bg_color'),
+            FieldPanel('dark_background_color'),
+            FieldPanel('nav_text_color'),
+            FieldPanel('nav_subtitle_size'),
+            FieldPanel('nav_subtitle_show'),            
+        ], heading="Navbar"),
+
+        MultiFieldPanel([
+            FieldPanel('car_title_size'),
+            FieldPanel('car_bg_color'),
+        ], heading="Carousel"),
+
+        MultiFieldPanel([
+            FieldPanel('jumbo_bg_color'),
+            FieldPanel('jumbo_text_color'),
+            FieldPanel('jumbo_title_size'),
+            FieldPanel('jumbo_button_color'),
+            FieldPanel('jumbo_button_size'),
+        ], heading="Jumbotron"),
+
+        MultiFieldPanel([
+            FieldPanel('foot_bg_color'),
+            FieldPanel('foot_text_color'),
+            FieldPanel('foot_text_size'),
+        ], heading="Footer"),
+        
         ]
 
     class Meta:                
@@ -134,30 +122,29 @@ class Theme(BaseSetting):
         NAME = settings.NAME
         with open(os.path.join(NAME, "static/scss/themes/theme.scss"), "w") as f:
             
-            f.write("$primary: " + self.color.primary + ";\n")            
-            f.write("$secondary: " + self.color.secondary + ";\n")
+            f.write("$primary: " + self.primary.code + ";\n")            
+            f.write("$secondary: " + self.secondary.code + ";\n")            
+            f.write("$success: " + self.success.code + ";\n")            
+            f.write("$warning: " + self.warning.code + ";\n")
+            f.write("$danger: " + self.danger.code + ";\n")
+            f.write("$light: " + self.light.code + ";\n")
+            f.write("$dark: " + self.dark.code + ";\n")            
 
-            """
-            f.write("$success: #" + self.color.success + ";\n")
-            f.write("$info: #" + self.color.info + ";\n")
-            f.write("$warning: #" + self.color.warning + ";\n")
-            f.write("$danger: #" + self.color.danger + ";\n")
-            f.write("$light: #" + self.color.light + ";\n")
-            f.write("$dark: #" + self.color.dark + ";\n")
-            """
-
-            f.write("$font-family-sans-serif: " + self.font.font_family + ";\n")            
-            f.write("$font-size-base: " + str(self.font.font_size * 0.0625) + "rem ;\n")
-            f.write("$font-color: " + self.font.font_color.code + ";\n")
+            f.write("$font-family-sans-serif: " + self.font_family + ";\n")            
+            f.write("$font-size-base: " + str(self.font_size * 0.0625) + "rem ;\n")
+            f.write("$font-color: " + self.font_color.code + ";\n")
             
-            f.write("$navbar-brand-font-size: " + str(self.navbar.title_size * 0.0625) + "rem ;\n")
-            f.write("$navbar-subtitle-size: " + str(self.navbar.subtitle_size * 0.0625) + "rem ;\n")
+            f.write("$navbar-brand-font-size: " + str(self.nav_title_size * 0.0625) + "rem ;\n")
+            f.write("$navbar-subtitle-size: " + str(self.nav_subtitle_size * 0.0625) + "rem ;\n")
+            f.write("$navbar-bg-color: " + self.nav_bg_color.code + ";\n")
             """
             f.write("$navbar-bg-color: " + self.navbar.bg_color + ";\n")
-            f.write("$navbar-text-color: " + self.navbar.text_color + ";\n")
-            
+            f.write("$navbar-text-color: " + self.navbar.text_color + ";\n")            
             f.write("$navbar-subtitle-show: " + self.navbar.subtitle_show + ";\n")
-            
+            """
+            f.write("$carousel-bg-color: " + self.car_bg_color.code + ";\n")
+            f.write("$carousel-font-size: " + str(self.car_title_size * 0.0625) + "rem;\n")
+            """            
             f.write("$footer-bg-color: " + self.footer.bg_color + ";\n")
             f.write("$footer-text-color: " + self.footer.text_color + ";\n")
             f.write("$footer-subtitle-size: " + self.footer.subtitle_size + ";\n")
@@ -165,9 +152,18 @@ class Theme(BaseSetting):
             f.write("$footer-title-size: " + self.footer.title_size + ";\n")
             f.write("$jumbotron-bg-color: " + self.jumbotron.bg_color + ";\n")
             f.write("$jumbotron-button-color: " + self.jumbotron.button_color + ";\n")
-            f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")            """
+            f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")
+            """
+
+            f.write("@import 'wagtailitalia/static/scss/bootswatch/_variables';")
             f.write("@import 'wagtailitalia/static/scss/bootstrap/bootstrap';")
+            f.write("@import 'wagtailitalia/static/scss/bootswatch/bootswatch';")
+
             f.write(".navbar-brand-subtitle{\nfont-size: $navbar-subtitle-size\n}")
+            f.write(".navbar{\nbackground-color: $navbar-bg-color\n}")
+            f.write(".dropdown-menu{\nbackground-color: $navbar-bg-color\n}")      
+            f.write(".carousel-caption {\nposition: inherit;\n}")
+            f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\n}")
 
         
 

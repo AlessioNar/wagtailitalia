@@ -1,10 +1,27 @@
-$primary: #FFFEAA;
-$secondary: #333333;
+$primary: #0066CC;
+$secondary: #0066CC;
+$success: #0066CC;
+$warning: #0066CC;
+$danger: #0066CC;
+$light: #FFFFFF;
+$dark: #000000;
 $font-family-sans-serif: Arial;
 $font-size-base: 1.0rem ;
-$font-color: #FFFFFF;
+$font-color: #000000;
 $navbar-brand-font-size: 1.5rem ;
-$navbar-subtitle-size: 1.125rem ;
-@import 'wagtailitalia/static/scss/bootstrap/bootstrap';.navbar-brand-subtitle{
+$navbar-subtitle-size: 0.6875rem ;
+$navbar-bg-color: #0066CC;
+$carousel-bg-color: #0066CC;
+$carousel-font-size: 1.0rem;
+@import 'wagtailitalia/static/scss/bootswatch/_variables';@import 'wagtailitalia/static/scss/bootstrap/bootstrap';@import 'wagtailitalia/static/scss/bootswatch/bootswatch';.navbar-brand-subtitle{
 font-size: $navbar-subtitle-size
+}.navbar{
+background-color: $navbar-bg-color
+}.dropdown-menu{
+background-color: $navbar-bg-color
+}.carousel-caption {
+position: inherit;
+}.carousel-home{
+background-color: $carousel-bg-color;
+height:auto;
 }
