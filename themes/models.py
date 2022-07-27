@@ -172,17 +172,17 @@ class Theme(BaseSetting):
 
         # Compile the SCSS file into the CSS file
         compile_sass(
-            inpath=os.path.join(NAME,'static/scss/', NAME, NAME + ".scss"),
-            outpath=os.path.join(NAME + 'static/css/', NAME, "themes.css"),
+            inpath=os.path.join(NAME,'static/scss/', NAME, "theme.scss"),
+            outpath=os.path.join(NAME, 'static/css/', NAME),
             output_style="compressed",
             precision=8,
             source_map=True
         )
         
         # If the file already exist, remove the previous file and replace it with the new one
-        if os.path.exists(os.path.join('static/css/', NAME, NAME + '.css')):
+        if os.path.exists(os.path.join('static/css/', NAME, 'theme.css')):
             # Remove the previous file
-            os.remove(os.path.join('static/css/', NAME, NAME + '.css'))
+            os.remove(os.path.join('static/css/', NAME, 'theme.css'))
         else:
             # Print a message if the file doesn't exist
             print("CSS directory not found")
@@ -192,5 +192,6 @@ class Theme(BaseSetting):
 
     def save(self, *args, **kwargs):
         """Override the save method to compile the scss file"""
+        self.print_scss()
         self.compile_scss()
         super(Theme, self).save(*args, **kwargs)
