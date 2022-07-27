@@ -159,20 +159,20 @@ class Theme(BaseSetting):
             f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")
             """
 
-            f.write("@import 'wagtailitalia/static/scss/bootswatch/_variables';")
-            f.write("@import 'wagtailitalia/static/scss/bootstrap/bootstrap';")
-            f.write("@import 'wagtailitalia/static/scss/bootswatch/bootswatch';")
+            f.write("@import 'wagtailitalia/static/scss/bootswatch/_variables';\n")
+            f.write("@import 'wagtailitalia/static/scss/bootstrap/bootstrap';\n")
+            f.write("@import 'wagtailitalia/static/scss/bootswatch/bootswatch';\n")
 
-            f.write(".navbar-brand-subtitle{\nfont-size: $navbar-subtitle-size\n}")
-            f.write(".navbar{\nbackground-color: $navbar-bg-color\n}")
-            f.write(".dropdown-menu{\nbackground-color: $navbar-bg-color\n}")      
-            f.write(".carousel-caption {\nposition: inherit;\n}")
-            f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\n}")
-            f.write(".jumbotron{\nbackground-color: $jumbotron-bg-color;\ncolor: $jumbotron-text-color;\n}")
+            f.write(".navbar-brand-subtitle{\nfont-size: $navbar-subtitle-size\n}\n")
+            f.write(".navbar{\nbackground-color: $navbar-bg-color\n}\n")
+            f.write(".dropdown-menu{\nbackground-color: $navbar-bg-color\n}\n")      
+            f.write(".carousel-caption {\nposition: inherit;\n}\n")
+            f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\n}\n")
+            f.write(".jumbotron{\nbackground-color: $jumbotron-bg-color;\ncolor: $jumbotron-text-color;\n}\n")
 
-            f.write(".card-title, .card-header {\nheight: 5em;\ntext-align: center;\n line-height: 1.8em;\n}")
-            f.write(".card {\nborder: none;\nheight: 20em;\n}")
-            f.write(".card-item {\nbox-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;\n}")
+            f.write(".card-title, .card-header {\nheight: 5em;\ntext-align: center;\n line-height: 1.8em;\n}\n")
+            f.write(".card {\nborder: none;\nheight: 20em;\n}\n")
+            f.write(".card-item {\nbox-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;\n}\n")
 
         
 
