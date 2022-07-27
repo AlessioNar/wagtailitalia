@@ -1,5 +1,4 @@
-from curses import panel
-
+from rest_framework import serializers
 from importlib_metadata import MetadataPathFinder
 from django_sass import compile_sass, find_static_paths
 import os
@@ -16,7 +15,17 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtailitalia.settings.base import STATIC_URL
 from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from django.forms import ModelChoiceField
 
+class Color(models.Model):
+    """A Color object containing a name and a color code"""
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=255) 
+
+    def __str__(self):
+        return self.name                 
+
+register_snippet(Color)
 
 class ColorPalette(models.Model):   
     """A color palette"""
@@ -46,11 +55,10 @@ register_snippet(ColorPalette)
 class FontStyle(models.Model):    
     """A color palette"""
     name = models.CharField(max_length=255, blank=True, null=True)
-
+    font_color = models.ForeignKey(Color, related_name="font_color", null=True, on_delete=models.SET_NULL)    
     font_size = models.IntegerField(default=14, help_text="Font size in px")
-    font_family = models.CharField(max_length=7, default="Montserrat", 
-        help_text="Choose a Google font family")
-    font_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    font_family = models.CharField(max_length=255, default="Montserrat", 
+        help_text="Choose a Google font family")    
     font_style = models.CharField(max_length=7, default="bold")        
             
     def __str__(self):
@@ -61,8 +69,8 @@ register_snippet(FontStyle)
 class Navbar(models.Model):    
     """A color palette"""
     name = models.CharField(max_length=255, blank=True, null=True)
-    bg_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
-    text_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    bg_color = models.ForeignKey('themes.Color', related_name="navbar_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
+    text_color = models.ForeignKey('themes.Color', related_name="navbar_text_color", on_delete=models.SET_NULL, null=True, blank=True)
     title_size = models.IntegerField(default=16, help_text="Font size in px")
     subtitle_size = models.IntegerField(default=11, help_text="Font size in px")
     subtitle_show = models.BooleanField(default=True)    
@@ -75,8 +83,8 @@ register_snippet(Navbar)
 class Footer(models.Model):    
     """Footer styling"""
     name = models.CharField(max_length=255, blank=True, null=True)
-    bg_color = models.ForeignKey('themes.ColorPalette', related_name='primary', on_delete=models.SET_NULL, null=True, blank=True)
-    text_color = models.ForeignKey('themes.ColorPalette', related_name='dark', on_delete=models.SET_NULL, null=True, blank=True)
+    bg_color = models.ForeignKey('themes.Color', related_name="footer_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
+    text_color = models.ForeignKey('themes.Color', related_name="footer_text_color", on_delete=models.SET_NULL, null=True, blank=True)
     title_size = models.IntegerField(default=16, help_text="Font size in px")
     subtitle_size = models.IntegerField(default=11, help_text="Font size in px")
     subtitle_show = models.BooleanField(default=True)    
@@ -89,8 +97,8 @@ register_snippet(Footer)
 class Jumbotron(models.Model):    
     """A color palette"""
     name = models.CharField(max_length=255, blank=True, null=True)
-    bg_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
-    text_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
+    bg_color = models.ForeignKey('themes.Color', related_name="jumbotron_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
+    text_color = models.ForeignKey('themes.Color', related_name="jumbotron_text_color", on_delete=models.SET_NULL, null=True, blank=True)
     title_size = models.IntegerField(default=16, help_text="Font size in px")
     button_color = models.ForeignKey('themes.ColorPalette', on_delete=models.SET_NULL, null=True, blank=True)
     button_size = models.IntegerField(default=14, help_text="Button size in rem")
@@ -100,21 +108,22 @@ class Jumbotron(models.Model):
 
 register_snippet(Jumbotron)
 
-class Theme(models.Model):
+@register_setting
+class Theme(BaseSetting):
     """Wrapper class to provide the other setting classes with some common methods"""
     
-    color = models.ForeignKey("themes.colorpalette", on_delete=models.SET_NULL, null=True, blank=True)
-    font = models.ForeignKey("themes.fontstyle", on_delete=models.SET_NULL, null=True, blank=True)
-    navbar = models.ForeignKey("themes.navbar", on_delete=models.SET_NULL, null=True, blank=True)
-    footer = models.ForeignKey("themes.footer", on_delete=models.SET_NULL, null=True, blank=True)
-    jumbotron = models.ForeignKey("themes.jumbotron", on_delete=models.SET_NULL, null=True, blank=True)
+    color = models.ForeignKey("themes.ColorPalette", on_delete=models.SET_NULL, null=True, blank=True)
+    font = models.ForeignKey("themes.FontStyle", on_delete=models.SET_NULL, null=True, blank=True)
+    navbar = models.ForeignKey("themes.Navbar", on_delete=models.SET_NULL, null=True, blank=True)
+    footer = models.ForeignKey("themes.Footer", on_delete=models.SET_NULL, null=True, blank=True)
+    jumbotron = models.ForeignKey("themes.Jumbotron", on_delete=models.SET_NULL, null=True, blank=True)
    
     panels = [        
         FieldPanel('color'),
         FieldPanel('font'),
         FieldPanel('navbar'),
-        FieldPanel('footer'),
         FieldPanel('jumbotron'),
+        FieldPanel('footer'),        
         ]
     ## A function that uses the values stored in the model to print to a file the corresponding Boostrap SCSS variables
     def print_scss(self):
@@ -181,5 +190,3 @@ class Theme(models.Model):
         """Override the save method to compile the scss file"""
         self.compile_scss()
         super(Theme, self).save(*args, **kwargs)
-
-register_snippet(Theme)
