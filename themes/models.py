@@ -173,7 +173,9 @@ class Theme(BaseSetting):
             f.write(".card-title, .card-header {\nheight: 5em;\ntext-align: center;\n line-height: 1.8em;\n}\n")
             f.write(".card {\nborder: none;\nheight: 20em;\n}\n")
             f.write(".card-item {\nbox-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;\n}\n")
-
+            f.write(".card-img {\nheight: 15em;\nmax-width: 100%;\nobject-fit: cover;\nbackground-color: $white\n}\n")
+            f.write(".card-header{\nbackground-color: $primary;\ncolor: $white;\n}\n")
+            f.write(".card-text{\ncolor: $white;\n}\n")
         
 
     

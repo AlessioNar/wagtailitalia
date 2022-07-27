@@ -1,25 +1,36 @@
 {% load wagtailimages_tags %}
 
 {% image self.image fill-300x200 as img %}
-
 <div class="col-lg-4 col-md-6 col-sm-12 align-items-stretch">
-  <img src="{{img.url}}" alt="{{img.alt}}" >
-
-  	<h3 class="m-3">{{self.title}}</h3>
-    <p class="card-text m-3">{{self.text}}</p>
-    {% if self.button_page %}
-    <a href="{{self.button_page.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
-    	Learn More
-    </a>
-    {% elif self.document %}
-    <a href="{{self.document.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
-    	Learn More
-    </a>
-  	{% elif self.button_url %}
-  	<a href="{{self.button_url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
-      	Learn More
+  <div class="card-item">    
+      <a href="{{img.url}}">
+        <img src="{{img.url}}" alt="{{img.alt}}" class="card-img">
       </a>
-  	{% endif %}
+      <div class="card-header center-vertically text-center">
 
+          <a class="text-decoration-none fw-bold" href="{{ self.url}}">
+            <h5 class="card-text">
+              {{ self.title }}
+            </h5>
+            <p class="card-text m-3">{{self.text}}</p>
+            {% if self.button_page %}
+            <a href="{{self.button_page.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+              Learn More
+            </a>
+            {% elif self.document %}
+            <a href="{{self.document.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+              Learn More
+            </a>
+            {% elif self.button_url %}
+            <a href="{{self.button_url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+                Learn More
+              </a>
+            {% endif %}
+          </a>
+      </div>
   </div>
-<!--</div>-->
+</div>
+
+
+
+
