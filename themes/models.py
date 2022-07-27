@@ -144,13 +144,17 @@ class Theme(BaseSetting):
             """
             f.write("$carousel-bg-color: " + self.car_bg_color.code + ";\n")
             f.write("$carousel-font-size: " + str(self.car_title_size * 0.0625) + "rem;\n")
+            
+            f.write("$jumbotron-bg-color: " + self.jumbo_bg_color.code + ";\n")
+            f.write("$jumbotron-text-color: " + self.jumbo_text_color.code + ";\n")
+
             """            
             f.write("$footer-bg-color: " + self.footer.bg_color + ";\n")
             f.write("$footer-text-color: " + self.footer.text_color + ";\n")
             f.write("$footer-subtitle-size: " + self.footer.subtitle_size + ";\n")
             f.write("$footer-subtitle-show: " + self.footer.subtitle_show + ";\n")
             f.write("$footer-title-size: " + self.footer.title_size + ";\n")
-            f.write("$jumbotron-bg-color: " + self.jumbotron.bg_color + ";\n")
+            
             f.write("$jumbotron-button-color: " + self.jumbotron.button_color + ";\n")
             f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")
             """
@@ -164,6 +168,11 @@ class Theme(BaseSetting):
             f.write(".dropdown-menu{\nbackground-color: $navbar-bg-color\n}")      
             f.write(".carousel-caption {\nposition: inherit;\n}")
             f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\n}")
+            f.write(".jumbotron{\nbackground-color: $jumbotron-bg-color;\ncolor: $jumbotron-text-color;\n}")
+
+            f.write(".card-title, .card-header {\nheight: 5em;\ntext-align: center;\n line-height: 1.8em;\n}")
+            f.write(".card {\nborder: none;\nheight: 20em;\n}")
+            f.write(".card-item {\nbox-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;\n}")
 
         
 

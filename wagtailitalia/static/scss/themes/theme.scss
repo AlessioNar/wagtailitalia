@@ -13,6 +13,8 @@ $navbar-subtitle-size: 0.6875rem ;
 $navbar-bg-color: #0066CC;
 $carousel-bg-color: #0066CC;
 $carousel-font-size: 1.0rem;
+$jumbotron-bg-color: #0066CC;
+$jumbotron-text-color: #FFFFFF;
 @import 'wagtailitalia/static/scss/bootswatch/_variables';@import 'wagtailitalia/static/scss/bootstrap/bootstrap';@import 'wagtailitalia/static/scss/bootswatch/bootswatch';.navbar-brand-subtitle{
 font-size: $navbar-subtitle-size
 }.navbar{
@@ -24,4 +26,16 @@ position: inherit;
 }.carousel-home{
 background-color: $carousel-bg-color;
 height:auto;
+}.jumbotron{
+background-color: $jumbotron-bg-color;
+color: $jumbotron-text-color;
+}.card-title, .card-header {
+height: 5em;
+text-align: center;
+ line-height: 1.8em;
+}.card {
+border: none;
+height: 20em;
+}.card-item {
+box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
