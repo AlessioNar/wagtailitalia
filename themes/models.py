@@ -125,6 +125,10 @@ class Theme(BaseSetting):
         FieldPanel('jumbotron'),
         FieldPanel('footer'),        
         ]
+
+    class Meta:                
+        verbose_name = "Theme Settings"
+
     ## A function that uses the values stored in the model to print to a file the corresponding Boostrap SCSS variables
     def print_scss(self):
         """Prints the SCSS variables contained in the model to a file, color, font and navbar"""
@@ -169,7 +173,7 @@ class Theme(BaseSetting):
         # Compile the SCSS file into the CSS file
         compile_sass(
             inpath=os.path.join(NAME,'static/scss/', NAME, NAME + ".scss"),
-            outpath=os.path.join(NAME + 'static/css/', NAME, NAME + ".css"),
+            outpath=os.path.join(NAME + 'static/css/', NAME, "themes.css"),
             output_style="compressed",
             precision=8,
             source_map=True
