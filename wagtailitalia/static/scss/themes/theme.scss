@@ -1,0 +1,10 @@
+$primary: #FFFEAA;
+$secondary: #333333;
+$font-family-sans-serif: Arial;
+$font-size-base: 1.0rem ;
+$font-color: #FFFFFF;
+$navbar-brand-font-size: 1.5rem ;
+$navbar-subtitle-size: 1.125rem ;
+@import 'wagtailitalia/static/scss/bootstrap/bootstrap';.navbar-brand-subtitle{
+font-size: $navbar-subtitle-size
+}

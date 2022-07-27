@@ -24,7 +24,7 @@
     {# Global stylesheets #}
   {% image settings.site_settings.BrandSettings.brand_image max-120x120 as brand_img %}
     <link rel="icon" type="image/x-icon" href="{{brand_img.url}}">
-    <link rel="stylesheet" href="{% static 'css/'|add:NAME|add:'/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themes/theme.css' %}">
 
     {% block extra_css %}
 
@@ -51,7 +51,7 @@
         </a>
         </h1>
         {% if settings.site_settings.BrandSettings.brand_subtitle  %}
-        <p class="navbar-brand-subtitle fs-5">
+        <p class="navbar-brand-subtitle">
           <a class="hidden text-decoration-none {% if settings.site_settings.ThemesSettings.darktheme %}text-light{% else %}text-dark{% endif %}" href="{{settings.site_settings.BrandSettings.brand_website}}">
           {{settings.site_settings.BrandSettings.brand_subtitle}}
           </a>

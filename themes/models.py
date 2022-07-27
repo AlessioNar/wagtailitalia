@@ -32,11 +32,11 @@ class ColorPalette(models.Model):
 
     name  = models.CharField(max_length=255, blank=True, null=True)
 
-    primary = models.CharField(max_length=7, default="#FFFFFF", 
+    primary = models.CharField(max_length=7, default="#0066CC", 
         help_text="Add an exadecimal color code: #FFFFFF for white")    
-    secondary = models.CharField(max_length=7, default="#FFFFFF", 
+    secondary = models.CharField(max_length=7, default="#AAAAAA", 
         help_text="Add an exadecimal color code: #FFFFFF for white")    
-    dark = models.CharField(max_length=7, default="#FFFFFF", 
+    dark = models.CharField(max_length=7, default="#000000", 
         help_text="Add an exadecimal color code: #FFFFFF for white")    
     light = models.CharField(max_length=7, default="#FFFFFF", 
         help_text="Add an exadecimal color code: #FFFFFF for white")    
@@ -56,10 +56,9 @@ class FontStyle(models.Model):
     """A color palette"""
     name = models.CharField(max_length=255, blank=True, null=True)
     font_color = models.ForeignKey(Color, related_name="font_color", null=True, on_delete=models.SET_NULL)    
-    font_size = models.IntegerField(default=14, help_text="Font size in px")
+    font_size = models.IntegerField(default=16, help_text="Font size in px")
     font_family = models.CharField(max_length=255, default="Montserrat", 
-        help_text="Choose a Google font family")    
-    font_style = models.CharField(max_length=7, default="bold")        
+        help_text="Choose a Google font family")        
             
     def __str__(self):
         return self.name
@@ -69,9 +68,9 @@ register_snippet(FontStyle)
 class Navbar(models.Model):    
     """A color palette"""
     name = models.CharField(max_length=255, blank=True, null=True)
+    title_size = models.IntegerField(default=16, help_text="Font size in px")
     bg_color = models.ForeignKey('themes.Color', related_name="navbar_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
     text_color = models.ForeignKey('themes.Color', related_name="navbar_text_color", on_delete=models.SET_NULL, null=True, blank=True)
-    title_size = models.IntegerField(default=16, help_text="Font size in px")
     subtitle_size = models.IntegerField(default=11, help_text="Font size in px")
     subtitle_show = models.BooleanField(default=True)    
     
@@ -132,27 +131,33 @@ class Theme(BaseSetting):
     ## A function that uses the values stored in the model to print to a file the corresponding Boostrap SCSS variables
     def print_scss(self):
         """Prints the SCSS variables contained in the model to a file, color, font and navbar"""
-        with open("themes/theme.scss", "w") as f:
+        NAME = settings.NAME
+        with open(os.path.join(NAME, "static/scss/themes/theme.scss"), "w") as f:
+            
+            f.write("$primary: " + self.color.primary + ";\n")            
+            f.write("$secondary: " + self.color.secondary + ";\n")
 
-            f.write("$primary: #" + self.color.primary + ";\n")
-            f.write("$secondary: #" + self.color.secondary + ";\n")
+            """
             f.write("$success: #" + self.color.success + ";\n")
             f.write("$info: #" + self.color.info + ";\n")
             f.write("$warning: #" + self.color.warning + ";\n")
             f.write("$danger: #" + self.color.danger + ";\n")
             f.write("$light: #" + self.color.light + ";\n")
             f.write("$dark: #" + self.color.dark + ";\n")
+            """
 
-
-            f.write("$font-family: " + self.font.font_family + ";\n")
-            f.write("$font-size: " + self.font.font_size + ";\n")
-            f.write("$font-color: " + self.font.font_color + ";\n")
-            f.write("$font-style: " + self.font.font_style + ";\n")
+            f.write("$font-family-sans-serif: " + self.font.font_family + ";\n")            
+            f.write("$font-size-base: " + str(self.font.font_size * 0.0625) + "rem ;\n")
+            f.write("$font-color: " + self.font.font_color.code + ";\n")
+            
+            f.write("$navbar-brand-font-size: " + str(self.navbar.title_size * 0.0625) + "rem ;\n")
+            f.write("$navbar-subtitle-size: " + str(self.navbar.subtitle_size * 0.0625) + "rem ;\n")
+            """
             f.write("$navbar-bg-color: " + self.navbar.bg_color + ";\n")
             f.write("$navbar-text-color: " + self.navbar.text_color + ";\n")
-            f.write("$navbar-subtitle-size: " + self.navbar.subtitle_size + ";\n")
+            
             f.write("$navbar-subtitle-show: " + self.navbar.subtitle_show + ";\n")
-            f.write("$navbar-title-size: " + self.navbar.title_size + ";\n")
+            
             f.write("$footer-bg-color: " + self.footer.bg_color + ";\n")
             f.write("$footer-text-color: " + self.footer.text_color + ";\n")
             f.write("$footer-subtitle-size: " + self.footer.subtitle_size + ";\n")
@@ -160,7 +165,9 @@ class Theme(BaseSetting):
             f.write("$footer-title-size: " + self.footer.title_size + ";\n")
             f.write("$jumbotron-bg-color: " + self.jumbotron.bg_color + ";\n")
             f.write("$jumbotron-button-color: " + self.jumbotron.button_color + ";\n")
-            f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")            
+            f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")            """
+            f.write("@import 'wagtailitalia/static/scss/bootstrap/bootstrap';")
+            f.write(".navbar-brand-subtitle{\nfont-size: $navbar-subtitle-size\n}")
 
         
 
@@ -172,17 +179,17 @@ class Theme(BaseSetting):
 
         # Compile the SCSS file into the CSS file
         compile_sass(
-            inpath=os.path.join(NAME,'static/scss/', NAME, "theme.scss"),
-            outpath=os.path.join(NAME, 'static/css/', NAME),
+            inpath=os.path.join(NAME,'static/scss/themes/theme.scss'),
+            outpath=os.path.join(NAME, 'static/css/themes/theme.css'),
             output_style="compressed",
             precision=8,
             source_map=True
         )
         
         # If the file already exist, remove the previous file and replace it with the new one
-        if os.path.exists(os.path.join('static/css/', NAME, 'theme.css')):
+        if os.path.exists(os.path.join('static/css/themes/theme.css')):
             # Remove the previous file
-            os.remove(os.path.join('static/css/', NAME, 'theme.css'))
+            os.remove(os.path.join('static/css/themes/theme.css'))
         else:
             # Print a message if the file doesn't exist
             print("CSS directory not found")
