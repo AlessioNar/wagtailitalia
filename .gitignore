@@ -10,7 +10,7 @@ static/*
 !static/scss
 !static/js
 wagtailitalia/static/scss/themes/
-
+static/scss/themes/theme.scss
 media/images/*
 !media/original_images/*
 media/documents/*
