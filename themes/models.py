@@ -72,6 +72,13 @@ class Theme(BaseSetting):
     card_text_align = models.CharField(max_length=10, choices=ALIGN_FIELDS, default='center')
     card_image_height = models.IntegerField(default=15, help_text="Card height in em")
 
+    # Button fields
+    btn_bg_color = models.ForeignKey('themes.Color', related_name="btn_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
+    btn_text_color = models.ForeignKey('themes.Color', related_name="btn_text_color", on_delete=models.SET_NULL, null=True, blank=True)
+    
+
+
+
     # Jumbotron fields
     jumbo_bg_color = models.ForeignKey('themes.Color', related_name="jumbotron_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
     jumbo_text_color = models.ForeignKey('themes.Color', related_name="jumbotron_text_color", on_delete=models.SET_NULL, null=True, blank=True)
@@ -126,6 +133,10 @@ class Theme(BaseSetting):
             FieldPanel('card_text_align'),
             FieldPanel('card_image_height'),
         ], heading="Card"),
+        MultiFieldPanel([
+            FieldPanel('btn_bg_color'),
+            FieldPanel('btn_text_color'),
+        ], heading="Button"),
 
         MultiFieldPanel([
             FieldPanel('jumbo_bg_color'),
@@ -195,6 +206,9 @@ class Theme(BaseSetting):
             f.write("$card-text-align: " + self.card_text_align + ";\n")
             f.write("$card-font-color: " + self.card_text_color.code + ";\n")
             
+            ## Button variables
+            f.write("$btn-text-color: " + self.btn_text_color.code + ";\n")
+            f.write("$btn-bg-color: " + self.btn_bg_color.code + ";\n")
             
 
             ## Jumbotron variables
@@ -243,6 +257,8 @@ class Theme(BaseSetting):
             
             f.write(".card-img {\nheight: $card-img-height;\nmax-width: 100%;\nobject-fit: cover;\nbackground-color: $white\n}\n")        
             
+            # Buttons
+            f.write(".btn {\nappearance: none;\nbackground-color: $btn-bg-color;\nborder: 1px solid rgba(27, 31, 35, .15);\nborder-radius: 6px;\nbox-shadow: rgba(27, 31, 35, .1) 0 1px 0;\nbox-sizing: border-box;color: $btn-text-color;\ncursor: pointer;\ndisplay: inline-block;\nfont-size: 14px;\nfont-weight: 600;\nline-height: 20px;\npadding: 6px 16px;\nposition: relative;\ntext-align: center;\ntext-decoration: none;\nuser-select: none;\n-webkit-user-select: none;\ntouch-action: manipulation;\nvertical-align: middle;\nwhite-space: nowrap;\n}\n")
 
             ## Custom CSS
             f.write("\n" + self.css +"\n")
