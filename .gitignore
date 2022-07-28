@@ -9,6 +9,7 @@ static/*
 !wagtailitalia/static/js/
 !static/scss
 !static/js
+wagtailitalia/static/scss/themes/
 
 media/images/*
 !media/original_images/*

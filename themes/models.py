@@ -147,6 +147,7 @@ class Theme(BaseSetting):
             
             f.write("$jumbotron-bg-color: " + self.jumbo_bg_color.code + ";\n")
             f.write("$jumbotron-text-color: " + self.jumbo_text_color.code + ";\n")
+            f.write("$jumbotron-button-color: " + self.jumbo_button_color.code + ";\n")
 
             """            
             f.write("$footer-bg-color: " + self.footer.bg_color + ";\n")
@@ -155,7 +156,7 @@ class Theme(BaseSetting):
             f.write("$footer-subtitle-show: " + self.footer.subtitle_show + ";\n")
             f.write("$footer-title-size: " + self.footer.title_size + ";\n")
             
-            f.write("$jumbotron-button-color: " + self.jumbotron.button_color + ";\n")
+            
             f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")
             """
 
@@ -169,6 +170,7 @@ class Theme(BaseSetting):
             f.write(".carousel-caption {\nposition: inherit;\n}\n")
             f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\n}\n")
             f.write(".jumbotron{\nbackground-color: $jumbotron-bg-color;\ncolor: $jumbotron-text-color;\n}\n")
+            f.write(".jumbotron-button .btn{\nbackground-color: $jumbotron-button-color;\n}\n")
 
             f.write(".card-title, .card-header {\nheight: 5em;\ntext-align: center;\n line-height: 1.8em;\n}\n")
             f.write(".card {\nborder: none;\nheight: 20em;\n}\n")
@@ -206,6 +208,13 @@ class Theme(BaseSetting):
 
     def save(self, *args, **kwargs):
         """Override the save method to compile the scss file"""
-        self.print_scss()
-        self.compile_scss()
+        try:
+            self.print_scss()
+        except:
+            print("Error writing SCSS file")
+        try:
+            self.compile_scss()
+        except:
+            print("Error compiling SCSS file")
+
         super(Theme, self).save(*args, **kwargs)
