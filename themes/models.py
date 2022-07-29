@@ -259,7 +259,7 @@ class Theme(BaseSetting):
             
             # Buttons
             f.write(".btn {\nappearance: none;\nbackground-color: $btn-bg-color;\nborder: 1px solid rgba(27, 31, 35, .15);\nborder-radius: 6px;\nbox-shadow: rgba(27, 31, 35, .1) 0 1px 0;\nbox-sizing: border-box;color: $btn-text-color;\ncursor: pointer;\ndisplay: inline-block;\nfont-size: 14px;\nfont-weight: 600;\nline-height: 20px;\npadding: 6px 16px;\nposition: relative;\ntext-align: center;\ntext-decoration: none;\nuser-select: none;\n-webkit-user-select: none;\ntouch-action: manipulation;\nvertical-align: middle;\nwhite-space: nowrap;\n}\n")
-
+            f.write("@include media-breakpoint-down(md) {\n.heading-image {\nheight: 15em;\nobject-fit: cover;\n}\n}\n")
             ## Custom CSS
             f.write("\n" + self.css +"\n")
         
