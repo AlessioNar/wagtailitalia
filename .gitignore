@@ -12,7 +12,8 @@ static/*
 
 wagtailitalia/static/scss/themes/
 static/scss/themes/theme.scss
-!wagtailitalia/static/css/cookieconsent
+!wagtailitalia/static/css/cookieconsent/*
+!static/css/cookieconsent/*
 media/images/*
 !media/original_images/*
 media/documents/*
