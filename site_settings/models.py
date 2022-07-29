@@ -75,3 +75,15 @@ class BrandSettings(BaseSetting):
         
     ]
 
+@register_setting
+class AnalyticsSettings(BaseSetting):
+    """Analytics settings for the website"""
+
+    google_analytics_id = models.CharField(
+        blank=True, null=True, help_text="Google Analytics ID", max_length=250)
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('google_analytics_id'),
+        ])
+    ]

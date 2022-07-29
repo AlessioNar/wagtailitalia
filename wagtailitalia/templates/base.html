@@ -172,19 +172,20 @@
 
     {# Global javascript #}
 <script type="text/javascript" src="{% static 'js/'|add:NAME|add:'.js' %}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="text/plain" data-cookiecategory="analytics" async src="https://www.googletagmanager.com/gtag/js?id={{settings.site_settings.AnalyticsSettings.google_analytics_id}}"></script>
+<script type="text/plain" data-cookiecategory="analytics">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '{{settings.site_settings.AnalyticsSettings.google_analytics_id}}');
+</script>
+
 <script defer src="{% static 'js/cookieconsent.js' %}" defer></script>
 <script defer src="{% static 'js/cookieconsent-init.js'%}"></script>
 
-
-<!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1L3FEM6T7N"></script>
-<script type="text/plain" data-cookiecategory="analytics" src="{% static 'js/analytics.js' %}"></script>
-
-<script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js" defer></script>
-<script defer src="{% static 'main/js/cookieconsent-init.js'%}"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-J6XTVB48D3"></script>
-
--->
 {% block extra_js %}
 {# Override this in templates to add extra javascript #}
 {% endblock %}
