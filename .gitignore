@@ -9,8 +9,10 @@ static/*
 !wagtailitalia/static/js/
 !static/scss
 !static/js
+
 wagtailitalia/static/scss/themes/
 static/scss/themes/theme.scss
+!wagtailitalia/static/css/cookieconsent
 media/images/*
 !media/original_images/*
 media/documents/*

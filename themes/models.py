@@ -285,7 +285,7 @@ class Theme(BaseSetting):
             os.remove(os.path.join('static/css/themes/theme.css'))
         else:
             # Print a message if the file doesn't exist
-            print("CSS directory not found")
+            print("CSS file not found")
 
         # Collect the new static files
         call_command('collectstatic', '--no-input')
