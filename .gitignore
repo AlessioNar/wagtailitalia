@@ -36,6 +36,7 @@ warning.log
 debug.log
 .dockerignore
 .secret
+.secret-test
 .env
 
 
