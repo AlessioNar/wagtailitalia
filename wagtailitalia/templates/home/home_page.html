@@ -13,9 +13,7 @@
                       {% image post.heading_image fill-2400x500 as heading_image %}
                       <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
 
-                          <img src="{{ heading_image.url }}" class="d-block w-100 heading-image" alt="{{heading_image.alt}}">
-
-
+                          <img src="{{ heading_image.url }}" class="d-block w-100 heading-image" alt="{{heading_image.alt}}" />
 
                       <div class="container-fluid carousel-home">
                       <div class="carousel-caption {% if settings.themes.Theme.dark_background_color %}text-light{% else %}text-dark{% endif %}">
@@ -47,5 +45,5 @@
     </div>
 {% endfor %}
 
-
+</div>
 {% endblock %}
