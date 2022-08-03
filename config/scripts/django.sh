@@ -24,7 +24,7 @@ echo SECRET_KEY=$secret_key >> .env
 source ./"${NAME}"-env/bin/activate && \
 pip install -r ./requirements.txt && \
 python ./manage.py collectstatic --noinput && \
-python ./manage.py makemigrations blog flex home streams menus site_settings websites && \
+python ./manage.py makemigrations blog contact flex home streams menus site_settings themes websites && \
 python ./manage.py migrate && \
 python ./manage.py load && \
 python ./manage.py createsuperuser && \
