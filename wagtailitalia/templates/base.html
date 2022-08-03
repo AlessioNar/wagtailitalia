@@ -23,9 +23,9 @@
 
     {# Global stylesheets #}
   {% image settings.site_settings.BrandSettings.brand_image max-120x120 as brand_img %}
-    <link rel="icon" type="image/x-icon" href="{{brand_img.url}}">
-    <link rel="stylesheet" href="{% static 'css/themes/theme.css' %}">
-    <link rel="stylesheet" href="{% static 'css/cookieconsent/cookieconsent.css' %}" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/x-icon" href="{{brand_img.url}}" />
+    <link rel="stylesheet" href="{% static 'css/themes/theme.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/cookieconsent/cookieconsent.css' %}" media="print" onload="this.media='all'"/>
 
     {% block extra_css %}
 
@@ -34,15 +34,15 @@
 
 <body style class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
-
-
-  <nav class="navbar navbar-expand-lg {% if settings.themes.Theme.dark_background_color %}navbar-dark{% else %}navbar-light{% endif %}">
+    <nav class="navbar navbar-expand-lg {% if settings.themes.Theme.dark_background_color %}navbar-dark{% else %}navbar-light{% endif %}">
     <div class="container-fluid">
       {% if settings.site_settings.BrandSettings.brand_name %}
+      {% if settings.site_settings.BrandSettings.brand_image %}
       {% image settings.site_settings.BrandSettings.brand_image max-120x120 as brand_img %}
       <a href="{{settings.site_settings.BrandSettings.brand_website}}">
-        <img src="{{brand_img.url}}" class="me-3 navbar-brand-img">
+        <img src="{{brand_img.url}}" class="me-3 navbar-brand-img" alt="brand image"/>
       </a>
+      {% endif %}      
       {% if settings.site_settings.BrandSettings.brand_subtitle  %}
         <div class="navbar-brand-text">
       {% endif %}
@@ -86,15 +86,10 @@
                             {% endfor %}
                           </ul>
                           </li>
-
-
                           {% else %}
-
-
                           <li class="nav-item">
                               <a class="nav-link dropdown" href="{{item.link}}" {% if item.open_in_a_new_tab %}target="_blank"{% endif %}>{{item.title}}</a>
                           </li>
-
                           {% endif %}
 
                       {% endfor %}
@@ -116,10 +111,8 @@
   {% endfor %}
   </div>
   {% endif %}
-  </div>
+</div>
     {% block content %}{% endblock %}
-
-
 {% block footer %}
     <div class="container pb-4 mt-auto pt-4">
 
@@ -127,7 +120,7 @@
       <div class="row">
       <div class="col-12 text-center py-3" id="funding-image">
         {% image settings.site_settings.BrandSettings.funding_image max-300x300 as funding_image %}
-        <img src="{{ funding_image.url }}">
+        <img src="{{ funding_image.url }}" alt="funding-image"/>
       </div>
       {% endif %}
       </div>
@@ -153,8 +146,8 @@
                 <i class="bi bi-twitter"></i>
             </a>
         {% endif %}
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
         <ul class="nav col-md-4 justify-content-end">
          {% for item in footer.menu_items.all %}
             <li class="nav-item">
@@ -164,8 +157,8 @@
             </li>
         {% endfor %}
         </ul>
-        </div>
-        </div>
+      </div>
+    </div>
 
     </div>
     {% endblock %}

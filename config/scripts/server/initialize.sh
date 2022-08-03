@@ -8,7 +8,7 @@ sudo locale-gen "it_IT.UTF-8"
 echo "Locale set to it_IT.UTF-8"
 
 # Create postgres database and configure user admin
-sudo su - postgres psql -c 'CREATE USER $USER WITH ENCRYPTED PASSWORD $DB_PASSWORD;'
+sudo -u postgres createuser -e --createdb $USER --pwprompt
 echo "Added user $USER to postgres"
 
 # Create log files
