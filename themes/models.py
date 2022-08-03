@@ -164,104 +164,99 @@ class Theme(BaseSetting):
         """Prints the SCSS variables contained in the model to a file, color, font and navbar"""
         NAME = settings.NAME
         with open(os.path.join(NAME, "static/scss/themes/theme.scss"), "w") as f:
-            
             # Writing variables
+            try:                
+                ## Color variables
+                f.write("$primary: " + self.primary.code + ";\n")            
+                f.write("$secondary: " + self.secondary.code + ";\n")            
+                f.write("$success: " + self.success.code + ";\n")            
+                f.write("$warning: " + self.warning.code + ";\n")
+                f.write("$danger: " + self.danger.code + ";\n")
+                f.write("$light: " + self.light.code + ";\n")
+                f.write("$dark: " + self.dark.code + ";\n")            
+                
+                ## Font variables
+                f.write("$font-family-sans-serif: " + self.font_family + ";\n")            
+                f.write("$font-size-base: " + str(self.font_size * 0.0625) + "rem ;\n")
+                f.write("$font-color: " + self.font_color.code + ";\n")
+                
+                ## Navbar variables
+                f.write("$navbar-brand-font-size: " + str(self.nav_title_size * 0.0625) + "rem ;\n")
+                f.write("$navbar-subtitle-size: " + str(self.nav_subtitle_size * 0.0625) + "rem ;\n")
+                f.write("$navbar-bg-color: " + self.nav_bg_color.code + ";\n")
 
-            ## Color variables
-            f.write("$primary: " + self.primary.code + ";\n")            
-            f.write("$secondary: " + self.secondary.code + ";\n")            
-            f.write("$success: " + self.success.code + ";\n")            
-            f.write("$warning: " + self.warning.code + ";\n")
-            f.write("$danger: " + self.danger.code + ";\n")
-            f.write("$light: " + self.light.code + ";\n")
-            f.write("$dark: " + self.dark.code + ";\n")            
-            
-            ## Font variables
-            f.write("$font-family-sans-serif: " + self.font_family + ";\n")            
-            f.write("$font-size-base: " + str(self.font_size * 0.0625) + "rem ;\n")
-            f.write("$font-color: " + self.font_color.code + ";\n")
-            
-            ## Navbar variables
-            f.write("$navbar-brand-font-size: " + str(self.nav_title_size * 0.0625) + "rem ;\n")
-            f.write("$navbar-subtitle-size: " + str(self.nav_subtitle_size * 0.0625) + "rem ;\n")
-            f.write("$navbar-bg-color: " + self.nav_bg_color.code + ";\n")
-            """
-            f.write("$navbar-bg-color: " + self.navbar.bg_color + ";\n")
-            f.write("$navbar-text-color: " + self.navbar.text_color + ";\n")            
-            f.write("$navbar-subtitle-show: " + self.navbar.subtitle_show + ";\n")
-            """
-            
-            ## Carousel variables
-            f.write("$carousel-bg-color: " + self.car_bg_color.code + ";\n")
-            f.write("$carousel-font-size: " + str(self.car_title_size * 0.0625) + "rem;\n")
-            
-            ## Card variables
-            f.write("$card-bg-color: " + self.card_bg_color.code + ";\n")
-            f.write("$card-height: " + str(self.card_height) + "em;\n")            
-            f.write("$card-img-height: " + str(self.card_image_height) + "em;\n")
+                ## Carousel variables
+                f.write("$carousel-bg-color: " + self.car_bg_color.code + ";\n")
+                f.write("$carousel-font-size: " + str(self.car_title_size * 0.0625) + "rem;\n")
+                
+                ## Card variables
+                f.write("$card-bg-color: " + self.card_bg_color.code + ";\n")
+                f.write("$card-height: " + str(self.card_height) + "em;\n")            
+                f.write("$card-img-height: " + str(self.card_image_height) + "em;\n")
 
-            f.write("$card-font-size: " + str(self.card_title_size * 0.0625) + "rem;\n")
-            f.write("$card-text-align: " + self.card_text_align + ";\n")
-            f.write("$card-font-color: " + self.card_text_color.code + ";\n")
-            
-            ## Button variables
-            f.write("$btn-text-color: " + self.btn_text_color.code + ";\n")
-            f.write("$btn-bg-color: " + self.btn_bg_color.code + ";\n")
-            
+                f.write("$card-font-size: " + str(self.card_title_size * 0.0625) + "rem;\n")
+                f.write("$card-text-align: " + self.card_text_align + ";\n")
+                f.write("$card-font-color: " + self.card_text_color.code + ";\n")
+                
+                ## Button variables
+                f.write("$btn-text-color: " + self.btn_text_color.code + ";\n")
+                f.write("$btn-bg-color: " + self.btn_bg_color.code + ";\n")
+                
 
-            ## Jumbotron variables
-            f.write("$jumbotron-bg-color: " + self.jumbo_bg_color.code + ";\n")
-            f.write("$jumbotron-text-color: " + self.jumbo_text_color.code + ";\n")
-            f.write("$jumbotron-button-color: " + self.jumbo_button_color.code + ";\n")
+                ## Jumbotron variables
+                f.write("$jumbotron-bg-color: " + self.jumbo_bg_color.code + ";\n")
+                f.write("$jumbotron-text-color: " + self.jumbo_text_color.code + ";\n")
+                f.write("$jumbotron-button-color: " + self.jumbo_button_color.code + ";\n")
 
-            """            
-            f.write("$footer-bg-color: " + self.footer.bg_color + ";\n")
-            f.write("$footer-text-color: " + self.footer.text_color + ";\n")
-            f.write("$footer-subtitle-size: " + self.footer.subtitle_size + ";\n")
-            f.write("$footer-subtitle-show: " + self.footer.subtitle_show + ";\n")
-            f.write("$footer-title-size: " + self.footer.title_size + ";\n")
-            
-            
-            f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")
-            """
-            
-            # Import bootswatch and bootstrap scss
-            f.write("@import 'wagtailitalia/static/scss/bootswatch/_variables';\n")
-            f.write("@import 'wagtailitalia/static/scss/bootstrap/bootstrap';\n")
-            f.write("@import 'wagtailitalia/static/scss/bootswatch/bootswatch';\n")
+                """            
+                f.write("$footer-bg-color: " + self.footer.bg_color + ";\n")
+                f.write("$footer-text-color: " + self.footer.text_color + ";\n")
+                f.write("$footer-subtitle-size: " + self.footer.subtitle_size + ";\n")
+                f.write("$footer-subtitle-show: " + self.footer.subtitle_show + ";\n")
+                f.write("$footer-title-size: " + self.footer.title_size + ";\n")
+                
+                
+                f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")
+                """
+                
+                # Import bootswatch and bootstrap scss
+                f.write("@import 'wagtailitalia/static/scss/bootswatch/_variables';\n")
+                f.write("@import 'wagtailitalia/static/scss/bootstrap/bootstrap';\n")
+                f.write("@import 'wagtailitalia/static/scss/bootswatch/bootswatch';\n")
 
-            # Set the theme variables as scss
-            ## Navbar
-            f.write(".navbar-brand-subtitle{\nfont-size: $navbar-subtitle-size\n}\n")
-            f.write(".navbar{\nbackground-color: $navbar-bg-color\n}\n")
-            f.write(".dropdown-menu{\nbackground-color: $navbar-bg-color\n}\n")      
-            
-            ## Carousel
-            f.write(".carousel-caption {\nposition: inherit;\n}\n")
-            f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\n}\n")
-            
-            ## Jumbotron
-            f.write(".jumbotron{\nbackground-color: $jumbotron-bg-color;\ncolor: $jumbotron-text-color;\n}\n")
-            f.write(".jumbotron-button .btn{\nbackground-color: $jumbotron-button-color;\ncolor: $jumbotron-text-color;\n}\n")
-            
-            ## Card
-            f.write(".card-header{\nbackground-color: $card-bg-color;\n}\n")
-            f.write(".card-text{\ncolor: $card-font-color;\n}\n")
-            f.write(".card-header {\nheight: auto;\ntext-align: $card-text-align;\n}\n")
-            f.write(".card {\nborder: none;\nheight: $card-height;\n}\n")
-            
-            # Box shadow for cards
-            f.write(".card-item {\nbox-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;\n}\n")
-            
-            f.write(".card-img {\nheight: $card-img-height;\nmax-width: 100%;\nobject-fit: cover;\nbackground-color: $white\n}\n")        
-            
-            # Buttons
-            f.write(".btn {\nappearance: none;\nbackground-color: $btn-bg-color;\nborder: 1px solid rgba(27, 31, 35, .15);\nborder-radius: 6px;\nbox-shadow: rgba(27, 31, 35, .1) 0 1px 0;\nbox-sizing: border-box;color: $btn-text-color;\ncursor: pointer;\ndisplay: inline-block;\nfont-size: 14px;\nfont-weight: 600;\nline-height: 20px;\npadding: 6px 16px;\nposition: relative;\ntext-align: center;\ntext-decoration: none;\nuser-select: none;\n-webkit-user-select: none;\ntouch-action: manipulation;\nvertical-align: middle;\nwhite-space: nowrap;\n}\n")
-            f.write(".heading-image {\nwidth: 100%;\n}\n")
-            f.write("@include media-breakpoint-down(md) {\n.heading-image {\nheight: 15em;\nobject-fit: cover;\nwidth: 100%;\n}\n}\n")
-            ## Custom CSS
-            f.write("\n" + self.css +"\n")
-        
+                # Set the theme variables as scss
+                ## Navbar
+                f.write(".navbar-brand-subtitle{\nfont-size: $navbar-subtitle-size\n}\n")
+                f.write(".navbar{\nbackground-color: $navbar-bg-color\n}\n")
+                f.write(".dropdown-menu{\nbackground-color: $navbar-bg-color\n}\n")      
+                
+                ## Carousel
+                f.write(".carousel-caption {\nposition: inherit;\n}\n")
+                f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\n}\n")
+                
+                ## Jumbotron
+                f.write(".jumbotron{\nbackground-color: $jumbotron-bg-color;\ncolor: $jumbotron-text-color;\n}\n")
+                f.write(".jumbotron-button .btn{\nbackground-color: $jumbotron-button-color;\ncolor: $jumbotron-text-color;\n}\n")
+                
+                ## Card
+                f.write(".card-header{\nbackground-color: $card-bg-color;\n}\n")
+                f.write(".card-text{\ncolor: $card-font-color;\n}\n")
+                f.write(".card-header {\nheight: auto;\ntext-align: $card-text-align;\n}\n")
+                f.write(".card {\nborder: none;\nheight: $card-height;\n}\n")
+                
+                # Box shadow for cards
+                f.write(".card-item {\nbox-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;\n}\n")
+                
+                f.write(".card-img {\nheight: $card-img-height;\nmax-width: 100%;\nobject-fit: cover;\nbackground-color: $white\n}\n")        
+                
+                # Buttons
+                f.write(".btn {\nappearance: none;\nbackground-color: $btn-bg-color;\nborder: 1px solid rgba(27, 31, 35, .15);\nborder-radius: 6px;\nbox-shadow: rgba(27, 31, 35, .1) 0 1px 0;\nbox-sizing: border-box;color: $btn-text-color;\ncursor: pointer;\ndisplay: inline-block;\nfont-size: 14px;\nfont-weight: 600;\nline-height: 20px;\npadding: 6px 16px;\nposition: relative;\ntext-align: center;\ntext-decoration: none;\nuser-select: none;\n-webkit-user-select: none;\ntouch-action: manipulation;\nvertical-align: middle;\nwhite-space: nowrap;\n}\n")
+                f.write(".heading-image {\nwidth: 100%;\n}\n")
+                f.write("@include media-breakpoint-down(md) {\n.heading-image {\nheight: 15em;\nobject-fit: cover;\nwidth: 100%;\n}\n}\n")
+                ## Custom CSS
+                f.write("\n" + self.css +"\n")
+            except:
+                print("Error writing to file")
 
     
     def compile_scss(self):
