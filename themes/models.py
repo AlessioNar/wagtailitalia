@@ -207,17 +207,6 @@ class Theme(BaseSetting):
                 f.write("$jumbotron-bg-color: " + self.jumbo_bg_color.code + ";\n")
                 f.write("$jumbotron-text-color: " + self.jumbo_text_color.code + ";\n")
                 f.write("$jumbotron-button-color: " + self.jumbo_button_color.code + ";\n")
-
-                """            
-                f.write("$footer-bg-color: " + self.footer.bg_color + ";\n")
-                f.write("$footer-text-color: " + self.footer.text_color + ";\n")
-                f.write("$footer-subtitle-size: " + self.footer.subtitle_size + ";\n")
-                f.write("$footer-subtitle-show: " + self.footer.subtitle_show + ";\n")
-                f.write("$footer-title-size: " + self.footer.title_size + ";\n")
-                
-                
-                f.write("$jumbotron-button-size: " + self.jumbotron.button_size + ";\n")
-                """
                 
                 # Import bootswatch and bootstrap scss
                 f.write("@import 'wagtailitalia/static/scss/bootswatch/_variables';\n")
