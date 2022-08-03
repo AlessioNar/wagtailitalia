@@ -2,7 +2,7 @@ from django_sass import compile_sass, find_static_paths
 import os
 from django.core.management import call_command
 
-from django.db import models
+from django.db import OperationalError, models
 from django.conf import settings
 from wagtail.snippets.models import register_snippet
 
@@ -255,8 +255,8 @@ class Theme(BaseSetting):
                 f.write("@include media-breakpoint-down(md) {\n.heading-image {\nheight: 15em;\nobject-fit: cover;\nwidth: 100%;\n}\n}\n")
                 ## Custom CSS
                 f.write("\n" + self.css +"\n")
-            except:
-                print("Error writing to file")
+            except:                
+                raise Exception("Error writing to file")
 
     
     def compile_scss(self):
