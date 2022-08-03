@@ -40,7 +40,7 @@ class BrandSettings(BaseSetting):
         "wagtailimages.Image",
         on_delete=models.SET_NULL,
         null=True,
-        blank=False,
+        blank=True,
         related_name="+",
     )
     brand_subtitle = models.CharField(
