@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-searchresults{% endblock %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Search</h1>
+
+    <form action="{% url 'search' %}" method="get" class="form-control">
+        <div class="input-group mb-3">
+            <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %} class="form-control form-control-sm me-1" aria-label="Search query" aria-describedby="search-button" />
+            <div class="input-group-append">
+                <input type="submit" value="Search" class="btn btn-outline-primary btn-sm" id="search-button"/>
+            </div>
+        </div>
+    </form>
+
+    {% if search_results %}
+    <div class="container">
+        <div class="row">
+        {% for result in search_results %}
+        
+        <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4 my-2">
+            <div class="card-item">              
+              <div class="card-header center-vertically text-center">
+                  <a class="text-decoration-none fw-bold" href="{{ result.url}}">
+                    <h5 class="card-text">
+                      {{ result.title }}
+                    </h5>
+                  </a>
+              </div>
+          </div>
+        </div>                   
+          
+        {% endfor %}
+        </div>
+    </div>
+
+    {% elif search_query %}
+        No results found
+    {% endif %}
+    </div>
+{% endblock %}

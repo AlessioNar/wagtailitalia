@@ -95,8 +95,8 @@
                       {% endfor %}
         </ul>
 
-        <form class="d-flex" data-np-checked="1">
-          <input class="form-control me-sm-2" type="text" placeholder="Search" data-np-checked="1">
+        <form class="d-flex" data-np-checked="1" action="{% url 'search' %}" method="get">
+          <input name="query" class="form-control me-sm-2" type="text" placeholder="Search" data-np-checked="1" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}/>                                        
           <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
