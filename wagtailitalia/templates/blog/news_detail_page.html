@@ -2,11 +2,10 @@
 
 {% load wagtailimages_tags wagtailcore_tags %}
 
-
 {% block content %}
 		{% image self.heading_image fill-2400x600 as heading_image %}
 
-		<img src="{{ heading_image.url }}" alt="{{ heading_image.alt }}" class="heading-image">
+		<img src="{{ heading_image.url }}" alt="{{ heading_image.alt }}" class="heading-image" />
 		<div class="container mt-5 mb-5 ">
 		<div class="text-center">
 				<h1>{{self.title}}</h1>
@@ -16,34 +15,7 @@
 					{% endif %}
 				</h3>
 			</div>
-</div>
-			{% if self.partners %}
-			<div class="container">
-				<div class="row">
-				<div class="col-lg-4">
-				{% for iter in self.partners.all %}
-					{% image iter.partner.image fill-100x100 as img %}
-					<div class="col-2 text-center">
-						{% if iter.partner.website %}
-								<img src="{{img.url}}" alt="{{iter.author.name}}" style="object-fit: contain;">
-								{% endif %}
-
-								{% if iter.partner.website %}
-									<a class="btn btn-primary-overlay" href="{{iter.author.website}}">
-										{{ iter.partner.name }}
-								</a>
-								{% endif %}
-					</div>
-					</div>
-
-				{% endfor %}
-				</div>
-				</div>
-			{% endif  %}
-
-			<div class="container">
-
-
+		</div>			
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -56,11 +28,10 @@
 		<div class="container my-3">
 			<div class="row">
 				<div class="col">
-					<a class='btn btn-primary' href='https://www.linkedin.com/sharing/share-offsite/?url={{self.full_url}}' target="_blank">Share on Linkedin</a>
-					<a class='btn btn-primary' href='https://twitter.com/intent/tweet?url={{self.full_url}}' target="_blank">Share on Twitter</a>
+					<a class="btn btn-primary" href="https://www.linkedin.com/sharing/share-offsite/?url={{self.full_url}}" target="_blank">Share on Linkedin</a>
+					<a class="btn btn-primary" href="https://twitter.com/intent/tweet?url={{self.full_url}}" target="_blank">Share on Twitter</a>
 					</div>
 			</div>
 		</div>
 		
-
 {% endblock %}

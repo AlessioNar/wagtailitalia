@@ -3,13 +3,12 @@
 {% load wagtailimages_tags wagtailroutablepage_tags %}
 {% load wagtailcore_tags %}
 
-
 {% block content %}
 
 {% if self.heading_image %}
     {% image self.heading_image max-1200x400 as heading_image %}
 				<div>
-					<img src="{{ heading_image.url }}" class="w-100 heading-image" alt="{{heading_image.alt}}">
+					<img src="{{ heading_image.url }}" class="w-100 heading-image" alt="{{heading_image.alt}}"/>
 				</div>
 {% endif %}
 
@@ -30,8 +29,7 @@
           {{element.intro|richtext}}
         </a>
       </div>
-    </div>
-    </div>
+    </div>    
     {% else %}
     {% image element.card_image max-500x500 as img %}
 
@@ -39,7 +37,7 @@
       <div class="row horizontal-card">
       <div class="col-sm-12 col-lg-5 center text-center mb-3">
         <a href="{{ element.url}}">
-        <img src="{{img.url}}" alt="{{img.alt}}" class="card-img">
+        <img src="{{img.url}}" alt="{{img.alt}}" class="card-img"/>
         </a>
       </div>
       <div class="col-sm-12 col-lg-7 mt-2 text-center">
@@ -75,6 +73,5 @@
     </div>
   </div>
 </div>
-
 
 {% endblock %}

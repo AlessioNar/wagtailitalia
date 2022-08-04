@@ -3,12 +3,11 @@
 
 {% load wagtailimages_tags wagtailcore_tags %}
 
-
 {% block content %}
 
 {% image self.heading_image fill-2400x600 as heading_image %}
 
-<img src="{{ heading_image.url }}" alt="{{ heading_image.alt }}" class="heading-image">
+<img src="{{ heading_image.url }}" alt="{{ heading_image.alt }}" class="heading-image" />
 <!-- Page title -->
 <div class="container mt-5 mb-5 ">
 <div class="text-center">
@@ -21,7 +20,6 @@
   </div>
 </div>
 
-
 {% for block in page.content %}
 	{% include_block block %}
 {% endfor %}
@@ -29,11 +27,10 @@
 <div class="container my-3">
 	<div class="row">
 		<div class="col">
-			<a class='btn btn-primary' href='https://www.linkedin.com/sharing/share-offsite/?url={{self.full_url}}' target="_blank">Share on Linkedin</a>
-			<a class='btn btn-primary' href='https://twitter.com/intent/tweet?url={{self.full_url}}' target="_blank">Share on Twitter</a>
+			<a class="btn btn-primary" href="https://www.linkedin.com/sharing/share-offsite/?url={{self.full_url}}" target="_blank">Share on Linkedin</a>
+			<a class="btn btn-primary" href="https://twitter.com/intent/tweet?url={{self.full_url}}" target="_blank">Share on Twitter</a>
 			</div>
 	</div>
 </div>
-
 
 {% endblock %}
