@@ -1,5 +1,4 @@
 from django_sass import compile_sass, find_static_paths
-import os
 from django.core.management import call_command
 
 from django.db import models
