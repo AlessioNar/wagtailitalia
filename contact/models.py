@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel
@@ -31,5 +32,6 @@ class ContactPage(AbstractEmailForm):
 						]),
 						FieldPanel('subject'),
 					], "Email settings"),					
+					
 				]
 		
