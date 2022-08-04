@@ -38,5 +38,4 @@ debug.log
 .secret
 .secret-test
 .env
-
-
+.vscode

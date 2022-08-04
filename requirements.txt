@@ -13,7 +13,6 @@ django-filter==21.1
 django-modelcluster==6.0
 django-permissionedforms==0.1
 django-sass==1.1.0
-django-social-share==2.2.1
 django-taggit==2.1.0
 django-treebeard==4.5.1
 django==4.0.4
@@ -24,7 +23,6 @@ executing==0.8.3
 gunicorn==20.1.0
 html5lib==1.1
 idna==3.3; python_version >= '3'
-importlib-metadata==4.12.0; python_version < '3.10'
 ipython==8.3.0
 jedi==0.18.1
 l18n==2021.3
