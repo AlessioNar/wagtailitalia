@@ -6,41 +6,47 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Search</h1>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+    <h1 class="my-4">Search</h1>
 
     <form action="{% url 'search' %}" method="get" class="form-control">
-        <div class="input-group mb-3">
-            <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %} class="form-control form-control-sm me-1" aria-label="Search query" aria-describedby="search-button" />
+        <div class="input-group my-3">
+            <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %} class="form-control form-control-sm m-1" aria-label="Search query" aria-describedby="search-button" />
             <div class="input-group-append">
-                <input type="submit" value="Search" class="btn btn-outline-primary btn-sm" id="search-button"/>
+                <input type="submit" value="Search" class="btn btn-outline-primary btn-sm m-1" id="search-button"/>
             </div>
         </div>
     </form>
+    </div>
+    </div>
+    </div>
 
-    {% if search_results %}
-    <div class="container">
+    <div class="container my-3">
         <div class="row">
+            <div class="col-12">
+    {% if search_results %}
+    
         {% for result in search_results %}
         
-        <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4 my-2">
-            <div class="card-item">              
-              <div class="card-header center-vertically text-center">
-                  <a class="text-decoration-none fw-bold" href="{{ result.url}}">
-                    <h5 class="card-text">
-                      {{ result.title }}
+                  <a class="fw-bold text-dark" href="{{result.url}}">
+                    <h4>
+                      {{result.title}}                      
+                    </h4>
+                    <h5>
+                        {{result.intro}}
                     </h5>
                   </a>
-              </div>
-          </div>
-        </div>                   
           
         {% endfor %}
-        </div>
+        
+    {% elif search_query %}
+    
+    <h4 class="my-5">No results found</h4>
+    {% endif %}
+    </div>                   
+    </div>
     </div>
 
-    {% elif search_query %}
-        No results found
-    {% endif %}
-    </div>
 {% endblock %}
