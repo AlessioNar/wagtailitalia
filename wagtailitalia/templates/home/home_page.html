@@ -39,10 +39,8 @@
 
   {% endif %}
 </div>
-{% for block in page.content %}
-    <div class="container-fluid">
-            {% include_block block %}
-    </div>
+{% for block in page.content %}    
+            {% include_block block %}    
 {% endfor %}
 
 </div>

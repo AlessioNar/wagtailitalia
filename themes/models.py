@@ -244,6 +244,7 @@ class Theme(BaseSetting):
                 
                 f.write("@include media-breakpoint-down(md) {\n.heading-image {\nheight: 15em;\nobject-fit: cover;\nwidth: 100%;\n}\n}\n")
                 f.write("html,body{\nwidth: 100%;\nheight: 100%;\nmargin: 0px;\npadding: 0px;\noverflow-x: hidden;\n}\n")
+                f.write(".carousel{\npadding:0;\n}\n")
 
                 ## Custom CSS
                 f.write("\n" + self.css +"\n")
