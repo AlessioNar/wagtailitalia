@@ -14,8 +14,6 @@ echo "Copied Nginx configuration"
 # Set up manage.py to use production settings
 cp ./config/manage.py ./manage.py
 
-
-
 # Create symbolic link for domain, if it does not exist
 ln -s /etc/nginx/sites-available/"${DOMAIN}" /etc/nginx/sites-enabled/
 echo "Created symbolic link for domain"
