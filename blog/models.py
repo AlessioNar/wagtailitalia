@@ -75,6 +75,32 @@ class BlogCategory(models.Model):
 register_snippet(BlogCategory)
 
 
+class Country(models.Model):
+    """Country for a snippet"""
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(
+        populate_from=["name"], editable=True,
+        help_text='A slug to identify posts by this country',
+
+    )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("slug"),
+    ]
+
+    class Meta:
+        verbose_name = "Country"
+        verbose_name_plural = "Countries"
+        ordering = ["name"]
+
+    def __str__(self):
+        """String Wrapper of this class"""
+        return self.name
+
+register_snippet(Country)
+
+
 class BlogListingPage(RoutablePageMixin, Page):
     """Listing Page lists all the Blog Detail Pages"""
 
@@ -329,7 +355,14 @@ class PartnerDetailPage(BlogDetailPage):
     """Partner Detail Page"""
 
     template = "blog/partner_detail_page.html"
-    country = models.CharField(blank=True, null=True, max_length=100)
+    country = models.ForeignKey(
+        "blog.Country",
+        null=True,
+        blank=True,
+        related_name="+",
+        on_delete=models.SET_NULL,
+    )
+
     website = models.URLField(blank=True, null=True)
 
     description = RichTextField(
@@ -349,3 +382,4 @@ class PartnerDetailPage(BlogDetailPage):
     class Meta:
         verbose_name = "Partner detail Page"
         verbose_name_plural = "Partner detail Pages"
+
