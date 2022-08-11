@@ -329,14 +329,21 @@ class PartnerDetailPage(BlogDetailPage):
     """Partner Detail Page"""
 
     template = "blog/partner_detail_page.html"
+    country = models.CharField(blank=True, null=True, max_length=100)
+    website = models.URLField(blank=True, null=True)
+
     description = RichTextField(
         blank=True,
         null=True,
         help_text='Intro text for preview'
     )
-    content_panels =[
-            FieldPanel("description"),
-             ] +  BlogDetailPage.content_panels
+    content_panels = BlogDetailPage.content_panels +  [
+            MultiFieldPanel([
+                FieldPanel("description"),
+                FieldPanel("country"),
+                FieldPanel("website"),
+            ], heading="Partner Details"),
+        ]         
 
 
     class Meta:
