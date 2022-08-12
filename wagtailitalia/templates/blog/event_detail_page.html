@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% load wagtailimages_tags wagtailcore_tags %}
 
 {% block content %}
@@ -24,10 +24,11 @@
 <div class="container my-5 pt-5">
 	<div class="row">
 		<div class="col text-center">
-			<a class="btn btn-primary" href="https://www.linkedin.com/sharing/share-offsite/?url={{self.full_url}}" target="_blank">Share on Linkedin</a>
-			<a class="btn btn-primary" href="https://twitter.com/intent/tweet?url={{self.full_url}}" target="_blank">Share on Twitter</a>
+			<a class="mx-5 px-5" href="https://www.linkedin.com/sharing/share-offsite/?url={{self.full_url}}" target="_blank"><img src="{% static 'images/linkedin.png' %}" alt="Share on Linkedin"/></a>
+			<a class="mx-5 px-5" href="https://twitter.com/intent/tweet?url={{self.full_url}}" target="_blank"><img src="{% static 'images/twitter.png' %}" alt="Share on Twitter" /></a>
 			</div>
 	</div>
 </div>
+
 
 {% endblock %}
