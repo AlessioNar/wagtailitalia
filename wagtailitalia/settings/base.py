@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'contact',
     'websites',
     'base',
+    "partners",
 
     #'wagtailseo',
     'wagtail.contrib.forms',
