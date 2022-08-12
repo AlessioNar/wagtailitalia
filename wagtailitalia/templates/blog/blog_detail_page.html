@@ -12,17 +12,11 @@
 	<!-- Page title -->
     <h1 class="my-5 text-center">{{self.title}}</h1>
 
-    {% if self.intro %}
-		<div class="container">
-			<div class="row mt-5 fs-2">
-				<div class="col-12">
-				{{self.intro|richtext}}
-				
-
-				</div>
-			</div>
-		</div>
-	{% endif %}
+	<h5>
+		{% if self.intro %}
+		  {{ self.intro }}
+		{% endif %}
+	  </h5>
 
 </div>
 
