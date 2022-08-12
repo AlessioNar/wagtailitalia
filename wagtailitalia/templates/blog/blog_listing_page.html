@@ -54,11 +54,13 @@
                       <img src="{{card_img.url}}" alt="{{card_img.alt}}" class="card-img" />
                     </a>
                     <div class="card-header center-vertically text-center">
-
                         <a class="text-decoration-none fw-bold" href="{{ element.url}}">
                           <h5 class="card-text">
-                            {{ element.title }}
+                            {{ element.title }}                            
                           </h5>
+                          <p class="card-text card-intro">
+                            {{element.intro | richtext}}
+                          </p>
                         </a>
                     </div>
 
