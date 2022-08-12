@@ -14,7 +14,7 @@
   <h1 class="my-5 text-center">{{self.title}}</h1>
   <h5>
     {% if self.intro %}
-      {{ self.intro }}
+    {{ self.intro |richtext}}
     {% endif %}
   </h5>
   </div>
