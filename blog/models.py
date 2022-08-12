@@ -320,3 +320,28 @@ class EventDetailPage(BlogDetailPage):
         ]),
         StreamFieldPanel("content"),
     ]
+
+class PartnerDetailPage(BlogDetailPage):
+    """Partner Detail Page"""
+
+    template = "blog/partner_detail_page.html"
+    country = models.CharField(blank=True, null=True, max_length=100)
+    website = models.URLField(blank=True, null=True)
+
+    description = RichTextField(
+        blank=True,
+        null=True,
+        help_text='Intro text for preview'
+    )
+    content_panels = BlogDetailPage.content_panels +  [
+            MultiFieldPanel([
+                FieldPanel("description"),
+                FieldPanel("country"),
+                FieldPanel("website"),
+            ], heading="Partner Details"),
+        ]         
+
+
+    class Meta:
+        verbose_name = "Partner detail Page"
+        verbose_name_plural = "Partner detail Pages"

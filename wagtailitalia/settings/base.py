@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'menus',
     'contact',
     'websites',
+    #'partners',
     'base',
     "partners",
 
