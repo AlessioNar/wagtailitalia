@@ -118,6 +118,8 @@ class BlogListingPage(RoutablePageMixin, Page):
 
     )
 
+    intro  = RichTextField(blank=True, null=True, help_text="Optional, it will appear above the listing")
+
     category = models.ForeignKey(
         "blog.BlogCategory",
         null=True,
@@ -148,6 +150,7 @@ class BlogListingPage(RoutablePageMixin, Page):
         MultiFieldPanel([
             FieldPanel("heading"),
             ImageChooserPanel("heading_image"),
+            FieldPanel("intro"),
             FieldPanel("category"),
         ], heading="General Information"),
         StreamFieldPanel("content"),

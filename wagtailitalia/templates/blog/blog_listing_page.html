@@ -15,9 +15,13 @@
   <h1 class="my-5 text-center">{{self.heading}} {% if tag %} - {{tag|title}}{% endif %} </h1>
 </div>
 
-{% for block in page.content %}
-	{% include_block block %}
-{% endfor %}
+{% if self.intro %}
+    <div class="container mt-4">
+      <p>
+        {{ self.intro |richtext}}
+      <p>
+    </div>
+{% endif %}
 
 
 <div class="container">
@@ -72,6 +76,7 @@
 </div>
 {% endif %}
 
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -93,5 +98,11 @@
     </div>
   </div>
 </div>
+
+
+{% for block in page.content %}
+	{% include_block block %}
+{% endfor %}
+
 
 {% endblock %}
