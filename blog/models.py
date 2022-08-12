@@ -44,7 +44,9 @@ class BlogTag(models.Model):
         """String Wrapper of this class"""
         return self.name
 
+
 register_snippet(BlogTag)
+
 
 class BlogCategory(models.Model):
     """Blog category for a snippet"""
@@ -69,7 +71,35 @@ class BlogCategory(models.Model):
         """String Wrapper of this class"""
         return self.name
 
+
 register_snippet(BlogCategory)
+
+
+class Country(models.Model):
+    """Country for a snippet"""
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(
+        populate_from=["name"], editable=True,
+        help_text='A slug to identify posts by this country',
+
+    )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("slug"),
+    ]
+
+    class Meta:
+        verbose_name = "Country"
+        verbose_name_plural = "Countries"
+        ordering = ["name"]
+
+    def __str__(self):
+        """String Wrapper of this class"""
+        return self.name
+
+register_snippet(Country)
+
 
 class BlogListingPage(RoutablePageMixin, Page):
     """Listing Page lists all the Blog Detail Pages"""
@@ -133,7 +163,7 @@ class BlogListingPage(RoutablePageMixin, Page):
                 context['tag'] = request.GET.get('tags')
                 all_posts = BlogDetailPage.objects.live().public().filter(
                     category=self.category).filter(tags__slug__in=[request.GET.get('tags')]).order_by('path')
-                paginator = Paginator(all_posts, 12) 
+                paginator = Paginator(all_posts, 1) # @todo change to 12 per page
                 page = request.GET.get('page')
                 try:
                     posts = paginator.page(page)
@@ -159,7 +189,7 @@ class BlogListingPage(RoutablePageMixin, Page):
                 context['elements'] = posts
         else:            
             all_posts = BlogDetailPage.objects.live().public().order_by('path')            
-            paginator = Paginator(all_posts, 12)
+            paginator = Paginator(all_posts, 1) # @todo change to 12 per page
             page = request.GET.get('page')
             try:
                 posts = paginator.page(page)
@@ -177,10 +207,10 @@ class BlogListingPage(RoutablePageMixin, Page):
         # return []
         sitemap = super().get_sitemap_urls(request)
         return sitemap
-    
+
 
 class HorizontalListingPage(BlogListingPage):
-    """Horizontal Listing Page"""
+    """Partner Listing Page"""
     template = "blog/horizontal_listing_page.html"
     content_panels = BlogListingPage.content_panels
 
@@ -325,7 +355,14 @@ class PartnerDetailPage(BlogDetailPage):
     """Partner Detail Page"""
 
     template = "blog/partner_detail_page.html"
-    country = models.CharField(blank=True, null=True, max_length=100)
+    country = models.ForeignKey(
+        "blog.Country",
+        null=True,
+        blank=True,
+        related_name="+",
+        on_delete=models.SET_NULL,
+    )
+
     website = models.URLField(blank=True, null=True)
 
     description = RichTextField(

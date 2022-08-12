@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'websites',
     #'partners',
     'base',
-    "partners",
 
     #'wagtailseo',
     'wagtail.contrib.forms',
