@@ -230,11 +230,11 @@ class Theme(BaseSetting):
                 ## Card
                 f.write(".card-header{\nbackground-color: $card-bg-color;\n}\n")
                 f.write(".card-text{\ncolor: $card-font-color;\n}\n")
-                f.write(".card-header {\nheight: auto;\ntext-align: $card-text-align;\n}\n")
+                f.write(".card-header {\nheight: auto;\ntext-align: $card-text-align;\nborder:none;\n}\n")
                 f.write(".card {\nborder: none;\nheight: $card-height;\n}\n")
                 
                 # Box shadow for cards
-                f.write(".card-item {\nbox-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;\n}\n")
+                f.write(".card-item {\nbackground-color: $card-bg-color;\nbox-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;\n}\n")
                 
                 f.write(".card-img {\nheight: $card-img-height;\nmax-width: 100%;\nobject-fit: cover;\nbackground-color: $white\n}\n")        
                 
