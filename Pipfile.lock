@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c7b9e5e6e13f290bfec724f4edecc4ee8e357d566f18cb0457c2e1dc203e97d5"
+            "sha256": "8167bfbf816356259be2826407d62b042b949571fb25ccad5b7eab872190ec01"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -259,11 +259,11 @@
         },
         "markdown": {
             "hashes": [
-                "sha256:08fb8465cffd03d10b9dd34a5c3fea908e20391a2a90b88d66362cb05beed186",
-                "sha256:3b809086bb6efad416156e00a0da66fe47618a5d6918dd688f53f40c8e4cfeff"
+                "sha256:cbb516f16218e643d8e0a95b309f77eb118cb138d39a4f27851e6a63581db874",
+                "sha256:f5da449a6e1c989a4cea2631aa8ee67caa5a2ef855d551c88f9e309f4634c621"
             ],
             "index": "pypi",
-            "version": "==3.4.1"
+            "version": "==3.3.7"
         },
         "matplotlib-inline": {
             "hashes": [
@@ -447,11 +447,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:7c7854ee1429a240090297628dc9f75b35318d193537968e2dc14010ee2f5bca",
-                "sha256:dc2662692f47d99cb8ae15a784529adeed535bcd7c277fee0beccf961522baf6"
+                "sha256:d73f8cd714a1a6691f5eb5abeeacbf313242b7aa2f5eba93776542c1aad90c6f",
+                "sha256:fe9a97f68b064a6ddd4bacfb0b4b93a4c65a556d97ce906255540439d0c35cef"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==63.4.1"
+            "version": "==65.0.0"
         },
         "six": {
             "hashes": [
