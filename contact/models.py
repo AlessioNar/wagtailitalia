@@ -12,12 +12,12 @@ from streams import blocks
 
 class FormField(AbstractFormField):
 	
-	page = ParentalKey('FormPage',
+	page = ParentalKey('ContactPage',
 		on_delete=models.CASCADE,
 		related_name='form_fields',
 		)
 
-class FormPage(AbstractEmailForm, Page):
+class ContactPage(AbstractEmailForm, Page):
 
 	template = 'contact/contact_page.html'
 

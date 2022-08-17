@@ -38,6 +38,14 @@
                                 name="{{ field.name }}" id="{{ field.id_for_label }}"
                                 {% if field.field.required %}required="required"{% endif %}/>
                     </div>
+                    {% elif field.field.widget.input_type == 'checkbox' %}
+                    <div class="form-check mb-3">
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <input type="{{ field.field.widget.input_type }}" class="form-check-input"
+                                name="{{ field.name }}" id="{{ field.id_for_label }}"
+                                {% if field.field.required %}required="required"{% endif %}/>
+                    </div>                    
                     {% elif field.field.widget.input_type == None %}
                     <div class="form-group mb-3">
                         {{ field.errors }}
