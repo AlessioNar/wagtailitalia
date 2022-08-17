@@ -254,3 +254,4 @@ class JumbotronBlock(blocks.StructBlock):
         template = "streams/jumbotron_block.html"
         icon = "placeholder"
         label = "Jumbotron"
+    
