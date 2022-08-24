@@ -18,7 +18,7 @@
 	    </a>
 		{% elif self.document %}
 		<a href="{{self.document.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
-			Learn More
+	    	{{self.button_text}}
 		</a>
 		{% elif self.button_url %}
 		<a href="{{self.button_url}}" class="btn btn-primary btn-sm" {% if self.open_in_new_tab %}target="_blank"{% endif %}>
