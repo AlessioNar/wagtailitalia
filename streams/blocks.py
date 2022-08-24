@@ -86,23 +86,10 @@ class RichtextBlock(blocks.RichTextBlock):
         icon = "doc-full"
         label = "Full RichText"
 
-
 class SimpleRichtextBlock(blocks.RichTextBlock):
-    """Richtext without (limited) all the features"""
 
-    def __init__(self, required=True, help_text=None, editor='default', features=None, **kwargs):
-        super().__init__(**kwargs)
-        self.features = [
-            "bold",
-            "italic",
-            "link",
-        ]
-
-    class Meta:  # noqa
-        template = "streams/richtext_block.html"
-        icon = "edit"
-        label = "Simple RichText"
-
+    class Meta:
+        label = "Do not use"
 
 class CTABlock(blocks.StructBlock):
     """Simple Call to Action section"""
@@ -231,7 +218,7 @@ class FreeVerticalCardsBlock(blocks.StreamBlock):
     class Meta:  # noqa
         template = "streams/multiple_vertical_card_block.html"
         icon = "placeholder"
-        label = "Multiple Vertical Card Blocks"
+        label = "Free Vertical Card Blocks"
 
 class MultipleVerticalCardBlocks(blocks.StreamBlock):
     card = VerticalCardBlock()
