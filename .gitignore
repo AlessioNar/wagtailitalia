@@ -9,6 +9,7 @@ static/*
 !static/css/cookieconsent
 !static/scss
 static/scss/themes/theme.scss
+
 !static/js
 static/css/themes
 
