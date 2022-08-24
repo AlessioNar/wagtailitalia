@@ -246,6 +246,7 @@ class Theme(BaseSetting):
                 f.write("html,body{\nwidth: 100%;\nheight: 100%;\nmargin: 0px;\npadding: 0px;\noverflow-x: hidden;\n}\n")
                 f.write(".carousel{\npadding:0;\n}\n")
                 f.write(".partner-image{\nwidth: 100%;\n}\n")
+                f.write(".center{\ndisplay: flex;\nalign-items: center;\njustify-content: center;\nflex-direction: column;\n}\n")
 
                 ## Custom CSS
                 f.write("\n" + self.css +"\n")

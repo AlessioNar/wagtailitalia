@@ -3,12 +3,14 @@
 {% image self.image max-300x200 as img %}
 
 <div class="container">
-	<div class="row">
-	<div class="col-sm-12 col-lg-5 center text-center mb-3">
+	<div class="row ">
+	<div class="col-sm-12 col-lg-5 center mb-3">
 		<img src="{{img.url}}" alt="{{img.alt}}" />
 	</div>
-	<div class="col-sm-12 col-lg-7 mt-2 text-center">
+	<div class="col-sm-12 col-lg-7 mt-2 center">
+		
 		<h3>{{self.title}}</h3>  
+		
     	<p>{{self.text}}</p>    
     	{% if self.button_page %}
 	    <a href="{{self.button_page.url}}" class="btn btn-primary btn-sm" {% if self.open_in_new_tab %}target="_blank"{% endif %}>
@@ -24,5 +26,5 @@
 	    </a>
 		{% endif %}
 	</div>
-	</div>
+	</div>	
 </div>
