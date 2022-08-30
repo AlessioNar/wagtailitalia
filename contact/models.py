@@ -68,4 +68,4 @@ class ContactPage(AbstractEmailForm, Page):
 					StreamFieldPanel("content"),
 					
 				]
-		
+	
