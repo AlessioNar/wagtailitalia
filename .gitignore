@@ -54,3 +54,4 @@ debug.log
 .secret-test
 .env
 .vscode
+playground.py

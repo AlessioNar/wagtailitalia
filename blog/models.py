@@ -166,7 +166,7 @@ class BlogListingPage(RoutablePageMixin, Page):
                 context['tag'] = request.GET.get('tags')
                 all_posts = BlogDetailPage.objects.live().public().filter(
                     category=self.category).filter(tags__slug__in=[request.GET.get('tags')]).order_by('path')
-                paginator = Paginator(all_posts, 1) # @todo change to 12 per page
+                paginator = Paginator(all_posts, 12) # @todo change to 12 per page
                 page = request.GET.get('page')
                 try:
                     posts = paginator.page(page)
