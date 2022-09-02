@@ -163,6 +163,22 @@ class BlogListingPage(RoutablePageMixin, Page):
         """Adding custom elements to our context"""
 
         context = super().get_context(request, *args, **kwargs)
+
+        # an if clause that check if the subpages are of type PartnerDetailPage, if so, print the query set of the PartnerDetailPage as a list of PartnerDetailPage objects
+        if len(Country.objects.all()) > 0:
+            if self.get_children().type(PartnerDetailPage):
+                partner_pages = self.get_children().type(PartnerDetailPage).live().public()
+                
+                partner_pages = PartnerDetailPage.objects.live().public().filter(id__in=partner_pages).order_by('path')
+                countries = []
+                for page in partner_pages:
+                    countries.append(page.country)
+                # sort by value and remove duplicates
+                countries = sorted(set(countries), key=lambda x: x.name)            
+
+                context['countries'] = countries         
+
+
         if self.category is not None:
             if request.GET.get('tags'):
                 context['tag'] = request.GET.get('tags')
@@ -178,7 +194,8 @@ class BlogListingPage(RoutablePageMixin, Page):
                     posts = paginator.page(paginator.num_pages)
 
                 context['elements'] = posts
-                
+            
+       
             else:
                 all_posts = BlogDetailPage.objects.live(
                 ).public().filter(category=self.category).order_by('path')
@@ -205,17 +222,7 @@ class BlogListingPage(RoutablePageMixin, Page):
 
             context['elements'] = posts
 
-        # an if clause that check if the subpages are of type PartnerDetailPage, if so, print the query set of the PartnerDetailPage as a list of PartnerDetailPage objects
-        if self.get_children().type(PartnerDetailPage):
-            partner_pages = self.get_children().type(PartnerDetailPage).live().public()
-            
-            partner_pages = PartnerDetailPage.objects.live().public().filter(id__in=partner_pages).order_by('path')
-            countries = []
-            for page in partner_pages:
-                countries.append(page.country)
-            # remove duplicates
-            countries = list(set(countries))
-            context['countries'] = countries            
+           
 
         return context
 
