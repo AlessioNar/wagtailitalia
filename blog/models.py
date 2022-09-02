@@ -20,6 +20,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from streams import blocks
 
+from django.contrib.contenttypes.models import ContentType
+
 
 class BlogTag(models.Model):
     """Blog tag for a snippet"""
@@ -202,6 +204,18 @@ class BlogListingPage(RoutablePageMixin, Page):
                 posts = paginator.page(paginator.num_pages)
 
             context['elements'] = posts
+
+        # an if clause that check if the subpages are of type PartnerDetailPage, if so, print the query set of the PartnerDetailPage as a list of PartnerDetailPage objects
+        if self.get_children().type(PartnerDetailPage):
+            partner_pages = self.get_children().type(PartnerDetailPage).live().public()
+            
+            partner_pages = PartnerDetailPage.objects.live().public().filter(id__in=partner_pages).order_by('path')
+            countries = []
+            for page in partner_pages:
+                countries.append(page.country)
+            # remove duplicates
+            countries = list(set(countries))
+            context['countries'] = countries            
 
         return context
 

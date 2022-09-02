@@ -16,6 +16,31 @@
 <div class="container mt-4">
   <h1 class="my-5 text-center">{{self.heading}} {% if tag %} - {{tag|title}}{% endif %} </h1>
 </div>
+
+{% if self.intro %}
+    <div class="container mt-4">
+      <p>
+        {{ self.intro |richtext}}
+      <p>
+    </div>
+{% endif %}
+
+<!-- An if clause that checks whether the individual elements have a country attribute -->
+{% if countries %}
+<!-- A button for each country inside a container and in the same column-->
+<div class="container my-3">
+  <div class="row">
+    <div class="col-lg-12">
+      <nav aria-label="Countries">
+        {% for country in countries %}
+        <a href="#" class="btn btn-primary btn-sm mr-2 mb-2">{{country}}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </div>  
+{% endif %}
+
+
 {% if elements %}
 
 
