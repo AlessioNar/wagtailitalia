@@ -103,142 +103,6 @@ class Country(models.Model):
 register_snippet(Country)
 
 
-class BlogListingPage(RoutablePageMixin, Page):
-    """Listing Page lists all the Blog Detail Pages"""
-
-    template = "blog/blog_listing_page.html"
-
-    heading = models.CharField(max_length=200, blank=True, null=True)
-
-    heading_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        related_name="+",
-        on_delete=models.SET_NULL,
-        help_text="Image used as a banner, optional, suggested 1200 × 400 px",
-
-    )
-
-    intro  = RichTextField(blank=True, null=True, help_text="Optional, it will appear above the listing")
-
-    category = models.ForeignKey(
-        "blog.BlogCategory",
-        null=True,
-        blank=True,
-        related_name="+",
-        on_delete=models.SET_NULL,
-    )
-    content = StreamField(
-        [
-            ("title", blocks.TitleBlock()),
-            ("richtext", blocks.RichtextBlock()),
-            ("vertical_card", blocks.VerticalCardBlock()),
-            ("horizontal_card", blocks.HorizontalCardBlock()),
-            ("multiple_vertical_card_block", blocks.MultipleVerticalCardBlocks()),
-            ("multiple_buttons_block", blocks.CardMultipleButtonBlock()),
-            ("free_card", blocks.FreeVerticalCardsBlock()),
-            ("cta", blocks.CTABlock()),
-            ("image", blocks.ImageBlock()),
-            ("markdown", blocks.BodyBlock()),
-            ("video", blocks.VideoBlock()),
-
-        ],
-        null=True,
-        blank=True
-    )
-
-    content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel("heading"),
-            ImageChooserPanel("heading_image"),
-            FieldPanel("intro"),
-            FieldPanel("category"),
-        ], heading="General Information"),
-        StreamFieldPanel("content"),
-    ]
-
-    # Category determines the filter for the listing page
-    def get_context(self, request, *args, **kwargs):
-        """Adding custom elements to our context"""
-
-        context = super().get_context(request, *args, **kwargs)
-
-        # an if clause that check if the subpages are of type PartnerDetailPage, if so, print the query set of the PartnerDetailPage as a list of PartnerDetailPage objects
-        if len(Country.objects.all()) > 0:
-            if self.get_children().type(PartnerDetailPage):
-                partner_pages = self.get_children().type(PartnerDetailPage).live().public()
-                
-                partner_pages = PartnerDetailPage.objects.live().public().filter(id__in=partner_pages).order_by('path')
-                countries = []
-                for page in partner_pages:
-                    countries.append(page.country)
-                # sort by value and remove duplicates
-                countries = sorted(set(countries), key=lambda x: x.name)            
-
-                context['countries'] = countries         
-
-
-        if self.category is not None:
-            if request.GET.get('tags'):
-                context['tag'] = request.GET.get('tags')
-                all_posts = BlogDetailPage.objects.live().public().filter(
-                    category=self.category).filter(tags__slug__in=[request.GET.get('tags')]).order_by('path')
-                paginator = Paginator(all_posts, 12) # @todo change to 12 per page
-                page = request.GET.get('page')
-                try:
-                    posts = paginator.page(page)
-                except PageNotAnInteger:
-                    posts = paginator.page(1)
-                except EmptyPage:
-                    posts = paginator.page(paginator.num_pages)
-
-                context['elements'] = posts
-            
-       
-            else:
-                all_posts = BlogDetailPage.objects.live(
-                ).public().filter(category=self.category).order_by('path')
-                paginator = Paginator(all_posts, 12)
-                page = request.GET.get('page')
-                try:
-                    posts = paginator.page(page)
-                except PageNotAnInteger:
-                    posts = paginator.page(1)
-                except EmptyPage:
-                    posts = paginator.page(paginator.num_pages)
-
-                context['elements'] = posts
-        else:            
-            all_posts = BlogDetailPage.objects.live().public().order_by('path')            
-            paginator = Paginator(all_posts, 1) # @todo change to 12 per page
-            page = request.GET.get('page')
-            try:
-                posts = paginator.page(page)
-            except PageNotAnInteger:
-                posts = paginator.page(1)
-            except EmptyPage:
-                posts = paginator.page(paginator.num_pages)
-
-            context['elements'] = posts
-
-           
-
-        return context
-
-    def get_sitemap_urls(self, request):
-        # Uncomment to have no sitemap for this page
-        # return []
-        sitemap = super().get_sitemap_urls(request)
-        return sitemap
-
-
-class HorizontalListingPage(BlogListingPage):
-    """Partner Listing Page"""
-    template = "blog/horizontal_listing_page.html"
-    content_panels = BlogListingPage.content_panels
-
-
 class BlogDetailPage(Page):
     """Parental Blog Detail Page."""
 
@@ -406,3 +270,135 @@ class PartnerDetailPage(BlogDetailPage):
     class Meta:
         verbose_name = "Partner detail Page"
         verbose_name_plural = "Partner detail Pages"
+
+
+
+class BlogListingPage(RoutablePageMixin, Page):
+    """Listing Page lists all the Blog Detail Pages"""
+
+    template = "blog/blog_listing_page.html"
+
+    heading = models.CharField(max_length=200, blank=True, null=True)
+
+    heading_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        related_name="+",
+        on_delete=models.SET_NULL,
+        help_text="Image used as a banner, optional, suggested 1200 × 400 px",
+
+    )
+
+    intro  = RichTextField(blank=True, null=True, help_text="Optional, it will appear above the listing")
+
+    category = models.ForeignKey(
+        "blog.BlogCategory",
+        null=True,
+        blank=True,
+        related_name="+",
+        on_delete=models.SET_NULL,
+    )
+    content = StreamField(
+        [
+            ("title", blocks.TitleBlock()),
+            ("richtext", blocks.RichtextBlock()),
+            ("vertical_card", blocks.VerticalCardBlock()),
+            ("horizontal_card", blocks.HorizontalCardBlock()),
+            ("multiple_vertical_card_block", blocks.MultipleVerticalCardBlocks()),
+            ("multiple_buttons_block", blocks.CardMultipleButtonBlock()),
+            ("free_card", blocks.FreeVerticalCardsBlock()),
+            ("cta", blocks.CTABlock()),
+            ("image", blocks.ImageBlock()),
+            ("markdown", blocks.BodyBlock()),
+            ("video", blocks.VideoBlock()),
+
+        ],
+        null=True,
+        blank=True
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel("heading"),
+            ImageChooserPanel("heading_image"),
+            FieldPanel("intro"),
+            FieldPanel("category"),
+        ], heading="General Information"),
+        StreamFieldPanel("content"),
+    ]
+
+    # Category determines the filter for the listing page
+    def get_context(self, request, *args, **kwargs):
+        """Adding custom elements to our context"""
+
+        context = super().get_context(request, *args, **kwargs)
+
+        # Checks if there are countries associated with partners
+        if len(Country.objects.all()) > 0:
+            if self.get_children().type(PartnerDetailPage):
+                partner_pages = self.get_children().type(PartnerDetailPage).live().public()
+                
+                partner_pages = PartnerDetailPage.objects.live().public().filter(id__in=partner_pages).order_by('path')
+                countries = []
+                for page in partner_pages:
+                    countries.append(page.country)
+                # sort by value and remove duplicates
+                countries = sorted(set(countries), key=lambda x: x.name)            
+                context['countries'] = countries         
+        
+        # Check if there is a category filter
+        if self.category is not None:
+            # Check if there are tags in the URL 
+            if request.GET.get('tags'):
+                context['tag'] = request.GET.get('tags')                
+                # Check if there is a country filter
+                if request.GET.get('country'):
+                    all_posts = PartnerDetailPage.objects.live().public().filter(country__slug__in=[request.GET.get('country')]).order_by('-path')
+                # if there is not, just filter by tags
+                else:
+                    all_posts = BlogDetailPage.objects.live().public().filter(
+                        category=self.category).filter(tags__slug__in=[request.GET.get('tags')]).order_by('path')        
+            # If there are no tags, check if there is a country filter
+            else:
+                # Filter by country
+                if request.GET.get('country'):
+                    all_posts = PartnerDetailPage.objects.live().public().filter(country__slug__in=[request.GET.get('country')]).order_by('-path')
+                # If there is not, just filter by category
+                else:                
+                    all_posts = BlogDetailPage.objects.live(
+                        ).public().filter(category=self.category).order_by('path')
+        else:            
+            # Take all the posts
+            all_posts = BlogDetailPage.objects.live().public().order_by('path')
+
+        # Create a paginator object
+        paginator = Paginator(all_posts, 12)        
+        # Get the page number from the URL
+        page = request.GET.get('page')
+        
+        # Get the posts for the current page
+        try:
+            posts = paginator.page(page)
+        # If the page is not an integer, deliver the first page
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        # If the page in the url is empty, deliver the first page
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+        
+        context['elements'] = posts
+
+        return context
+    
+    # Creates a route for the sitemap
+    def get_sitemap_urls(self, request):
+        sitemap = super().get_sitemap_urls(request)
+        return sitemap
+
+
+class HorizontalListingPage(BlogListingPage):
+    """Partner Listing Page"""
+    template = "blog/horizontal_listing_page.html"
+    content_panels = BlogListingPage.content_panels
+
