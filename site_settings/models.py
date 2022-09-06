@@ -8,7 +8,6 @@ from wagtail.snippets.models import register_snippet
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtailitalia.settings.base import STATIC_URL
 
 
@@ -62,10 +61,10 @@ class BrandSettings(BaseSetting):
         MultiFieldPanel([
             FieldPanel('brand_name'),
             FieldPanel('brand_subtitle'),
-            ImageChooserPanel('brand_image'),
+            FieldPanel('brand_image'),
             FieldPanel('brand_website'),
             FieldPanel('copyright'),
-            ImageChooserPanel('funding_image'),
+            FieldPanel('funding_image'),
         ])
      
         

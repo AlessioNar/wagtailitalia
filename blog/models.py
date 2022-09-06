@@ -7,7 +7,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from modelcluster.fields import ParentalManyToManyField
 
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, FieldPanel, MultiFieldPanel
 
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField, StreamField
@@ -16,7 +16,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin
 
 from wagtail.snippets.models import register_snippet
 
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.images.edit_handlers import FieldPanel
 
 from streams import blocks
 
@@ -167,12 +167,12 @@ class BlogDetailPage(Page):
         MultiFieldPanel([
             FieldPanel("custom_title"),
             FieldPanel("intro"),
-            ImageChooserPanel("card_image"),
-            ImageChooserPanel("heading_image"),
+            FieldPanel("card_image"),
+            FieldPanel("heading_image"),
             FieldPanel("category"),
             #FieldPanel("tags", widget=forms.CheckboxSelectMultiple),
         ]),
-        StreamFieldPanel("content"),
+        FieldPanel("content"),
     ]
 
 
@@ -202,15 +202,15 @@ class ProjectDetailPage(BlogDetailPage):
             FieldPanel("custom_title"),
             FieldPanel("intro"),
             FieldPanel("call_id"),
-            ImageChooserPanel("card_image"),
-            ImageChooserPanel("heading_image"),
+            FieldPanel("card_image"),
+            FieldPanel("heading_image"),
             FieldPanel("start_date"),
             FieldPanel("end_date"),
             FieldPanel("is_active"),
             FieldPanel("tags", widget=forms.CheckboxSelectMultiple),
             FieldPanel("category"),
         ]),
-        StreamFieldPanel("content"),
+        FieldPanel("content"),
     ]
 
 
@@ -229,14 +229,14 @@ class EventDetailPage(BlogDetailPage):
             FieldPanel("custom_title"),
             FieldPanel("intro"),
             FieldPanel("location"),
-            ImageChooserPanel("card_image"),
-            ImageChooserPanel("heading_image"),
+            FieldPanel("card_image"),
+            FieldPanel("heading_image"),
             FieldPanel("start_date"),
             FieldPanel("end_date"),
             FieldPanel("category"),
             FieldPanel("tags", widget=forms.CheckboxSelectMultiple),
         ]),
-        StreamFieldPanel("content"),
+        FieldPanel("content"),
     ]
 
 class PartnerDetailPage(BlogDetailPage):
@@ -321,11 +321,11 @@ class BlogListingPage(RoutablePageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel("heading"),
-            ImageChooserPanel("heading_image"),
+            FieldPanel("heading_image"),
             FieldPanel("intro"),
             FieldPanel("category"),
         ], heading="General Information"),
-        StreamFieldPanel("content"),
+        FieldPanel("content"),
     ]
 
     # Category determines the filter for the listing page
