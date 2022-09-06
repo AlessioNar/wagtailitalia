@@ -33,7 +33,7 @@
     <div class="col-lg-12">
       <nav aria-label="Countries">
         {% for country in countries %}
-        <a href="?country={{country|lower}}" class="btn btn-primary btn-sm mr-2 mb-2">{{country}}</a>
+        <a href="?country={{country|slugify}}" class="btn btn-primary btn-sm mr-2 mb-2">{{country}}</a>
         {% endfor %}
       </nav>
     </div>
@@ -52,7 +52,9 @@
         <ul class="pagination">
           {% if elements.has_previous %}
             {% if tag %}
-            <li class="page-item"><a class="page-link" href="?tags={{tag}}&page={{elements.previous_page_number}}">Previous</a></li>          
+            <li class="page-item"><a class="page-link" href="?tags={{tag}}&page={{elements.previous_page_number}}">Previous</a></li>
+            {% elif country %}
+            <li class="page-item"><a class="page-link" href="?country={{country}}&page={{elements.previous_page_number}}">Previous</a></li>
             {% else %}
             <li class="page-item"><a class="page-link" href="?page={{elements.previous_page_number}}">Previous</a></li>          
             {% endif %}
@@ -60,6 +62,10 @@
             {% if tag %}
               {% for page_num in elements.paginator.page_range %}            
               <li class="page-item {% if page_num == elements.number %} active {% endif %}"><a class="page-link" href="?tags={{tag}}&page={{page_num}}">{{page_num}}</a></li>
+              {% endfor %}
+            {% elif country %}
+              {% for page_num in elements.paginator.page_range %}
+              <li class="page-item {% if page_num == elements.number %} active {% endif %}"><a class="page-link" href="?country={{country}}&page={{page_num}}">{{page_num}}</a></li>
               {% endfor %}          
             {% else %}
               {% for page_num in elements.paginator.page_range %}            
@@ -69,6 +75,8 @@
           {% if elements.has_next %}
             {% if tag %}
             <li class="page-item"><a class="page-link" href="?tags={{tag}}&page={{elements.next_page_number}}">Next</a></li>                                  
+            {% elif country %}
+            <li class="page-item"><a class="page-link" href="?country={{country}}&page={{elements.next_page_number}}">Next</a></li>                                  
             {% else %}
             <li class="page-item"><a class="page-link" href="?page={{elements.next_page_number}}">Next</a></li>
             {% endif %}
@@ -114,6 +122,7 @@
   {% endfor %}
 {% endif %}
 
+
 <div class="container my-3">
   <div class="row">
     <div class="col-lg-12">
@@ -122,7 +131,9 @@
         <ul class="pagination">
           {% if elements.has_previous %}
             {% if tag %}
-            <li class="page-item"><a class="page-link" href="?tags={{tag}}&page={{elements.previous_page_number}}">Previous</a></li>          
+            <li class="page-item"><a class="page-link" href="?tags={{tag}}&page={{elements.previous_page_number}}">Previous</a></li>
+            {% elif country %}
+            <li class="page-item"><a class="page-link" href="?country={{country}}&page={{elements.previous_page_number}}">Previous</a></li>
             {% else %}
             <li class="page-item"><a class="page-link" href="?page={{elements.previous_page_number}}">Previous</a></li>          
             {% endif %}
@@ -130,6 +141,10 @@
             {% if tag %}
               {% for page_num in elements.paginator.page_range %}            
               <li class="page-item {% if page_num == elements.number %} active {% endif %}"><a class="page-link" href="?tags={{tag}}&page={{page_num}}">{{page_num}}</a></li>
+              {% endfor %}
+            {% elif country %}
+              {% for page_num in elements.paginator.page_range %}
+              <li class="page-item {% if page_num == elements.number %} active {% endif %}"><a class="page-link" href="?country={{country}}&page={{page_num}}">{{page_num}}</a></li>
               {% endfor %}          
             {% else %}
               {% for page_num in elements.paginator.page_range %}            
@@ -139,6 +154,8 @@
           {% if elements.has_next %}
             {% if tag %}
             <li class="page-item"><a class="page-link" href="?tags={{tag}}&page={{elements.next_page_number}}">Next</a></li>                                  
+            {% elif country %}
+            <li class="page-item"><a class="page-link" href="?country={{country}}&page={{elements.next_page_number}}">Next</a></li>                                  
             {% else %}
             <li class="page-item"><a class="page-link" href="?page={{elements.next_page_number}}">Next</a></li>
             {% endif %}

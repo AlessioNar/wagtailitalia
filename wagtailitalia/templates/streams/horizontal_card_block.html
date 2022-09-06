@@ -4,27 +4,49 @@
 
 <div class="container">
 	<div class="row ">
-	<div class="col-sm-12 col-lg-5 center mb-3">
-		<img src="{{img.url}}" alt="{{img.alt}}" />
-	</div>
-	<div class="col-sm-12 col-lg-7 mt-2 center text-center">
+		{% if self.center %}
+		<div class="col-sm-12 col-lg-12 mt-5 center text-center">
 		
-		<h3>{{self.title}}</h3>  
-		
-    	<p>{{self.text}}</p>    
-    	{% if self.button_page %}
-	    <a href="{{self.button_page.url}}" class="btn btn-primary btn-sm" {% if self.open_in_new_tab %}target="_blank"{% endif %}>
-	    	{{self.button_text}}
-	    </a>
-		{% elif self.document %}
-		<a href="{{self.document.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
-	    	{{self.button_text}}
-		</a>
-		{% elif self.button_url %}
-		<a href="{{self.button_url}}" class="btn btn-primary btn-sm" {% if self.open_in_new_tab %}target="_blank"{% endif %}>
-	    	{{self.button_text}}
-	    </a>
+			<h3>{{self.title}}</h3>  
+			
+			<p>{{self.text}}</p>    
+			{% if self.button_page %}
+			<a href="{{self.button_page.url}}" class="btn btn-primary btn-sm" {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+				{{self.button_text}}
+			</a>
+			{% elif self.document %}
+			<a href="{{self.document.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+				{{self.button_text}}
+			</a>
+			{% elif self.button_url %}
+			<a href="{{self.button_url}}" class="btn btn-primary btn-sm" {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+				{{self.button_text}}
+			</a>
+			{% endif %}
+		</div>
+		{% else %}
+		<div class="col-sm-12 col-lg-5 center mb-3">
+			<img src="{{img.url}}" alt="{{img.alt}}" />
+		</div>
+		<div class="col-sm-12 col-lg-7 mt-2 center text-center">
+			
+			<h3>{{self.title}}</h3>  
+			
+			<p>{{self.text}}</p>    
+			{% if self.button_page %}
+			<a href="{{self.button_page.url}}" class="btn btn-primary btn-sm" {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+				{{self.button_text}}
+			</a>
+			{% elif self.document %}
+			<a href="{{self.document.url}}" class="btn btn-primary"  {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+				{{self.button_text}}
+			</a>
+			{% elif self.button_url %}
+			<a href="{{self.button_url}}" class="btn btn-primary btn-sm" {% if self.open_in_new_tab %}target="_blank"{% endif %}>
+				{{self.button_text}}
+			</a>
+			{% endif %}
+		</div>
 		{% endif %}
-	</div>
 	</div>	
 </div>

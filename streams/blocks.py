@@ -69,6 +69,7 @@ class HorizontalCardBlock(blocks.StructBlock):
         required=False, help_text="If the button page above is selected, that will be used first")
     document = DocumentChooserBlock(required=False)
     open_in_new_tab = blocks.BooleanBlock(required=False, default=False, blank=True)
+    center = blocks.BooleanBlock(required=False, default=False, blank=True)
 
     class Meta:  # noqa
         template = "streams/horizontal_card_block.html"

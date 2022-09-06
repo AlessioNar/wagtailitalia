@@ -363,6 +363,7 @@ class BlogListingPage(RoutablePageMixin, Page):
             else:
                 # Filter by country
                 if request.GET.get('country'):
+                    context['country'] = request.GET.get('country')
                     all_posts = PartnerDetailPage.objects.live().public().filter(country__slug__in=[request.GET.get('country')]).order_by('-path')
                 # If there is not, just filter by category
                 else:                
