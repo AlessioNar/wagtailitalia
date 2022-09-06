@@ -61,6 +61,8 @@ class Theme(BaseSetting):
     # Carousel fields
     car_title_size = models.IntegerField(default=16, help_text="Font size in px")
     car_bg_color = models.ForeignKey('themes.Color', related_name="car_bg_color", on_delete=models.SET_NULL, null=True, blank=True)
+    car_text_color = models.ForeignKey('themes.Color', related_name="car_text_color", on_delete=models.SET_NULL, null=True, blank=True)
+
     
     # Card fields
     card_title_size = models.IntegerField(default=16, help_text="Font size in px")
@@ -121,6 +123,8 @@ class Theme(BaseSetting):
         MultiFieldPanel([
             FieldPanel('car_title_size'),
             FieldPanel('car_bg_color'),
+            FieldPanel('car_text_color'),
+
         ], heading="Carousel"),
 
         MultiFieldPanel([
@@ -188,6 +192,7 @@ class Theme(BaseSetting):
                 ## Carousel variables
                 f.write("$carousel-bg-color: " + self.car_bg_color.code + ";\n")
                 f.write("$carousel-font-size: " + str(self.car_title_size * 0.0625) + "rem;\n")
+                f.write("$carousel-text-color: " + self.car_text_color.code + ";\n")
                 
                 ## Card variables
                 f.write("$card-bg-color: " + self.card_bg_color.code + ";\n")
@@ -221,7 +226,8 @@ class Theme(BaseSetting):
                 
                 ## Carousel
                 f.write(".carousel-caption {\nposition: inherit;\n}\n")
-                f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\n}\n")
+                f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\ncolor: $carousel-text-color;\n}\n")
+
                 
                 ## Jumbotron
                 f.write(".jumbotron{\nbackground-color: $jumbotron-bg-color;\ncolor: $jumbotron-text-color;\n}\n")

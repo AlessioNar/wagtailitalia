@@ -21,7 +21,7 @@
     <div class="container mt-4">
       <p>
         {{ self.intro |richtext}}
-      <p>
+      </p>
     </div>
 {% endif %}
 
@@ -31,12 +31,13 @@
 <div class="container my-3">
   <div class="row">
     <div class="col-lg-12">
-      <nav aria-label="Countries">
+      <nav aria-label="Countries" class="d-flex justify-content-evenly flex-wrap">
         {% for country in countries %}
         <a href="?country={{country|slugify}}" class="btn btn-primary btn-sm mr-2 mb-2">{{country}}</a>
         {% endfor %}
       </nav>
     </div>
+  </div>
   </div>  
 {% endif %}
 

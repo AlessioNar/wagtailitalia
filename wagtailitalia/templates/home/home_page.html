@@ -16,9 +16,9 @@
                           <img src="{{ heading_image.url }}" class="d-block w-100 heading-image" alt="{{heading_image.alt}}" />
 
                       <div class="container-fluid carousel-home">
-                      <div class="carousel-caption {% if settings.themes.Theme.dark_background_color %}text-light{% else %}text-dark{% endif %}">
-                      <h3 class="fw-bold {% if settings.themes.Theme.dark_background_color %}text-light{% else %}text-dark{% endif %}">{{ post.title }} </h3>
-                      {% if post.intro %}<p>{{post.intro|richtext}}</p>{% endif %}
+                      <div class="carousel-caption">
+                      <h3 class="fw-bold">{{ post.title }} </h3>
+                      {% if post.intro %}<p >{{post.intro|richtext}}</p>{% endif %}
                       <a class="btn btn-sm btn-secondary mb-1" href="{{post.url}}">Read more</a>
                               </div>
                               </div>
