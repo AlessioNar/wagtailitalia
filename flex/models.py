@@ -35,7 +35,8 @@ class FlexPage(Page):
 
         ],
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True,
     )
 
     subtitle = models.CharField(max_length=100, null=True, blank=True)

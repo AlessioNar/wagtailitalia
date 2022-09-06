@@ -1,7 +1,7 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
@@ -50,7 +50,8 @@ class ContactPage(AbstractEmailForm, Page):
 
         ],
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True,
     )
 
 	content_panels = AbstractEmailForm.content_panels + [
@@ -65,7 +66,7 @@ class ContactPage(AbstractEmailForm, Page):
 						FieldPanel('subject'),
 					], "Email settings"),
 					FieldPanel('heading_image'),
-					StreamFieldPanel("content"),
+					FieldPanel("content"),
 					
 				]
 	

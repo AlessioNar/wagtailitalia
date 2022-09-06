@@ -160,7 +160,8 @@ class BlogDetailPage(Page):
 
         ],
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True,
         )
     
     content_panels = Page.content_panels + [
@@ -315,7 +316,8 @@ class BlogListingPage(RoutablePageMixin, Page):
 
         ],
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
