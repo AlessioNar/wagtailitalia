@@ -225,7 +225,7 @@ class Theme(BaseSetting):
                 f.write(".dropdown-menu{\nbackground-color: $navbar-bg-color\n}\n")      
                 
                 ## Carousel
-                f.write(".carousel-caption {\nposition: inherit;\n}\n")
+                f.write(".carousel-caption {\nposition: inherit;\ncolor: $carousel-text-color\n}\n")
                 f.write(".carousel-home{\nbackground-color: $carousel-bg-color;\nheight:auto;\ncolor: $carousel-text-color;\n}\n")
 
                 
