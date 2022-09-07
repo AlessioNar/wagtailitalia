@@ -34,7 +34,8 @@ class HomePage(RoutablePageMixin, Page):
             ("jumbotron", blocks.JumbotronBlock()),
         ],
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [

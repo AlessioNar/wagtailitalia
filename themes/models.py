@@ -11,7 +11,7 @@ from wagtail.contrib.settings.models import BaseSetting, register_setting
 
 from wagtailitalia.settings.base import STATIC_URL
 from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel
 from django.forms import ModelChoiceField
 
 class Color(models.Model):
