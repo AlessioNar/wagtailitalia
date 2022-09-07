@@ -7,7 +7,7 @@ from django.conf import settings
 from wagtail.snippets.models import register_snippet
 
 from wagtail.admin.edit_handlers import MultiFieldPanel
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
 from wagtailitalia.settings.base import STATIC_URL
 from wagtail.core.fields import StreamField
@@ -25,7 +25,7 @@ class Color(models.Model):
 register_snippet(Color)
 
 @register_setting
-class Theme(BaseSetting):
+class Theme(BaseSiteSetting):
     """Wrapper class to provide the other setting classes with some common methods"""
     
     ALIGN_FIELDS = [
