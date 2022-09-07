@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "91d22c6a1ae31572d591593c96d1b37b9f0136da28b3aeac2aadd97863de543f"
+            "sha256": "8167bfbf816356259be2826407d62b042b949571fb25ccad5b7eab872190ec01"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -26,11 +26,11 @@
         },
         "asgiref": {
             "hashes": [
-                "sha256:1d2880b792ae8757289136f1db2b7b99100ce959b2aa57fd69dab783d05afac4",
-                "sha256:4a29362a6acebe09bf1d6640db38c1dc3d9217c68e6f9f6204d72667fc19a424"
+                "sha256:45a429524fba18aba9d512498b19d220c4d628e75b40cf5c627524dbaebc5cc1",
+                "sha256:fddeea3c53fa99d0cdb613c3941cc6e52d822491fc2753fba25768fb5bf4e865"
             ],
             "index": "pypi",
-            "version": "==3.5.2"
+            "version": "==3.5.1"
         },
         "asttokens": {
             "hashes": [
@@ -91,11 +91,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:a153ffd5143bf26a877bfae2f4ec736ebd8924a46600ca089ad96b54a1d4e28e",
-                "sha256:acb21fac9275f9972d81c7caf5761a89ec3ea25fe74545dd26b8a48cb3a0203e"
+                "sha256:07c8638e7a7f548dc0acaaa7825d84b7bd42b10e8d22268b3d572946f1e9b687",
+                "sha256:4e8177858524417563cc0430f29ea249946d831eacb0068a1455686587df40b5"
             ],
             "index": "pypi",
-            "version": "==4.1.1"
+            "version": "==4.0.4"
         },
         "django-debug-toolbar": {
             "hashes": [
@@ -527,11 +527,11 @@
         },
         "wagtail": {
             "hashes": [
-                "sha256:29661e150855b4a69b58de74b92d9e3064135c6a75067b4b9de008459e17d9a2",
-                "sha256:bf161aff275f6d32fa0500d3893c8eb1e1fc24322da50991ce35336367c0adf2"
+                "sha256:107d7a1ac9a4fde0fa2e454cc84f548dc41581cc627881abf4bbac3d5a30244c",
+                "sha256:917393fcea8644734beb323d607e02e4316370982ba0b4ea689a576567247bc8"
             ],
             "index": "pypi",
-            "version": "==4.0.1"
+            "version": "==3.0.1"
         },
         "wagtail-markdown": {
             "hashes": [
@@ -556,6 +556,14 @@
             ],
             "index": "pypi",
             "version": "==0.5.1"
+        },
+        "whitenoise": {
+            "hashes": [
+                "sha256:2067fe9008a3cd7d0d75f75c9240b54f5f59996ca285cbeab18fc1e89949e30d",
+                "sha256:6ccc6d1ad6fb688a398ea65d97db47f018ea0be7da75e146e8f2e837a04ba590"
+            ],
+            "index": "pypi",
+            "version": "==6.1.0"
         },
         "willow": {
             "hashes": [

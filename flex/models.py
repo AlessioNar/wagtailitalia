@@ -2,7 +2,7 @@
 from django.db import models
 
 from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField
 
 from streams import blocks
@@ -35,8 +35,7 @@ class FlexPage(Page):
 
         ],
         null=True,
-        blank=True,
-        use_json_field=True,
+        blank=True
     )
 
     subtitle = models.CharField(max_length=100, null=True, blank=True)
@@ -44,7 +43,7 @@ class FlexPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("subtitle"),
         FieldPanel("category"),
-        FieldPanel("content"),
+        StreamFieldPanel("content"),
     ]
 
     class Meta:  # noqua
