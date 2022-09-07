@@ -7,12 +7,12 @@ from django.conf import settings
 from wagtail.snippets.models import register_snippet
 
 from wagtail.admin.edit_handlers import MultiFieldPanel
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
-from wagtail.images.edit_handlers import ImageChooserPanel
+
 from wagtailitalia.settings.base import STATIC_URL
 from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, FieldPanel
 from django.forms import ModelChoiceField
 
 class Color(models.Model):
@@ -26,7 +26,7 @@ class Color(models.Model):
 register_snippet(Color)
 
 @register_setting
-class Theme(BaseSetting):
+class Theme(BaseSiteSetting):
     """Wrapper class to provide the other setting classes with some common methods"""
     
     ALIGN_FIELDS = [

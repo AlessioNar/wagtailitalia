@@ -4,7 +4,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
@@ -35,11 +35,12 @@ class HomePage(RoutablePageMixin, Page):
             ("jumbotron", blocks.JumbotronBlock()),
         ],
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel("content"),
+        FieldPanel("content"),
 
     ]
 
