@@ -1,6 +1,6 @@
 -i https://pypi.org/simple
 anyascii==0.3.1
-asgiref==3.5.1
+asgiref==3.5.2
 asttokens==2.0.5
 backcall==0.2.0
 beautifulsoup4==4.9.3
@@ -8,7 +8,7 @@ bleach==3.3.1
 certifi==2021.10.8
 charset-normalizer==2.0.12
 decorator==5.1.1
-django==4.0.4
+django==4.1.1
 django-debug-toolbar==3.4.0
 django-extensions==3.1.5
 django-filter==21.1
@@ -56,11 +56,10 @@ telepath==0.2
 toml==0.10.2
 traitlets==5.2.0
 urllib3==1.26.9
-wagtail==3.0.3
+wagtail==4.0.1
 wagtail-markdown==0.9.0
 wcwidth==0.2.5
 webencodings==0.5.1
-whitenoise==6.1.0
 willow==1.4.1
 xlrd==2.0.1
 xlsxwriter==3.0.3
