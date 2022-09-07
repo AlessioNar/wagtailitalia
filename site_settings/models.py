@@ -6,13 +6,13 @@ from django.conf import settings
 from wagtail.snippets.models import register_snippet
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.contrib.settings.models import BaseSetting, register_setting
 
 from wagtailitalia.settings.base import STATIC_URL
 
 
 @register_setting
-class SocialMediaSettings(BaseSiteSetting):
+class SocialMediaSettings(BaseSetting):
     """Social media settings for the website"""
 
     linkedin = models.URLField(blank=True, null=True, help_text="LinkedIn URL")
@@ -29,7 +29,7 @@ class SocialMediaSettings(BaseSiteSetting):
 
 
 @register_setting
-class BrandSettings(BaseSiteSetting):
+class BrandSettings(BaseSetting):
     """Brand settings for the website"""
 
     brand_name = models.CharField(
@@ -71,7 +71,7 @@ class BrandSettings(BaseSiteSetting):
     ]
 
 @register_setting
-class AnalyticsSettings(BaseSiteSetting):
+class AnalyticsSettings(BaseSetting):
     """Analytics settings for the website"""
 
     google_analytics_id = models.CharField(
