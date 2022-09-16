@@ -227,3 +227,5 @@ WAGTAILMARKDOWN = {
     # optional. a dictionary with the extension name as key, and its configuration as value
     "extension_configs": {},
 }
+
+WAGTAIL_PASSWORD_RESET_ENABLED = False
