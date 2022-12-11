@@ -1,11 +1,11 @@
 #!/bin/bash
 
-NAME=$1
+# This script is executed after a site is created
+# It copies the nginx configuration file and creates a symbolic link
+
+SITE_NAME=$1
 DOMAIN=$2
-USER=$3
-
-## Gunicorn configuration
-
+USERNAME=$3
 
 ## Copy Nginx configuration
 cp ./config/nginx/nginx_nocert/wagtail-italia.it /etc/nginx/sites-available/"${DOMAIN}"
