@@ -33,6 +33,7 @@ class HomePage(RoutablePageMixin, Page):
             ("image", blocks.ImageBlock()),
             ("markdown", blocks.BodyBlock()),
             ("jumbotron", blocks.JumbotronBlock()),
+            ("video", blocks.VideoBlock()),
         ],
         null=True,
         blank=True,
