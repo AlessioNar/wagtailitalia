@@ -87,11 +87,6 @@ class RichtextBlock(blocks.RichTextBlock):
         icon = "doc-full"
         label = "Full RichText"
 
-class SimpleRichtextBlock(blocks.RichTextBlock):
-
-    class Meta:
-        label = "Do not use"
-
 class CTABlock(blocks.StructBlock):
     """Simple Call to Action section"""
 
